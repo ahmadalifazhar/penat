@@ -21,8 +21,7 @@
 //server = the database server (usually localhost).
 //username = The user name to connect to the database.
 //password = The password to connect to the database.
- // function db_connect($server = 'localhost', $username = 'marhazk_pinnew', $password = 'Missida890', $database = 'marhazk_psmnew', $link = 'db_link') {
-  function db_connect($server = 'localhost', $username = 'root', $password = '', $database = 'marhazk_pinnew', $link = 'db_link') {
+function db_connect($server = 'localhost', $username = 'root', $password = '', $database = 'marhazk_pinnew', $link = 'db_link') {
     global $link;
 
     $link = mysql_connect($server, $username, $password);
