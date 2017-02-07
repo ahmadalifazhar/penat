@@ -1,0 +1,221 @@
+<?php
+	session_start();
+
+
+	$uWeb_chardb[uid] = 0;
+	// Account Settings
+	$cookienameID = "pinDBuseru";
+	$cookienameName = "pinDBusern";
+	$cookieAuthID = $_SESSION[$cookienameID];
+	$cookieAuthName = $_SESSION[$cookienameName];
+	$serverUp = 0;
+	$DB_HOST = "";
+	$DB_NAME = "";
+	$DB_USER = "";
+	$DB_PASS = "";
+	$sqltype = "MYSQL";
+	
+	if ($sqltype == "MYSQL")
+	{
+		$DB_HOST = "localhost";
+		$DB_NAME = "marhazk_psm";
+		$DB_USER = "marhazk_psm";
+		$DB_PASS = "Psm123456";
+	}
+	if ($sqltype == "MSSQL")
+	{
+		$DB_HOST = "localhost\SQLEXPRESS";
+		$DB_NAME = "pin";
+		$DB_USER = "sa";
+		$DB_PASS = "missida890";
+	}
+	
+	$connectionInfo = array("UID" => $DB_USER, "PWD" => $DB_PASS, "Database"=>$DB_NAME);
+	//$Link = sqlsrv_connect( $DB_HOST, $connectionInfo);
+	$Link = mssql_connect( $DB_HOST, $DB_USER, $DB_PASS);
+	if ($Link)
+	{
+		$cDB = mysql_select_db($DB_NAME,$Link)
+		$serverUp = 1;
+	}
+	//die("TEST $serverUp");
+	//setcookie($cookienameID, "", time()-3600);
+	//setcookie($cookienameAuth,"", time()-3600);
+	$chkiplong = abs(ip2long($_SERVER[REMOTE_ADDR]));
+	$chkip = $_SERVER[REMOTE_ADDR];
+	$chk_host = $_SERVER[HTTP_HOST];
+	$conf["login"] = 5;
+	$conf["logout"] = 0;
+	$conf["logingout"] = 0;
+	
+	$op = $_REQUEST["op"];
+	$op2 = $_REQUEST['type'];
+	$cookievalue = "";
+	$userWebID = 0;
+	//////////////////
+	function addZero($text)
+	{
+		if (strlen($text) == 1)
+			$new = "0".$text;
+		else
+			$new = $text;
+		return $new;
+	}
+	function space($text, $total)
+	{
+		$len = $total-strlen($text);
+		$w = "";
+		for ($num = 0; $num < $len; $num++)
+		{
+			$w .= chr(32);
+		}
+		$text .= $w;
+		return $text;
+	}
+	function hspace($total)
+	{
+		$w = "";
+		for ($num = 0; $num < $total; $num++)
+		{
+			$w .= '&nbsp;';
+		}
+		return $w;
+	}
+	function strline($text)
+	{
+		$len = strlen($text);
+		$text = "";
+		$w = "";
+		for ($num = 0; $num < $len; $num++)
+		{
+			$w .= "-";
+		}
+		$text .= $w;
+		return $text;
+	}
+	function strName($text)
+	{
+		$name = "";
+		$num = 0;
+		$arr = explode(" ", $text);
+		$count = count($arr);
+		foreach ($arr as $val)
+		{
+			$len = strlen($val);
+			$name .= strtoupper(substr($val,0,1));
+			$name .= strtolower(substr($val,1,($len-1)));
+			if ($num < $count)
+				$name .= chr(32);
+		}
+		return $name;
+	}
+	function parseWord($userDoc) 
+	{
+		$fileHandle = fopen($userDoc, "r");
+		$line = @fread($fileHandle, filesize($userDoc));   
+		$lines = explode(chr(0x0D),$line);
+		$outtext = "";
+		foreach($lines as $thisline)
+		  {
+			$pos = strpos($thisline, chr(0x00));
+			if (($pos !== FALSE)||(strlen($thisline)==0))
+			  {
+			  } else {
+				$outtext .= $thisline." ";
+			  }
+		  }
+		 $outtext = preg_replace("/[^a-zA-Z0-9\s\,\.\-\n\r\t@\/\_\(\)]/","",$outtext);
+		return $outtext;
+	} 
+	function parseWord2($userDoc) 
+	{
+		$fileHandle = fopen($userDoc, "r");
+		$word_text = @fread($fileHandle, filesize($userDoc));
+		$line = "";
+		$tam = filesize($userDoc);
+		$nulos = 0;
+		$caracteres = 0;
+		for($i=1536; $i<$tam; $i++)
+		{
+			$line .= $word_text[$i];
+	
+			if( $word_text[$i] == 0)
+			{
+				$nulos++;
+			}
+			else
+			{
+				$nulos=0;
+				$caracteres++;
+			}
+	
+			if( $nulos>1996)
+			{   
+				break;  
+			}
+		}
+	
+		//echo $caracteres;
+	
+		$lines = explode(chr(0x0D),$line);
+		//$outtext = "<pre>";
+	
+		$outtext = "";
+		foreach($lines as $thisline)
+		{
+			$tam = strlen($thisline);
+			if( !$tam )
+			{
+				continue;
+			}
+	
+			$new_line = ""; 
+			for($i=0; $i<$tam; $i++)
+			{
+				$onechar = $thisline[$i];
+				if( $onechar > chr(240) )
+				{
+					continue;
+				}
+	
+				if( $onechar >= chr(0x20) )
+				{
+					$caracteres++;
+					$new_line .= $onechar;
+				}
+	
+				if( $onechar == chr(0x14) )
+				{
+					$new_line .= "</a>";
+				}
+	
+				if( $onechar == chr(0x07) )
+				{
+					$new_line .= "\t";
+					if( isset($thisline[$i+1]) )
+					{
+						if( $thisline[$i+1] == chr(0x07) )
+						{
+							$new_line .= "\n";
+						}
+					}
+				}
+			}
+			//troca por hiperlink
+			$new_line = str_replace("HYPERLINK" ,"<a href=",$new_line); 
+			$new_line = str_replace("\o" ,">",$new_line); 
+			$new_line .= "\n";
+	
+			//link de imagens
+			$new_line = str_replace("INCLUDEPICTURE" ,"<br><img src=",$new_line); 
+			$new_line = str_replace("\*" ,"><br>",$new_line); 
+			$new_line = str_replace("MERGEFORMATINET" ,"",$new_line); 
+	
+	
+			$outtext .= nl2br($new_line);
+		}
+	
+	 return $outtext;
+	} 
+	
+?>

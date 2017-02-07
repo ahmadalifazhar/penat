@@ -1,0 +1,16 @@
+<?php if ($member)
+{
+	msg("NOTIS", "You have successfully logged in");
+}
+?>
+<form name="form1" method="post" action="">
+  <p>Username :
+    <input type="text" name="auname" id="auname">
+  </p>
+  <p>Password :
+    <input type="password" name="apwd" id="apwd">
+  </p>
+  <p>
+    <input type="submit" name="opchk" id="opchk" value="Login">
+  </p>
+</form>

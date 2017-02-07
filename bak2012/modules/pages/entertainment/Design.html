@@ -1,0 +1,677 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link href="metro/css/modern.css" rel="stylesheet">
+<link href="metro/css/modern-responsive.css" rel="stylesheet">
+<link href="metro/css/site.css" rel="stylesheet" type="text/css">
+<link href="metro/js/google-code-prettify/prettify.css" rel="stylesheet" type="text/css">
+<link href="metro/js/tinybox/tiny.css" rel="stylesheet" type="text/css">
+<link rel="stylesheet" type="text/css" href="metro/js/player/mediaelementplayer.css" />
+<script type="text/javascript" src="metro/js/assets/jquery-1.9.0.min.js"></script>
+<script type="text/javascript" src="metro/js/assets/jquery.mousewheel.min.js"></script>
+<script type="text/javascript" src="metro/js/assets/moment.js"></script>
+<script type="text/javascript" src="metro/js/assets/moment_langs.js"></script>
+<script type="text/javascript" src="metro/js/modern/dropdown.js"></script>
+<script type="text/javascript" src="metro/js/modern/dialog.js"></script>
+<script type="text/javascript" src="metro/js/modern/accordion.js"></script>
+<script type="text/javascript" src="metro/js/modern/buttonset.js"></script>
+<script type="text/javascript" src="metro/js/modern/carousel.js"></script>
+<script type="text/javascript" src="metro/js/modern/input-control.js"></script>
+<script type="text/javascript" src="metro/js/modern/pagecontrol.js"></script>
+<script type="text/javascript" src="metro/js/modern/rating.js"></script>
+<script type="text/javascript" src="metro/js/modern/slider.js"></script>
+<script type="text/javascript" src="metro/js/modern/tile-slider.js"></script>
+<script type="text/javascript" src="metro/js/modern/tile-drag.js"></script>
+<script type="text/javascript" src="metro/js/modern/calendar.js"></script>
+<script type="text/javascript" src="metro/js/tinybox/tinybox.js"></script>
+<script type="text/javascript" src="metro/js/player/mediaelement-and-player.js"></script>
+<script type="text/javascript" src="metro/js/player/audio-player.js"></script>
+<script src="http://malsup.github.com/jquery.form.js"></script>
+<!--<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+-->
+
+<style>
+.progress { position:relative; width:100%; border: 1px solid #ddd; padding: 1px; border-radius: 3px; }
+.bar { background-color: rgb(0, 130, 135); width:0%; height:20px; border-radius: 3px; }
+.percent { position:absolute; display:inline-block; top:3px; left:48%; }
+</style>
+<title>Pin __SYSNAME__</title>
+</head>
+
+<body class="metrouicss">
+<!-- Dont care this part --> 
+<div class="nav-bar bg-color-darken">
+  <div class="nav-bar-inner"> <span class="element">Pin __SYSNAME__ :: _AFNAME_ _ALNAME_</span> <span class="divider"></span>
+    <ul class="menu">
+      <li><a href="?op=home">Pin-It Home</a></li>
+      <li data-role="dropdown"> <a href="#">Settings</a>
+        <ul class="dropdown-menu">
+          <li><a href="#">SubItem</a></li>
+          <li><a href="#">SubItem</a></li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+</div>
+<!-- Dont care this part --> 
+<div class="page">
+  <div class="page-header">
+    <div class="page-header-content">
+      <h1> Welcome, <span class="fg-color-pink">_AFNAME_ _ALNAME_ (_AUNAME_)</span>.</h1>
+    </div>
+  </div>
+  <div class="page-region">
+    <div class="page-region-content">
+      <div class="page-control" data-role="page-control"> 
+       
+        <span class="menu-pull"></span>
+        <div class="menu-pull-bar"></div>
+        <!-- Tabs menu -->
+        <ul>
+          <li class="active"><a href="#Radio">Radio</a></li>
+          <li><a href="#games">Games</a></li>
+          <li><a href="#streaming">Tv Streaming</a></li>
+          <li><a href="#trending">Whats Trending</a></li>
+        </ul>
+        <!-- end Tabs menu -->
+        <!-- start Tabs content -->
+        <div class="frames">
+        <!-- start of radio content -->
+          <div class="frame active" id="Radio">
+          <table style="margin-left:-7px;">
+          <tr> <td style="width:659px;"> 
+             <!-- start interactive banner -->
+        
+ 								 <div class="carousel span5" style="height: 230px;width: 659px;" data-role="carousel" data-param-effect="fade" data-param-direction="left" data-param-period="3000" data-param-markers="off">
+                                <div class="slides">
+                                    <div class="slide image" id="slide4">
+                                        <img src="images/era_header.jpg" />
+                                        <div class="description">
+                                            Era FM
+                                        </div>
+                                    </div>
+                                    <div class="slide image" id="slide5">
+                                        <img src="images/hot_header.jpg" />
+                                        <div class="description">
+                                            Hot FM
+                                        </div>
+                                    </div>
+                                    <div class="slide image" id="slide6">
+                                        <img src="images/fly_header.jpg" />
+                                        <div class="description">
+                                            Fly FM 
+                                        </div>
+                                    </div>
+                                    <div class="slide image" id="slide6">
+                                        <img src="images/hitz_header.jpg" />
+                                        <div class="description">
+                                            Hitz FM 
+                                        </div>
+                                    </div>
+                                    <div class="slide image" id="slide6">
+                                        <img src="images/sinar_header.jpg" />
+                                        <div class="description">
+                                            Sinar FM 
+                                        </div>
+                                    </div>
+                                    <div class="slide image" id="slide7">
+                                        <img src="images/gegar_header.jpg" />
+                                        <div class="description">
+                                            THR GEGAR FM 
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <span class="control left">&#8249;</span>
+                                <span class="control right">&#8250;</span>
+
+                            </div>
+                            
+                            
+                            
+<!-- end interactive banner --></td>
+
+
+
+<!-- start of announcement banner -->
+<td><div class="tile double bg-color-teal" data-role="tile-slider" data-param-period="7000" style="width:200px;height:230px;margin-top:-9px;">
+                                    <div class="tile-content">
+                                        <h2>to Pin-IT-ers</h2>
+                                        <h5>Announcement #1</h5>
+                                        <p>
+                                            Welcome to Pin-It Entertainment. We are a new entertainment social newtork based in the heart of UTem Student. We are currently upgrading our website to suit our numerous worldwide audience. Thanks For Stying with Pin-it.. Enjoy!
+                                        </p>
+                                    </div>
+                                    <div class="tile-content">
+                                        <h2>to Miss Ida</h2>
+                                        <h5>Annoucement #2</h5>
+                                        <p>
+                                            Currently radio Fly FM n Hot Fm dah ready for online streaming...enjoy!
+                                        </p>
+                                    </div>
+                                    
+									<div class="tile-content">
+                                        <h2>to Miss Ida</h2>
+                                        <h5>Annoucement #3</h5>
+                                        <p>
+                                            Post kt facebook gamba buah buahan malaysia...tak kan tak tahu developer kat melaka ni kelaparan ?
+                                        </p>
+                                    </div>
+                                   
+                                </div>
+                                
+                               </td>
+<!-- end of announcement banner -->
+          
+          </tr>
+          <tr>
+          <td colspan="2">	
+          <!-- start second row radio livestreaming -->
+          <div class="image-collection" >
+                           		<div  style="width:205px;height:205px;">
+                                    <img src="images/fly_logo.jpg"/>
+                                    <div class="overlay"><H4 style="color:#FFF">Fly FM<br/><a href="#" onclick="window.open('http://www.pinit.uni.me/modules/pages/entertainment/radio_page/fly_fm.html', 'StatusBar', 'toolbar=no,resizable=no,scrollbars=no,width=500,height=200,left=300,top=300');">Listen Now >></a></H4></span></div>
+                                    
+                                </div>
+                                
+                                <div  style="width:205px;height:205px;">
+                                    <img src="images/era_logo.jpg"/>
+                                    <div class="overlay"><H4 style="color:#FFF">Era FM<br/><a href="#" onclick="window.open('http://www.pinit.uni.me/modules/pages/entertainment/radio_page/era_fm.html', 'StatusBar', 'toolbar=no,resizable=no,scrollbars=no,width=500,height=200,left=300,top=300');">Listen Now >></a></H4></span></div>
+                                    
+                                </div>
+                                
+								<div  style="width:205px;height:205px;">
+                                    <img src="images/hitz2_logo.jpg"/>
+                                    <div class="overlay"><H4 style="color:#FFF">Hitz FM<br/><a href="#" onclick="window.open('http://www.pinit.uni.me/modules/pages/entertainment/radio_page/hitz_fm.html', 'StatusBar', 'toolbar=no,resizable=no,scrollbars=no,width=500,height=200,left=300,top=300');">Listen Now >></a></H4></span></div>s
+                                    
+                                </div>
+                      </div>
+          <!-- end second row radio livestreaming --> 	
+          <!-- start first row radio livestreaming -->
+          			<div class="image-collection" >
+                           		<div  style="width:205px;height:205px;">
+                                    <img src="images/hot_fm_logo.gif"/>
+                                    <div class="overlay"><H4 style="color:#FFF">Hot FM<br/><a href="#" onclick="window.open('http://www.pinit.uni.me/modules/pages/entertainment/radio_page/hot_fm.html', 'StatusBar', 'toolbar=no,resizable=no,scrollbars=no,width=500,height=200,left=300,top=300');">Listen Now >></a></H4></span></div>
+                                    
+                                </div>
+                                
+                                <div  style="width:205px;height:205px;">
+                                    <img src="images/sinar2_logo.jpg"/>
+                                    <div class="overlay"><H4 style="color:#FFF">Sinar FM<br/><a href="#" onclick="window.open('http://www.pinit.uni.me/modules/pages/entertainment/radio_page/sinar_fm.html', 'StatusBar', 'toolbar=no,resizable=no,scrollbars=no,width=500,height=200,left=300,top=300');">Listen Now >></a></H4></span></div>
+                                    
+                                </div>
+                                
+								<div  style="width:205px;height:205px;">
+                                    <img src="images/thr2_logo.jpg"/>
+                                    <div class="overlay"><H4 style="color:#FFF">Thr FM<br/><a href="#" onclick="window.open('?op=entertainment/radio_page/thr_fm.php', 'StatusBar', 'toolbar=no,resizable=no,scrollbars=no,width=500,height=200,left=300,top=300');">Listen Now >></a></H4></span></div>
+                                    
+                                </div>
+                      </div>
+           <!-- end first row radio livestreaming -->  
+               
+          </td>
+          </tr>
+   
+          
+          </table>
+     
+          </div><!-- end of radio content -->
+          
+<!-- start of games content --><div class="frame" id="games">
+
+        <div class="grid">
+        	<div class="row">
+            <div class="spanN">
+       <div class="carousel span5" style="height: 230px;width: 659px;" data-role="carousel" data-param-effect="fade" data-param-direction="left" data-param-period="3000" data-param-markers="off">
+                                <div class="slides">
+                                    <div class="slide image" id="slide4">
+                                        <img src="images/era_header.jpg" />
+                                        <div class="description">
+                                            Era FM
+                                        </div>
+                                    </div>
+                                    <div class="slide image" id="slide5">
+                                        <img src="images/hot_header.jpg" />
+                                        <div class="description">
+                                            Hot FM
+                                        </div>
+                                    </div>
+                                    <div class="slide image" id="slide6">
+                                        <img src="images/fly_header.jpg" />
+                                        <div class="description">
+                                            Fly FM 
+                                        </div>
+                                    </div>
+                                    <div class="slide image" id="slide6">
+                                        <img src="images/hitz_header.jpg" />
+                                        <div class="description">
+                                            Hitz FM 
+                                        </div>
+                                    </div>
+                                    <div class="slide image" id="slide6">
+                                        <img src="images/sinar_header.jpg" />
+                                        <div class="description">
+                                            Sinar FM 
+                                        </div>
+                                    </div>
+                                    <div class="slide image" id="slide7">
+                                        <img src="images/gegar_header.jpg" />
+                                        <div class="description">
+                                            THR GEGAR FM 
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <span class="control left">&#8249;</span>
+                                <span class="control right">&#8250;</span>
+
+                            </div></div>
+                            
+                    <div class="spanN"> 
+                        <div class="tile bg-color-teal" style="width:187px;height:230px;">
+                              <div class="tile-content">
+                                        <h2>to Miss Ida</h2>
+                                        <h5>Annoucement #3</h5>
+                                        <p>
+                                            Post kt facebook gamba buah buahan malaysia...tak kan tak tahu developer kat melaka ni kelaparan ?
+                                        </p>
+                                    </div>
+                        </div> 
+                        
+                    </div>
+        </div>
+    
+<div class="grid" style="margin-bottom:1px;">
+        <div class="row" >
+            <div class="spanN">
+            
+            					<div class="tile double bg-color-blue" style="height:100px;margin-right:-5px;width:280px;">
+                                    <div class="tile-content">
+                                        <img src="http://cdn4.kongcdn.com/game_icons/0046/1149/kong_icon_site.png?28015-op" class="place-left">
+                                        <p><H3>Feed Me Moar</H3>
+                                          <H4>play now >></H4>
+                                         </div>
+                                  </div>
+                                
+            </div>
+            
+           	<div class="spanN">
+            
+            					<div class="tile double bg-color-teal" style="height:100px;margin-right:-5px;width:280px;">
+                                    <div class="tile-content">
+                                        <img src="http://cdn2.kongcdn.com/game_icons/0045/1519/iconbig_site.png?21097-op" class="place-left">
+                                        <p><H3>Giants & Dwarves</H3>
+                                          <H4>play now >></H4>
+                                         </div>
+                                  </div>
+                                
+            </div>
+            
+            <div class="spanN">
+            
+            					<div class="tile double bg-color-purple" style="height:100px;margin-right:-5px;width:280px;">
+                                    <div class="tile-content">
+                                        <img src="http://cdn1.kongcdn.com/game_icons/0045/5359/KongThum500400_site.png?64779-op" class="place-left">
+                                        <p><H3>The King's League</H3>
+                                          <H4>play now >></H4>
+                                         </div>
+                                  </div>
+                                
+            </div>
+            
+        </div>
+      
+</div>
+
+<div class="grid" style="margin-bottom:1px;">
+        <div class="row" >
+            <div class="spanN">
+            
+            					<div class="tile double bg-color-pink" style="height:100px;margin-right:-5px;width:280px;">
+                                    <div class="tile-content">
+                                        <img src="http://cdn2.kongcdn.com/game_icons/0045/5671/250_200_site.png?65649-op" class="place-left">
+                                        <p> <H3>Puzzle Monsters</H3>
+                                          <H4>play now >></H4>
+                                         </div>
+                                  </div>
+                                
+            </div>
+            
+           	<div class="spanN">
+            
+            					<div class="tile double bg-color-pinkDark" style="height:100px;margin-right:-5px;width:280px;">
+                                    <div class="tile-content">
+                                        <img src="http://cdn4.kongcdn.com/game_icons/0044/5519/KongThumb01_site.jpg?18385-op" class="place-left">
+                                        <p> <H3>Ice Run</H3>
+                                          <H4>play now >></H4>
+                                         </div>
+                                  </div>
+                                
+            </div>
+            
+            <div class="spanN">
+            
+            					<div class="tile double bg-color-green" style="height:100px;margin-right:-5px;width:280px;">
+                                    <div class="tile-content">
+                                        <img src="http://cdn2.kongcdn.com/game_icons/0042/9979/nk2_kongregate_site.png?16661-op" class="place-left">
+                                        <p> <H3>Nano Kingdoms 2</H3>
+                                          <H4>play now >></H4>
+                                         </div>
+                                  </div>
+                                
+            </div>
+            
+        </div>
+      
+</div>
+
+<div class="grid" style="margin-bottom:1px;">
+        <div class="row" >
+            <div class="spanN">
+            
+            					<div class="tile double bg-color-teal" style="height:100px;margin-right:-5px;width:280px;">
+                                    <div class="tile-content">
+                                        <img src="http://cdn3.kongcdn.com/game_icons/0042/7180/KONG_icon250x200_site.png?21656-op" class="place-left">
+                                        <p> <H3>Tricky Rick</H3>
+                                          <H4>play now >></H4>
+                                         </div>
+                                  </div>
+                                
+            </div>
+            
+           	<div class="spanN">
+            
+            					<div class="tile double bg-color-blueDark" style="height:100px;margin-right:-5px;width:280px;">
+                                    <div class="tile-content">
+                                        <img src="http://cdn4.kongcdn.com/game_icons/0042/8089/icy-gifts-2-250-200_site.png?16863-op" class="place-left">
+                                        <p> <H3>Icy Gifts 2</H3>
+                                          <H4>play now >></H4>
+                                         </div>
+                                  </div>
+                                
+            </div>
+            
+            <div class="spanN">
+            
+            					<div class="tile double bg-color-red" style="height:100px;margin-right:-5px;width:280px;">
+                                    <div class="tile-content">
+                                        <img src="http://cdn4.kongcdn.com/game_icons/0039/8987/ico125x100kong_site.png?6715-op" class="place-left">
+                                        <p>  <H3>Blocks</H3>
+                                          <H4>play now >></H4>
+                                         </div>
+                                  </div>
+                                
+            </div>
+            
+        </div>
+      
+</div>
+    </td>
+       </tr>
+    </table>
+
+
+
+    
+<!-- end of games content --></div>
+          
+          <div class="frame" id="streaming">
+    <!-- start of tv  streaming content -->      
+ 
+            <table style="margin-left:-16px;">
+          <tr> <td style="width:659px;"> 
+             <!-- start interactive banner -->
+        
+<div class="carousel span5" style="height: 230px;width: 659px;margin-left:8px;" data-role="carousel" data-param-effect="fade" data-param-direction="left" data-param-period="3000" data-param-markers="off">
+                                <div class="slides">
+                                    <div class="slide image" id="slidetv1">
+                                        <img src="images/stream (1).jpg" />
+                                        <div class="description">
+                                            Tv Al-hijrah
+                                        </div>
+                                    </div>
+                                    <div class="slide image" id="slidetv2">
+                                        <img src="images/stream (2).jpg" />
+                                        <div class="description">
+                                            Tv Al-hijrah
+                                        </div>
+                                    </div>
+                                    <div class="slide image" id="slidetv3">
+                                        <img src="images/stream (3).jpg" />
+                                        <div class="description">
+                                            Tv Al-hijrah 
+                                        </div>
+                                    </div>
+                                    <div class="slide image" id="slidetv4">
+                                        <img src="images/stream (4).jpg" />
+                                        <div class="description">
+                                            NTV 7 
+                                        </div>
+                                    </div>
+                                    <div class="slide image" id="slidetv5">
+                                        <img src="images/stream (5).jpg" />
+                                        <div class="description">
+                                            Tv Al-hijrah 
+                                        </div>
+                                    </div>
+                                    <div class="slide image" id="slidetv6">
+                                        <img src="images/stream (6).jpg" />
+                                        <div class="description">
+                                            TV 3 
+                                        </div>
+                                    </div>
+                                    <div class="slide image" id="slidetv7">
+                                        <img src="images/stream (7).jpg" />
+                                        <div class="description">
+                                            TV 3 
+                                        </div>
+                                    </div>
+                                    <div class="slide image" id="slidetv8">
+                                        <img src="images/stream (8).jpg" />
+                                        <div class="description">
+                                            TV 3 
+                                        </div>
+                                    </div>
+                                    <div class="slide image" id="slidetv9">
+                                        <img src="images/stream (9).jpg" />
+                                        <div class="description">
+                                            NTV 7 
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <span class="control left">&#8249;</span>
+                                <span class="control right">&#8250;</span>
+
+                            </div>
+                            
+                            <div class="nav-bar" style="width:659px;margin-left:8px;height:40px;">
+                            <div class="bg-color-teal">
+                                <div class="nav-bar-inner padding5">
+                                    <span class="element">
+                                       <H4 class="fg-color-white">Channel List</H4>
+                                    </span>
+                                </div>
+                                </div>
+                            </div>
+
+                  <!-- start first row tv livestreaming -->
+              <div class="image-collection" style="margin-left:8px;">
+                                    <div  style="width:199px;height:199px;">
+                                        <img src="images/tv-1-news.jpg"/>
+                                        <div class="overlay"><H4 style="color:#FFF">RTM 1 News<br/><a href="#" onclick="window.open('http://www.pinit.uni.me/modules/pages/entertainment/tv_page/tv-1-news_stream.html', 'StatusBar', 'toolbar=no,resizable=no,scrollbars=no,width=680,height=420,left=300,top=300');">Watch Now >></a></H4></span></div>
+                                        
+                                    </div>
+                                    
+                                    <div  style="width:199px;height:199px;">
+                                        <img src="images/tv-1-new.jpg"/>
+                                        <div class="overlay"><H4 style="color:#FFF">RTM Tv 1<br/><a href="#" onclick="window.open('http://www.pinit.uni.me/modules/pages/entertainment/tv_page/tv1_stream.html', 'StatusBar', 'toolbar=no,resizable=no,scrollbars=no,width=680,height=420,left=200,top=200');">Watch Now >></a></H4></span></div>
+                                        
+                                    </div>
+                                    
+                                    <div  style="width:199px;height:199px;">
+                                        <img src="images/tv-2.jpg"/>
+                                        <div class="overlay"><H4 style="color:#FFF">RTM Tv 2<br/><a href="#" onclick="window.open('http://www.pinit.uni.me/modules/pages/entertainment/tv_page/tv2_stream.html', 'StatusBar', 'toolbar=no,resizable=no,scrollbars=no,width=680,height=420,left=200,top=200');">Watch Now >></a></H4></span></div>s
+                                        
+                                    </div>
+                                    
+                          </div>
+          <!-- end second row tv livestreaming --> 
+                    <!-- start second row of tv livestreaming -->
+          			<div class="image-collection" style="margin-left:8px;">
+                           		<div  style="width:199px;height:199px;">
+                                    <img src="images/tv-3.jpg"/>
+                                    <div class="overlay"><H4 style="color:#FFF">TV 3<br/><a href="#" onclick="window.open('http://www.pinit.uni.me/modules/pages/entertainment/tv_page/tv3_stream.html', 'StatusBar', 'toolbar=no,resizable=no,scrollbars=no,width=680,height=420,left=200,top=200');">Watch Now >></a></H4></span></div>
+                                    
+                                </div>
+                                
+                                <div  style="width:199px;height:199px;">
+                                    <img src="images/tv-7.jpg"/>
+                                    <div class="overlay"><H4 style="color:#FFF">NTV 7<br/><a href="#" onclick="window.open('http://www.pinit.uni.me/modules/pages/entertainment/tv_page/tv7_stream.html', 'StatusBar', 'toolbar=no,resizable=no,scrollbars=no,width=680,height=420,left=300,top=300');">Watch Now >></a></H4></span></div>
+                                    
+                                </div>
+                                
+								<div  style="width:199px;height:199px;">
+                                    <img src="images/tv-8.jpg"/>
+                                    <div class="overlay"><H4 style="color:#FFF">8 TV<br/><a href="#" onclick="window.open('http://www.pinit.uni.me/modules/pages/entertainment/tv_page/tv8_stream.html', 'StatusBar', 'toolbar=no,resizable=no,scrollbars=no,width=680,height=420,left=300,top=300');">Watch Now >></a></H4></span></div>
+                                    
+                                </div>
+                      </div>
+           <!-- end second row tv livestreaming --> 
+                      <!-- start third row radio tv livestreaming -->
+          			<div class="image-collection" >
+                           		<div  style="width:199px;height:199px;">
+                                    <img src="images/tv-9.jpg"/>
+                                    <div class="overlay"><H4 style="color:#FFF">TV 9<br/><a href="#" onclick="window.open('http://www.pinit.uni.me/modules/pages/entertainment/tv_page/tv9_stream.html', 'StatusBar', 'toolbar=no,resizable=no,scrollbars=no,width=680,height=420,left=300,top=300');">Watch Now >></a></H4></span></div>
+                                    
+                                </div>
+                                
+                                <div  style="width:199px;height:199px;">
+                                    <img src="images/tv-hijrah.jpg"/>
+                                    <div class="overlay"><H4 style="color:#FFF">Al - Hijrah<br/><a href="#" onclick="window.open('http://www.pinit.uni.me/modules/pages/entertainment/tv_page/tv-alhijrah_stream.html', 'StatusBar', 'toolbar=no,resizable=no,scrollbars=no,width=680,height=420,left=300,top=300');">Watch Now >></a></H4></span></div>
+                                    
+                                </div>
+                                
+								<div  style="width:199px;height:199px;">
+                                    <img src="images/tv-i.jpg"/>
+                                    <div class="overlay"><H4 style="color:#FFF">I - Tv<br/><a href="#" onclick="window.open('http://www.pinit.uni.me/modules/pages/entertainment/tv_page/tv-i_stream.html', 'StatusBar', 'toolbar=no,resizable=no,scrollbars=no,width=680,height=420,left=300,top=300');">Watch Now >></a></H4></span></div>
+                                    
+                                </div>
+                      </div>
+           <!-- end third row tv livestreaming -->          
+<!-- end interactive banner --></td>
+
+
+
+<!-- start of announcement banner -->
+<td>
+<div class="tile double bg-color-teal" data-role="tile-slider" data-param-period="7000" style="width:200px;height:230px;margin-top:-473px;">
+                                    <div class="tile-content">
+                                        <h2>to Pin-IT-ers</h2>
+                                        <h5>Announcement #1</h5>
+                                        <p>
+                                            Welcome to Pin-It Entertainment. We are a new entertainment social newtork based in the heart of UTem Student. We are currently upgrading our website to suit our numerous worldwide audience. Thanks For Stying with Pin-it.. Enjoy!
+                                        </p>
+                                    </div>
+                                    <div class="tile-content">
+                                        <h2>to Miss Ida</h2>
+                                        <h5>Annoucement #2</h5>
+                                        <p>
+                                            Currently radio Fly FM n Hot Fm dah ready for online streaming...enjoy!
+                                        </p>
+                                    </div>
+                                    
+									<div class="tile-content">
+                                        <h2>to Miss Ida</h2>
+                                        <h5>Annoucement #3</h5>
+                                        <p>
+                                            Post kt facebook gamba buah buahan malaysia...tak kan tak tahu developer kat melaka ni kelaparan ?
+                                        </p>
+                                    </div>
+                                   
+                                </div>
+<!-- end of announcement banner -->   
+                            <div class="nav-bar" style="width:200px;margin-left:1px;height:40px;margin-top:-223px;">
+                            <div class="bg-color-teal">
+                                <div class="nav-bar-inner padding5">
+                                    <span class="element">
+                                       <H4 class="fg-color-white">Featured Channel</H4>
+                                    </span>
+                                </div>
+                                </div>
+                            </div>
+                            
+                           <div class="nav-bar" style="width:200px;margin-left:1px;height:40px;margin-top:2px;">
+                            <div class="bg-color-teal">
+                                <div class="nav-bar-inner padding5">
+                                    <span class="element">
+                                       <H4 class="fg-color-white">Featured Channel</H4>
+                                    </span>
+                                </div>
+                                </div>
+                            </div>
+                            
+                           </div>
+                          
+			</td>
+			</tr>
+         </table>
+
+    <!-- end of tv  streaming content -->          
+          </div>
+          
+		  <div class="frame" id="trending">
+           
+          </div>
+          
+          </div>
+        <!-- start Tabs content -->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+(function() {
+    
+var bar = $('.bar');
+var percent = $('.percent');
+var status = $('.status');
+   
+$("#form1").ajaxForm({
+    beforeSend: function() {
+        status.empty();
+        var percentVal = '0%';
+        bar.width(percentVal)
+        percent.html(percentVal);
+    },
+    uploadProgress: function(event, position, total, percentComplete) {
+        var percentVal = percentComplete + '%';
+        bar.width(percentVal)
+        percent.html(percentVal);
+    },
+    success: function() {
+        var percentVal = '100%';
+        bar.width(percentVal)
+        percent.html(percentVal);
+    },
+	complete: function() {
+		status.html("<center>File uploaded succesfully.</center>");
+		
+	}
+}); 
+
+})();       
+
+</script>
+
+</body>
+</html>
+
+
+

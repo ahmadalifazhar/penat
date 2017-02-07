@@ -1,0 +1,50 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+   <head>
+      <title>Pushpin attach drag end event</title>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+      <script type="text/javascript" src="http://ecn.dev.virtualearth.net/mapcontrol/mapcontrol.ashx?v=7.0"></script>
+      <script type="text/javascript">
+      var map = null;
+            
+      function getMap()
+      {
+        map = new Microsoft.Maps.Map(document.getElementById('myMap'), {credentials: 'AmxdhBs_v4CGLnmLy1BSpfh2wnBLTEdD_NBB6QqF72MN_YnLRzvptDmaLR_RFqVK', showDashboard: false});
+		getCurrentLocation();
+		setTimeout(attachPushpinDragEndEvent,2000);
+      }
+      
+      function attachPushpinDragEndEvent()
+      {
+        var pushpinOptions = {draggable:true}; 
+        var pushpin= new Microsoft.Maps.Pushpin(map.getCenter(), pushpinOptions); 
+        var pushpindragend= Microsoft.Maps.Events.addHandler(pushpin, 'dragend', endDragDetails);  
+        map.entities.push(pushpin); 
+        alert('stop dragging newly added pushpin to raise event');
+      }
+      
+      endDragDetails = function (e) 
+      {
+        alert("Event Info - start drag \n" + "Start Latitude/Longitude: " + e.entity.getLocation() ); 
+      }
+      
+	  function getCurrentLocation()
+      {
+        var geoLocationProvider = new Microsoft.Maps.GeoLocationProvider(map);  
+        geoLocationProvider.getCurrentPosition({ showAccuracyCircle: false }); 
+        alert('Current location set with no circle, based on your browser support for geo location API');
+      }
+
+	  
+      </script>
+   </head>
+   <body onload="getMap();">
+      <div id='myMap' style="position:relative; width:400px; height:400px;"></div>
+      <div>
+         <input type="button" value="AttachPushpinDragEndEvent" onclick="attachPushpinDragEndEvent();" />
+      </div>
+      <div>
+         <input type="button" value="GetCurrentLocation" onclick="getCurrentLocation();" />
+      </div>
+   </body>
+</html>

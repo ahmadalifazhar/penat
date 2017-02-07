@@ -1,0 +1,345 @@
+<?php
+ob_start();
+$cmt = false;
+	foreach($newDB as $newsfeedr)
+	{
+		//Background Color
+		if (($newsfeedr[pcat] >= 500) && ($newsfeedr[pcat] < 600)) //Chat
+			$bgcolor = "orange";
+		else if (($newsfeedr[pcat] >= 1100) && ($newsfeedr[pcat] < 1200)) //cloud
+			$bgcolor = "teal";
+		else if (($newsfeedr[pcat] >= 1300) && ($newsfeedr[pcat] < 1400)) //Traffics
+			$bgcolor = "orangeDark";
+		else if (($newsfeedr[pcat] >= 1400) && ($newsfeedr[pcat] < 1500)) //cloud
+			$bgcolor = "red";
+		else if (($newsfeedr[pcat] >= 1600) && ($newsfeedr[pcat] < 1700)) //trades
+			$bgcolor = "greenLight";
+		
+		else
+			$bgcolor = "greenDark";
+
+		if (($_REQUEST[ppid] >= 1) && ($_REQUEST[ppid] != $newsfeedr[pid]))
+			continue;
+		if (($_REQUEST[ppid] >= 1) && ($_REQUEST[ppid] == $newsfeedr[pid]))
+		{
+			$cmt = true;
+			$widthCmt = "";
+			//$widthCmt = "width:100%;";
+		}
+		else
+		{
+			$cmt = false;
+			$widthCmt = "";
+		}
+			//$temptext = "";
+//			$temptext = htmlspecialchars($newsfeedr['ptext']);
+//			$temptext = str_replace(chr(10), "<BR>", $temptext);
+//			$temptext = str_replace(chr(13), "<BR>", $temptext);
+//			$temptext = str_replace("\r", "<BR>", $temptext);
+//			$newsfeedr['ptext'] = str_replace("\n", "<BR>", $temptext);
+	if (file_exists("./images/uploaded_images/resized/".$newsfeedr[apic].".jpg"))
+		$pic = "./images/uploaded_images/resized/".$newsfeedr[apic].".jpg";
+	else
+		$pic = "./images/nopic.jpg";
+	?>
+   
+   <style type="text/css">
+   
+   .pintime {
+	   color:#FFF;
+   }
+   
+   .wordwrap { 
+   white-space: pre-wrap;      /* CSS3 */   
+   white-space: -moz-pre-wrap; /* Firefox */    
+   white-space: -pre-wrap;     /* Opera <7 */   
+   white-space: -o-pre-wrap;   /* Opera 7 */    
+   word-wrap: break-word;      /* IE */
+}
+   
+   </style>
+   
+     <div class="replies" style="margin-left:15px;margin-top:5px;">
+	<div class="bg-color-<?php echo $bgcolor;?>" style="width:444px;">
+    <b class="sticker sticker-left sticker-color-<?php echo $bgcolor;?>"></b>
+    		<div class="avatar"><a href="#" onClick="openTab = false;TINY.box.show({iframe:'?op=profile&profile=<?php echo $newsfeedr[aid];?>',boxid:'frameless',width:750,height:450,fixed:false,maskid:'bluemask',maskopacity:40,closejs:function(){openTab = true;loadLog();closeJS()}})"><img src="<?php echo $pic;?>" width="40" height="40" align="right" /></a></div>
+        	<div class="reply">
+        	<div class="date"><a href="#" class="pintime" style="color:#FFF;font-size:9px;" onClick="gotoLocation(<?php echo $newsfeedr[lat];?>,<?php echo $newsfeedr[lon];?>);"><?php echo pintime($newsfeedr);?></a></div>
+            <div class="author" style="color:#FFF"><a href="#" style="color:#FFF" onClick="openTab = false;TINY.box.show({iframe:'?op=profile&profile=<?php echo $newsfeedr[aid];?>',boxid:'frameless',width:750,height:450,fixed:false,maskid:'bluemask',maskopacity:40,closejs:function(){openTab = true;loadLog();closeJS()}})"><?php echo pinname($newsfeedr[afname]);?> <?php echo pinname($newsfeedr[alname]);?></a></div>
+            <div class="text wordwrap" style="width:370px;"><?php echo $newsfeedr[ptext];?></div>
+            
+            <div class="text"><?php
+	$num = 0;
+	$enableLike = true;
+	$likeq = mysql_query("SELECT * FROM likes WHERE target=".$newsfeedr[pid]);
+	while ($likerow = mysql_fetch_array($likeq))
+	{
+		if ($likerow[aid] == $chkid)
+			$enableLike = false;
+		$num++;
+	}
+	if ($num >= 1)
+	{
+	?><a href="#" class="pinlikes" style="color:#FFF;font-size:9px;" onClick="openTab = false;TINY.box.show({iframe:'?op=account/whois&target=likes&dtarget=like&pid=<?php echo $newsfeedr[pid];?>',boxid:'frameless',width:750,height:450,fixed:false,maskid:'bluemask',maskopacity:40,closejs:function(){openTab = true;loadLog();closeJS()}})"><?php echo $num;?> Likes</a>
+          <?php } ?> <?php
+	$num = 0;
+	$enableDislike = true;
+	$dlikeq = mysql_query("SELECT * FROM dislikes WHERE target=".$newsfeedr[pid]);
+	while ($dlikerow = mysql_fetch_array($dlikeq))
+	{
+		if ($dlikerow[aid] == $chkid)
+			$enableDislike = false;
+		$num++;
+	}
+	if ($num >= 1)
+	{
+	?>
+          . <a href="#" class="pinhates" style="color:#FFF;font-size:9px;" onClick="openTab = false;TINY.box.show({iframe:'?op=account/whois&target=dislikes&dtarget=hate&pid=<?php echo $newsfeedr[pid];?>',boxid:'frameless',width:750,height:450,fixed:false,maskid:'bluemask',maskopacity:40,closejs:function(){openTab = true;loadLog();closeJS()}})"><?php echo $num;?> Hates</a>
+          <?php } ?> </div>
+        </div>
+     </div>
+   </div>
+   
+    <?php
+$commentq = mysql_query("SELECT * FROM posts, accounts WHERE posts.proot=".$newsfeedr[pid]." AND accounts.aid=posts.aid ORDER BY posts.pid ASC");
+while ($commentr = mysql_fetch_array($commentq))
+{
+	$commentr[ptext] = pintext($commentr[ptext], $accDB);
+	
+			//$temptext = "";
+//			$temptext = htmlspecialchars($commentr['ptext']);
+//			$temptext = str_replace(chr(10), "", $temptext);
+//			$temptext = str_replace(chr(13), "", $temptext);
+//			$temptext = str_replace("\r", "", $temptext);
+//			$commentr['ptext'] = str_replace("\n", "", $temptext);
+	if (file_exists("./images/uploaded_images/resized/".$commentr[apic].".jpg"))
+	{
+		$cpic = "./images/uploaded_images/resized/".$commentr[apic].".jpg";
+		echo " <table width=100% height=100% style=\"margin-bottom:0px;\">";
+	}
+	else
+		$cpic = "./images/nopic.jpg";
+	?>
+ <div class="replies" style="margin-left:15px;margin-top:-8px">
+	<div class="bg-color-<?php echo $bgcolor;?>" style="width:444px;">
+    	<div class="avatar"><a href="#" onClick="openTab = false;TINY.box.show({iframe:'?op=profile&profile=<?php echo $commentr[aid];?>',boxid:'frameless',width:750,height:450,fixed:false,maskid:'bluemask',maskopacity:40,closejs:function(){openTab = true;loadLog();closeJS()}})"><img src="<?php echo $cpic;?>"><BR /></a></div>
+        <div class="reply">
+        	<div class="date"><div class="pintime" style="color:#FFF;font-size:9px;"><?php echo pintime($commentr);?></div></div>
+            <div class="author"><a href="#" style="color:#FFF" onClick="openTab = false;TINY.box.show({iframe:'?op=profile&profile=<?php echo $commentr[aid];?>',boxid:'frameless',width:750,height:450,fixed:false,maskid:'bluemask',maskopacity:40,closejs:function(){openTab = true;loadLog();closeJS()}})"><?php echo pinname($commentr[afname]);?> <?php echo pinname($commentr[alname]);?></a></div>
+            <div class="text" style="color:#FFF"><?php echo $commentr[ptext]; ?></div>
+        </div>
+     </div>
+   </div>
+      <?php
+}
+?>
+    
+    
+ 
+    <form id="form2" name="form2" method="post" action="">
+      <input type=hidden name=pid value="<?php echo $newsfeedr[pid];?>" />
+      <input type=hidden name=aid value="<?php echo $newsfeedr[aid];?>" />
+   
+        <?php
+$commentq = mysql_query("SELECT * FROM posts, accounts WHERE posts.proot=".$newsfeedr[pid]." AND accounts.aid=posts.aid ORDER BY posts.pid ASC");
+while ($commentr = mysql_fetch_array($commentq))
+{
+	$commentr[ptext] = pintext($commentr[ptext], $accDB);
+	if (file_exists("./images/uploaded_images/resized/".$commentr[apic].".jpg"))
+	{
+		$cpic = "./images/uploaded_images/resized/".$commentr[apic].".jpg";
+		echo " <table width=100% height=100% style=\"margin-bottom:0px;\">";
+	}
+	else
+		$cpic = "./images/nopic.jpg";
+	
+	
+	?>
+      
+        <?php
+}
+?>
+      </table>
+      <?php if ($cmt == false) { ?>
+      <div align="left" id="adiv<?php echo $newsfeedr[pid];?>" style="font:24px bold;margin-top:1px;">
+       
+          <?php if ($enableLike) { ?>
+          <a href="#" onclick="openTab = false;TINY.box.show({iframe:'?op=home&pid=<?php echo $newsfeedr[pid];?>&aid=<?php echo $newsfeedr[aid];?>&ajax=3&shortcut=like',boxid:'frameless',width:450,height:250,fixed:true,maskid:'bluemask',animate:true,close:false,autohide:4,maskopacity:40,closejs:function(){openTab = true;loadLog();closeJS()}})"><button class="mini bg-color-blue fg-color-white" type="button" name="opchk" id="opchk" value="PinLike!" style="margin-right:-3px;margin-left:16px;margin-top:-15px;"> Pinlike </button></a>
+          <?php } else {?>
+          <a href="#" onclick="openTab = false;TINY.box.show({iframe:'?op=home&pid=<?php echo $newsfeedr[pid];?>&aid=<?php echo $newsfeedr[aid];?>&ajax=3&shortcut=dislike',boxid:'frameless',width:450,height:250,fixed:true,maskid:'bluemask',animate:true,close:false,autohide:4,maskopacity:40,closejs:function(){openTab = true;loadLog();closeJS()}})"><button class="mini bg-color-blue fg-color-white" type="button" name="opchk" id="opchk" value="UnPinLike!" style="margin-right:-3px;margin-left:15px;margin-top:-15px;"> Unpinlike </button></a>
+          <?php } ?>
+          <?php if ($enableDislike) { ?>
+          <a href="#" onclick="openTab = false;TINY.box.show({iframe:'?op=home&pid=<?php echo $newsfeedr[pid];?>&aid=<?php echo $newsfeedr[aid];?>&ajax=3&shortcut=hate',boxid:'frameless',width:450,height:250,fixed:true,maskid:'bluemask',animate:true,close:false,autohide:4,maskopacity:40,closejs:function(){openTab = true;loadLog();closeJS()}})"><button class="mini bg-color-blue fg-color-white" type="button" name="opchk" id="opchk" value="PinDislike!" style="margin-right:-3px;margin-top:-15px"> Pinhate </button></a>
+          <?php } else {?>
+        <a href="#" onclick="openTab = false;TINY.box.show({iframe:'?op=home&pid=<?php echo $newsfeedr[pid];?>&aid=<?php echo $newsfeedr[aid];?>&ajax=3&shortcut=dishate',boxid:'frameless',width:450,height:250,fixed:true,maskid:'bluemask',animate:true,close:false,autohide:4,maskopacity:40,closejs:function(){openTab = true;loadLog();closeJS()}})"><button class="mini bg-color-blue fg-color-white" type="button" name="opchk" id="opchk" value="UnPinDislike!" style="margin-right:-3px;margin-top:-15px"> Unpinhate </button></a>
+          <?php } ?>
+          
+          <?php
+		  	if ($cmt)
+				$onClickPostType = "";
+			else
+				$onClickPostType = "openTab = false;TINY.box.show({iframe:'?op=account/profile&ppid=".$newsfeedr[pid]."&profile=".$newsfeedr[aid]."',boxid:'frameless',width:750,height:450,fixed:true,maskid:'bluemask',maskopacity:40,closejs:function(){openTab = true;loadLog();closeJS()}})";
+		  ?>
+         
+           <a href="#" onClick="<?php echo $onClickPostType;?>"><button class="mini bg-color-<?php echo $bgcolor;?> fg-color-white" type="button" style="margin-right:1px;margin-top:-15px"> Reply </button></a>
+        <hr style="width:460px;margin-bottom:12px;margin-top:-1px;"/>
+      </div>
+      <?php $cmtBlock = "none"; } else { $cmtBlock = "block"; }?>
+      <div id="bdiv<?php echo $newsfeedr[pid];?>" style="font:24px bold; display: <?php echo $cmtBlock;?>">
+        <p>
+         <textarea placeholder="Reply here..." name="msg" id="msg" rows="3" style="
+   white-space: pre-wrap;     
+   white-space: -moz-pre-wrap; 
+   white-space: -pre-wrap;     
+   white-space: -o-pre-wrap;  
+   word-wrap: break-word; 
+   width:100%;    
+" onMouseOut="javascript:hideshow(document.getElementById('adiv<?php echo $newsfeedr[pid];?>'),document.getElementById('bdiv<?php echo $newsfeedr[pid];?>')"></textarea>
+        
+         
+        </p>
+        <p>
+          <?php if ($enableLike) { ?>
+          <button class="mini bg-color-blue fg-color-white" type="submit" name="opchk" id="opchk" value="PinLike!"> Pinlike </button>
+        
+          <?php } else { ?>
+          <button class="mini bg-color-blue fg-color-white" type="submit" name="opchk" id="opchk" value="UnPinLike!"> Unpinlike </button>
+         
+          <?php } ?>
+          <?php if ($enableDislike) { ?>
+          <button class="mini bg-color-blue fg-color-white" type="submit" name="opchk" id="opchk" value="PinDislike!"> Pinhate </button>
+      
+          <?php } else { ?>
+          <button class="mini bg-color-blue fg-color-white" type="submit" name="opchk" id="opchk" value="UnPinDislike!"> Unpinhate </button>
+        
+          <?php } ?>
+          <button class="mini bg-color-<?php echo $bgcolor;?> fg-color-white" type="submit" name="opchk" id="opchk2" value="PinReply!"> Reply </button>
+     
+        </p>
+        
+      </div>
+    </form>
+  
+      </td>
+    
+      </tr>
+    
+    <?php } ?>
+     
+  </table>
+ 
+  </table>
+  <?php /*?>
+
+<table>
+  <?php
+	foreach($newsfeedrDB as $newsfeedr)
+	{
+		
+	if (file_exists("./images/uploaded_images/resized/".$newsfeedr[apic].".jpg"))
+		$pic = "./images/uploaded_images/resized/".$newsfeedr[apic].".jpg";
+	else
+		$pic = "./images/nopic.jpg";
+	?>
+  <tr>
+    <td><img width=28 height=28 src="<?php echo $pic;?>"> <?php echo $newsfeedr[afname];?> <?php echo $newsfeedr[alname];?></td>
+    <td><?php echo $newsfeedr[ptext];?></td>
+  </tr>
+  <tr>
+    <td width=30%></td>
+    <td width=70%><?php
+	$num = 0;
+	$enableLike = true;
+	$likeq = mysql_query("SELECT * FROM likes WHERE target=".$newsfeedr[pid]);
+	while ($likerow = mysql_fetch_array($likeq))
+	{
+		if ($likerow[aid] == $chkid)
+			$enableLike = false;
+		$num++;
+	}
+	if ($num >= 1)
+	{
+	?>
+      <p><i><?php echo $num;?> likes this post</i></p>
+      <?php } ?>
+      <?php
+	$num = 0;
+	$enableDislike = true;
+	$dlikeq = mysql_query("SELECT * FROM dislikes WHERE target=".$newsfeedr[pid]);
+	while ($dlikerow = mysql_fetch_array($dlikeq))
+	{
+		if ($dlikerow[aid] == $chkid)
+			$enableDislike = false;
+		$num++;
+	}
+	if ($num >= 1)
+	{
+	?>
+      <p><i><?php echo $num;?> dislikes this post</i></p>
+      <?php } ?>
+      <form id="form2" name="form2" method="post" action="">
+        <input type=hidden name=pid value="<?php echo $newsfeedr[pid];?>" />
+        <input type=hidden name=aid value="<?php echo $newsfeedr[aid];?>" />
+        <table width=100%>
+          <?php
+$commentq = mysql_query("SELECT * FROM posts, accounts WHERE posts.proot=".$newsfeedr[pid]." AND accounts.aid=posts.aid ORDER BY posts.pid ASC");
+while ($commentr = mysql_fetch_array($commentq))
+{
+	if (file_exists("./images/uploaded_images/resized/".$commentr[apic].".jpg"))
+		$cpic = "./images/uploaded_images/resized/".$commentr[apic].".jpg";
+	else
+		$cpic = "./images/nopic.jpg";
+	?>
+          <tr>
+            <td width=30%><img width=50 height=55 src="<?php echo $cpic;?>"><BR />
+              <?php echo $commentr[afname];?> <?php echo $commentr[alname];?></td>
+            <td width=70%><?php echo $commentr[ptext];?></td>
+          </tr>
+          <?php
+}
+?>
+        </table>
+        <div id="adiv<?php echo $newsfeedr[pid];?>" style="font:24px bold; display: block">
+          <p>
+            <?php if ($enableLike) { ?>
+            <input type="submit" name="opchk" id="opchk" value="PinLike!" />
+            <?php } else {?>
+            <input type="submit" name="opchk" id="opchk" value="UnPinLike!" />
+            <?php } ?>
+            <?php if ($enableDislike) { ?>
+            <input type="submit" name="opchk" id="opchk" value="PinDislike!" />
+            <?php } else {?>
+            <input type="submit" name="opchk" id="opchk" value="UnPinDislike!" />
+            <?php } ?>
+            <a href="javascript:hideshow(document.getElementById('adiv<?php echo $newsfeedr[pid];?>'),document.getElementById('bdiv<?php echo $newsfeedr[pid];?>'))">
+            <input type="button" name="opchk" id="opchk" value="PinReply!" />
+            </a> </p>
+        </div>
+        <div id="bdiv<?php echo $newsfeedr[pid];?>" style="font:24px bold; display: none">
+          <p>
+            <textarea name="msg" id="msg" rows="5" onMouseOut="javascript:hideshow(document.getElementById('adiv<?php echo $newsfeedr[pid];?>'),document.getElementById('bdiv<?php echo $newsfeedr[pid];?>')"></textarea>
+          </p>
+          <p>
+            <?php if ($enableLike) { ?>
+            <input type="submit" name="opchk" id="opchk" value="PinLike!" />
+            <?php } else { ?>
+            <input type="submit" name="opchk" id="opchk" value="UnPinLike!" />
+            <?php } ?>
+            <?php if ($enableDislike) { ?>
+            <input type="submit" name="opchk" id="opchk" value="PinDislike!" />
+            <?php } else { ?>
+            <input type="submit" name="opchk" id="opchk" value="UnPinDislike!" />
+            <?php } ?>
+            <input type="submit" name="opchk" id="opchk2" value="PinReply!" />
+          </p>
+        </div>
+      </form>
+      <p>&nbsp;</p></td>
+  </tr>
+  <tr>
+    <td colspan=2></td>
+  </tr>
+  <?php } ?>
+</table><?php */?>
+
+<?php $newf = ob_get_clean();?>

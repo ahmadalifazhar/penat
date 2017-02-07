@@ -1,0 +1,82 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Post a Job</title>
+
+<link href="metro/css/modern.css" rel="stylesheet">
+<link href="metro/css/modern-responsive.css" rel="stylesheet">
+<link href="metro/css/site.css" rel="stylesheet" type="text/css">
+<link href="metro/js/google-code-prettify/prettify.css" rel="stylesheet" type="text/css">
+<link href="metro/js/tinybox/tiny.css" rel="stylesheet" type="text/css">
+<link rel="stylesheet" type="text/css" href="metro/js/player/mediaelementplayer.css" />
+<script type="text/javascript" src="metro/js/assets/jquery-1.9.0.min.js"></script>
+<script type="text/javascript" src="metro/js/assets/jquery.mousewheel.min.js"></script>
+<script type="text/javascript" src="metro/js/assets/moment.js"></script>
+<script type="text/javascript" src="metro/js/assets/moment_langs.js"></script>
+<script type="text/javascript" src="metro/js/modern/dropdown.js"></script>
+<script type="text/javascript" src="metro/js/modern/accordion.js"></script>
+<script type="text/javascript" src="metro/js/modern/buttonset.js"></script>
+<script type="text/javascript" src="metro/js/modern/carousel.js"></script>
+<script type="text/javascript" src="metro/js/modern/input-control.js"></script>
+<script type="text/javascript" src="metro/js/modern/pagecontrol.js"></script>
+<script type="text/javascript" src="metro/js/modern/rating.js"></script>
+<script type="text/javascript" src="metro/js/modern/slider.js"></script>
+<script type="text/javascript" src="metro/js/modern/tile-slider.js"></script>
+<script type="text/javascript" src="metro/js/modern/tile-drag.js"></script>
+<script type="text/javascript" src="metro/js/modern/calendar.js"></script>
+<script type="text/javascript" src="metro/js/tinybox/tinybox.js"></script>
+<script type="text/javascript" src="metro/js/player/mediaelement-and-player.js"></script>
+<script type="text/javascript" src="metro/js/player/audio-player.js"></script>
+<script src="http://malsup.github.com/jquery.form.js"></script>
+
+</head>
+<body class="metrouicss" style="width:">
+
+Job Title:
+<div class="input-control text" autofocus>
+        <input type="text" name="jobTitle" />
+        <button class="btn-clear"></button>
+    </div>
+    
+Job Description :
+<div class="input-control textarea">
+        <textarea name="jobDescription" id="jobDescription"></textarea>
+    </div>
+    
+    
+Responsibilities :
+<div class="input-control textarea">
+        <textarea name="jobResponsibilities" id="jobResponsibilities"></textarea>
+    </div> 
+    
+    
+Requirements :
+<div class="input-control textarea">
+        <textarea name="jobRequirements" id="jobRequirements"></textarea>
+    </div>
+    
+Salary Option:
+<div class="input-control select">
+        <select name="salary_type" id="salary_type">
+        	<option value="N/A" selected="selected">N/A</option>
+            <option value="Negotiable">Negotiable</option>
+            <option value="Non-Negotiable">Non-Negotiable</option>
+        </select>
+    </div>
+    
+Job Category:
+<div class="input-control select">
+        <select name="jobCategory" id="jobCategory">
+            <option value="_jobCategory_">_jobCategory_</option>
+        </select>
+    </div>
+
+Application Deadline:
+<div class="input-control text datepicker" data-role="datepicker">
+        <input type="text" name="jobDeadline" id="jobDealine"/>
+        <button class="btn-date"></button>
+    </div>
+
+</body>
+</html>

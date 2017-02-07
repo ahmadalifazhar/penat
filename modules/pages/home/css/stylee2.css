@@ -1,0 +1,242 @@
+.content {
+	min-height: 100%;
+	position: relative;
+	overflow: auto;
+}
+.top_dropper {
+	display: table-cell;
+	padding: 4px;
+	cursor: pointer;
+	border: 0px solid #f00;
+	right: 4px;
+	width: 50px;
+	float: left
+}
+.fname {
+	cursor: pointer;
+	text-decoration: none;
+	padding: 7px 1px 1px 1px;
+	float: left
+}
+.profile_picture {
+	display: table-cell;
+	padding: 3px 3px 3px 4px;
+	border: 0px solid #f00;
+	width: 30px;
+	float: left
+}
+.messaging {
+	cursor: pointer;
+	display: table-cell;
+	padding: 4px 0px 4px 4px;
+	border: 0px solid #f00;
+	float: left
+}
+.setting {
+	cursor: pointer;
+	display: table-cell;
+	padding: 3px 0px 4px 1px;
+	border: 0px solid #f00;
+	float: left
+}
+.search {
+	cursor: pointer;
+	display: table-cell;
+	padding: 4px 0px 5px 0px;
+	border: 0px solid #f00;
+	float: left
+}
+#cssmenu ul {
+	margin: 0;
+	padding: 0;
+	list-style-type: none;
+	width: auto;
+	position: relative;
+	display: block;
+	height: 100px;
+	text-transform: uppercase;
+	font-size: 14px;
+	font-family: "Segoe UI", "Segoe UI Web Regular", "Segoe UI Symbol", "Helvetica Neue", "BBAlpha Sans", "S60 Sans", Arial, "sans-serif";
+}
+#cssmenu li {
+	display: block;
+	float: left;
+	margin: 0;
+	pading: 0;
+}
+#cssmenu li a {
+	display: block;
+	float: left;
+	/*color: #FFFF00;*/
+	text-decoration: none;
+	padding: 8px 15px 8px 15px;
+	border: none;
+}
+#cssmenu li a:hover {
+	background: transparent #333333;
+}
+/*combined*/
+html, body {
+	margin: 0;
+	padding: 0;
+	width: 100%;
+	height: 100%;
+	overflow: hidden;
+	font-family: "Segoe UI", "Segoe UI Web Regular", "Segoe UI Symbol", "Helvetica Neue", "BBAlpha Sans", "S60 Sans", Arial, "sans-serif";
+}
+.main-container {
+	width: 100%;
+	height: 100%;
+	overflow: hidden;
+}
+.left-section {
+	position: relative;
+	width: 420px;
+	height: 100%;
+	float: left;
+	left: 0px;
+	color: #FFFFFF;
+	overflow: hidden;
+	display: inline;
+	z-index: 10;
+}
+.left-section .contentx {
+	padding-top: 10px;
+	padding-left: 10px;
+	float: left;
+	width: 390px;
+	height: 100%;
+	background: black;
+}
+.left-section .tab {
+	cursor: pointer;
+	float: right;
+	width: 20px;
+	height: 50px;
+	background-repeat: no-repeat;
+	box-shadow: 1px 0px 3px #888888;
+	background-color: black;
+}
+.left-section .tab: hover {
+	opacity: 0.9;
+}
+.right-section {
+	position: absolute;
+	height: 100%;
+	background-color: #333;
+	left: 420px;
+	z-index: 10;
+}
+.tab: hover {
+	background-color: #fff;
+}
+#userBar {
+ top:0px;
+ width:100%;
+}
+#userBar .content {
+	top: 0px;
+	width: 100%;
+	height: 33px;
+	background: black;
+	box-shadow: 1px 0px 3px #888888;
+	overflow: hidden;
+	z-index: 100;
+}
+#topSlider {
+	display:none;
+	position: absolute;
+	top: -130px;
+	width: 100%;
+	z-index: 90;
+}
+#topSlider .content {
+	top: 0px;
+	padding-top: 1px;
+	padding-bottom: 1px;
+	width: 100%;
+	background: #333;
+	opacity: 0.9;
+	z-index: 40;
+}
+.toggle {
+	cursor: pointer;
+	padding: 3px 4px 3px 4px;
+	-moz-transition: all .5s;
+	-webkit-transition: all .5s;
+	-o-transition: all .5s;
+	transition: all .5s;
+}
+.rotate {
+	cursor: pointer;
+	float: right;
+	padding: 0px 0px 0px 4px;
+	-ms-transform: rotate(180deg);
+	-webkit-transform: rotate(180deg);
+	-o-transform: rotate(180deg);
+	-moz-transform: rotate(180deg);
+	transform: rotate(180deg);
+}
+ul, li {
+	margin: 0;
+	padding: 0;
+}
+ul.pmenu {
+	position: absolute;
+	margin: 0;
+	padding: 1px;
+	list-style: none;
+	width: 150px; /* Width of Menu Items */
+	border: 1px solid #ccc;
+	background: white;
+	display: none;
+	left: auto;
+	top: auto;
+	z-index: 10;
+}
+ul.pmenu li {
+	position: relative;
+}
+ul.pmenu li ul {
+	position: absolute;
+	left: 150px; /* Set 1px less than menu width */
+	top: 0;
+	display: none;
+	z-index: 10;
+}
+/* Styles for Menu Items */
+ul.pmenu li a {
+	display: block;
+	text-decoration: none;
+	color: black;
+	padding: 2px 5px 2px 20px;
+}
+ul.pmenu li a:hover {
+	background: #335EA8;
+	color: white;
+}
+ul.pmenu li a.parent {
+	background: url('drop_down_triangle.gif') no-repeat 140px 4px;
+}
+ul.pmenu li a.parent:hover {
+	background: #335EA8 url('drop_down_triangle_hover.gif') no-repeat 140px 4px;
+}
+/* IE \*/
+* html ul.pmenu li {
+	float: left;
+	height: 1%;
+}
+* html ul.pmenu li a {
+	height: 1%;
+}
+* html ul.pmenu li ul {
+	left: 147px;
+}
+/* End */
+
+ul.pmenu li:hover ul, ul.pmenu li.over ul {
+	display: block;
+} /* The magic */
+ul.pmenu li ul {
+	left: 150px;
+}

@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<title>Pin.It</title>
+<!-- stylesheet-->
+<link rel="stylesheet" type="text/css" href="css/stylee.css"   />
+<link rel="stylesheet" type="text/css" href="css/feeds_style.css"   />
+<link rel="stylesheet" type="text/css" href="css/tiny_style.css" />
+<link href="metro/css/modern.css" rel="stylesheet">
+<link href="metro/css/modern-responsive.css" rel="stylesheet">
+<link href="metro/css/site.css" rel="stylesheet" type="text/css">
+<link href="metro/js/google-code-prettify/prettify.css" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="metro/js/assets/jquery-1.9.0.min.js"></script>
+<script type="text/javascript" src="metro/js/assets/jquery.mousewheel.min.js"></script>
+<script type="text/javascript" src="metro/js/assets/moment.js"></script>
+<script type="text/javascript" src="metro/js/assets/moment_langs.js"></script>
+<script type="text/javascript" src="metro/js/modern/dropdown.js"></script>
+<script type="text/javascript" src="metro/js/modern/accordion.js"></script>
+<script type="text/javascript" src="metro/js/modern/buttonset.js"></script>
+<script type="text/javascript" src="metro/js/modern/carousel.js"></script>
+<script type="text/javascript" src="metro/js/modern/input-control.js"></script>
+<script type="text/javascript" src="metro/js/modern/pagecontrol.js"></script>
+<script type="text/javascript" src="metro/js/modern/rating.js"></script>
+<script type="text/javascript" src="metro/js/modern/slider.js"></script>
+<script type="text/javascript" src="metro/js/modern/tile-slider.js"></script>
+<script type="text/javascript" src="metro/js/modern/tile-drag.js"></script>
+<script type="text/javascript" src="metro/js/modern/calendar.js"></script>
+<script src="js/jquery-1.8.3.js" type="text/javascript"></script>
+<script type="text/javascript" src="js/tinybox.js"></script>
+<script type="text/javascript" src="http://ecn.dev.virtualearth.net/mapcontrol/mapcontrol.ashx?v=7.0"></script>
+<script type="text/javascript" src="js/mapfix.alif.20130426.js"></script>
+<script type="text/javascript">
+
+function hideshow(which, and){
+if (!document.getElementById)
+return
+
+__DIVPOSTS__
+
+if (which.style.display=="block")
+which.style.display="none"
+else
+which.style.display="block"
+if (and.style.display=="block")
+and.style.display="none"
+else
+and.style.display="block"
+}
+
+</script>
+<script type="text/javascript">
+
+<!-- set pin location -->
+function pushpin()
+{
+	alert("hello");
+	
+	var i = null;
+	var tid = new Array();
+	var title = new Array();
+	var descript = new Array();
+	var latitude = new Array();
+	var longitude = new Array();
+	var pushpin = new Array();
+	
+		__PUSHPIN__
+	
+	
+	Microsoft.Maps.loadModule('Microsoft.Maps.Themes.BingTheme', { callback: function() { 
+	for(var x = 0; x < i ; x++)
+	{
+	pushpin[x]= new Microsoft.Maps.Pushpin(map.getCenter(), pushpinOptions); 
+	map.entities.push(pushpin[x]);
+	var infoboxOption = {title: title[x], description: descript[x], pushpin: pushpin[x],};
+	map.entities.push(new Microsoft.Maps.Infobox(new Microsoft.Maps.Location(latitude[x],longitude[x]),infoboxOption)); 
+	pushpin[x].setLocation(new Microsoft.Maps.Location(latitude[x],longitude[x]));
+	}
+	}});
+	
+}
+
+</script>
+<script type='text/javascript'>//<![CDATA[ 
+<!-- JS for left slider menu and auto resize map width (alif)-->
+$(window).load(function(){
+$(".right-section").width($(window).width()-300);
+$(".right-section").height($(window).height()-30);
+
+
+$('.left-section .tab').toggle(function(){
+    $('.left-section').animate({'left':-140},"slow");
+	$('.right-section').animate({'left':20},"slow");
+	 var nextWidth = $(window).width()-20;
+	$(".right-section").animate({'width':nextWidth},600);
+	
+}, function(){
+    $('.left-section').animate({'left':0},"slow");
+	$('.right-section').animate({'left':299},"slow");
+	var nextWidth = $(window).width()-299;
+	$(".right-section").animate({'width':nextWidth},600);
+});
+});//]]>  
+
+//function to reset map size(right-section) if user change windows size
+$(window).resize(function() {
+  $(".right-section").width($(window).width()-300);
+$(".right-section").height($(window).height()-30);
+});
+<!-- End JS for left slider menu and auto resize map width-->
+</script>
+<script type='text/javascript'>
+		
+/*set map height 100%-40%, 40 for top bar menu
+$(document).ready(function() {
+$("#PinItMap").height($(document).height()-90);
+});*/
+
+//js for toggle button for calling top slider menu, and rotate icon by calling .rotate CSS class
+$(window).load(function(){
+$('#userBar .toggle').toggle(function(){
+    $('#topSlider').animate({'top':33});
+    $("#tggleBtn").toggleClass("rotate");
+}, function(){
+    $('#topSlider').animate({'top':-139});
+    $("#tggleBtn").toggleClass("rotate");
+});
+});//]]> 
+
+function logout()
+{
+	window.location = "?op=logout";
+}
+function homepage()
+{
+	window.location = "?op=home";
+}
+	
+	
+</script>
+</head>
+<body onLoad="getMap();pushpin();" >
+<!-- Start Drop Down Top Menu   -->
+<div id="userBar">
+  <div class="userBar content">
+    <div id='tggleBtn' class='toggle'><img src="images/userBar/toggleBtn.png" width="27" height="27"></div>
+    <div class="profile_picture"><a href="?op=home"><img src="__MYPIC__" width="27" height="27"></a></div>
+    <div class="metrouicss fname">
+     <div class="toolbar" style="float:right; padding-left:7px">
+        <button class="mini bg-color-blue fg-color-white" onClick="homepage();"><i class="icon-home"></i></button>
+        <button class="mini bg-color-blue fg-color-white" onClick="TINY.box.show({iframe:'?op=inbox',boxid:'frameless',width:750,height:450,fixed:false,maskid:'bluemask',maskopacity:40,closejs:function(){closeJS()}})"><i class="icon-newspaper"></i></button>
+        <button class="mini bg-color-blue fg-color-white" onClick="TINY.box.show({iframe:'?op=friends',boxid:'frameless',width:750,height:450,fixed:false,maskid:'bluemask',maskopacity:40,closejs:function(){closeJS()}})"><i class="icon-search"></i></button>
+        <button class="mini bg-color-blue fg-color-white" onClick="TINY.box.show({iframe:'?op=setting',boxid:'frameless',width:750,height:450,fixed:false,maskid:'bluemask',maskopacity:40,closejs:function(){closeJS()}})"><i class="icon-wrench"></i></button>
+        <button class="mini bg-color-blue fg-color-white" onClick="logout();"><i class="icon-forward"></i>Logout</button>
+      </div><span style="color:white;">Howdy,</span> <a href="#" onClick="TINY.box.show({iframe:'?op=profile',boxid:'frameless',width:750,height:450,fixed:false,maskid:'bluemask',maskopacity:40,closejs:function(){closeJS()}})">__AFNAME__ __ALNAME__</a>
+     
+    </div>
+    
+    <!--  <div class="messaging"><img src="images/userBar/Messaging-Metro.png" width="27" height="27" onClick="TINY.box.show({iframe:'?op=inbox',boxid:'frameless',width:750,height:450,fixed:false,maskid:'bluemask',maskopacity:40,closejs:function(){closeJS()}})"></div>
+    <div class="setting"><img src="images/userBar/Configure-Metro.png" width="27" height="27" onClick="TINY.box.show({iframe:'?op=setting',boxid:'frameless',width:750,height:450,fixed:false,maskid:'bluemask',maskopacity:40,closejs:function(){closeJS()}})"></div>
+    <div class="search"><img src="images/userBar/Search-Metro.png" width="26" height="26" onClick="TINY.box.show({iframe:'?op=friends',boxid:'frameless',width:750,height:450,fixed:false,maskid:'bluemask',maskopacity:40,closejs:function(){closeJS()}})"></div>--> 
+    
+  </div>
+</div>
+<div id="topSlider" style="top:-139px">
+  <div class="topSlider content"  style="padding-top:10px; padding-left:10px" >
+    <div class="metrouicss">
+      <div class="tile image outline-color-green">
+        <div class="tile-content"> <img src="__MYPIC__" alt="" />
+          <div class="brand">
+            <div class="name">Profile</div>
+          </div>
+        </div>
+      </div>
+    <div class="tile image outline-color-green">
+        <div class="tile-content"> <img src="images/job.jpg" alt="" />
+          <div class="brand">
+            <div class="name">Jobs</div>
+          </div>
+        </div>
+      </div>
+    <div class="tile image outline-color-green">
+        <div class="tile-content"> <img src="images/entertainment.jpg" alt="" />
+          <div class="brand">
+            <div class="name">Entertainment</div>
+          </div>
+        </div>
+      </div>
+    <div class="tile image outline-color-green">
+        <div class="tile-content"> <img src="images/transportation.png" alt="" />
+          <div class="brand">
+            <div class="name">Transportation</div>
+          </div>
+        </div>
+      </div>
+    <div class="tile image outline-color-green">
+        <div class="tile-content"> <img src="images/clouds.png" alt="" />
+          <div class="brand">
+            <div class="name">Pin-cloud Storage</div>
+          </div>
+        </div>
+      </div>
+      <!-- <ul>
+<li> <a href="http://www.facebook.com"><img src="" style="background-image:url(images/Personal80x80.png);width:80px;height:80px;" alt=""></a> </li>
+        
+        <li> <a href="http://www.google.com"><img src="" style="background-image:url(images/Personal80x80.png);width:80px;height:80px;" alt=""></a> </li>
+        <li> <a href="http://www.yahoo.com" target="_top"><img src="" style="background-image:url(images/Personal80x80.png);width:80px;height:80px;" alt=""></a> </li>
+        
+        <li><a href="?op=home">HOME</a></li>
+        <li><a href="?op=profile">PROFILE</a></li>
+        <li><a href="?op=account/friends">FRIENDS</a></li>
+        <li><a href="?op=account/settings">SETTINGS</a></li>
+      </ul>--> 
+    </div>
+  </div>
+</div>
+<div class="main-container">
+  <div class="left-section">
+    <div class="left-section tab"></div>
+    <div class="left-section contentx" style="overflow:scroll;scrollbar-base-color:#bada55;scrollbar-arrow-color:#333;">
+      <div> _LEFTSIDE_ </div>
+    </div>
+  </div>
+  <div class="right-section">
+    <ul id="popupmenu" class="pmenu">
+      <li><a href="#" onclick='' class="parent">Write Pin at This Location</a>
+        <ul class="pmenu" style="width:270px">
+          <div align="center">
+            <form name="pinitpost2" method="post" action="?op=home">
+              <input type="hidden" name="latUserDefine" id="latidUserDefine">
+              <input type="hidden" name="lonUserDefine" id="lonidUserDefine">
+              <p>
+                <textarea name="msg" id="msg" cols="30" rows="5" style="resize:vertical"></textarea>
+              </p>
+              <p> 
+                <!-- <input type="radio" name="ptype" value="1">Jobs<br /> 
+		<input type="radio" name="ptype" value="2">Trades<br /> 
+        <input type="radio" name="ptype" value="3">Promotions<br /> 
+        <input type="radio" name="ptype" value="4">Entertainments<br />   -->
+                <input type="submit" name="opchk" id="opchk" value="PinItUserDefine!">
+              </p>
+            </form>
+          </div>
+        </ul>
+      </li>
+      <li><a href="#" onClick="pinPost();hidePopupMenu()">Pin It!</a></li>
+      <li><a href="#" onClick="ZoomIn();hidePopupMenu()">Zoom In</a></li>
+      <li><a href="#" onClick="ZoomOut();hidePopupMenu()">Zoom Out</a></li>
+      <li><a href="#" onclick='' class="parent">Switch View</a>
+        <ul class="pmenu">
+          <li><a href="#" 
+      onclick="setMapType('aerial');hidePopupMenu()">Aerial</a></li>
+          <li><a href="#" 
+      onclick="setMapType('road');hidePopupMenu()">Road</a></li>
+          <li><a href="#" 
+      onclick="setMapType('birdseye');hidePopupMenu()">Birdseye</a></li>
+        </ul>
+      </li>
+      <li><a href="#" onClick="javascript:alert('Map is centered on:  ' + map.getCenter());hidePopupMenu();">Point coordinates</a></li>
+    </ul>
+    <div id='PinItMap' style="width:100%; height:400px" oncontextmenu = "return false"></div>
+  </div>
+</div>
+</body>
+</html>

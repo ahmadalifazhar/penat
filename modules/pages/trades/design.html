@@ -1,0 +1,354 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+<link href="metro/css/modern.css" rel="stylesheet">
+<link href="metro/css/modern-responsive.css" rel="stylesheet">
+<link href="metro/css/site.css" rel="stylesheet" type="text/css">
+<link href="metro/js/google-code-prettify/prettify.css" rel="stylesheet" type="text/css">
+<link href="metro/js/tinybox/tiny.css" rel="stylesheet" type="text/css">
+<link rel="stylesheet" type="text/css" href="metro/js/player/mediaelementplayer.css" />
+<script type="text/javascript" src="metro/js/assets/jquery-1.9.0.min.js"></script>
+<script type="text/javascript" src="metro/js/assets/jquery.mousewheel.min.js"></script>
+<script type="text/javascript" src="metro/js/assets/moment.js"></script>
+<script type="text/javascript" src="metro/js/assets/moment_langs.js"></script>
+<script type="text/javascript" src="metro/js/modern/dropdown.js"></script>
+<script type="text/javascript" src="metro/js/modern/accordion.js"></script>
+<script type="text/javascript" src="metro/js/modern/buttonset.js"></script>
+<script type="text/javascript" src="metro/js/modern/carousel.js"></script>
+<script type="text/javascript" src="metro/js/modern/input-control.js"></script>
+<script type="text/javascript" src="metro/js/modern/pagecontrol.js"></script>
+<script type="text/javascript" src="metro/js/modern/rating.js"></script>
+<script type="text/javascript" src="metro/js/modern/slider.js"></script>
+<script type="text/javascript" src="metro/js/modern/tile-slider.js"></script>
+<script type="text/javascript" src="metro/js/modern/tile-drag.js"></script>
+<script type="text/javascript" src="metro/js/modern/calendar.js"></script>
+<script type="text/javascript" src="metro/js/tinybox/tinybox.js"></script>
+<script type="text/javascript" src="metro/js/player/mediaelement-and-player.js"></script>
+<script type="text/javascript" src="metro/js/player/audio-player.js"></script>
+<script src="http://malsup.github.com/jquery.form.js"></script>
+<!--<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+-->
+
+
+<!-- map -->
+<script type="text/javascript" src="js/mapcontrol.ashx?v=7.0"></script>
+
+<script type="text/javascript">
+      var map = null;
+	  var tlat = null;
+	  var tlon = null;
+            
+    function getMap()       
+    {
+        Microsoft.Maps.loadModule('Microsoft.Maps.Themes.BingTheme', { callback: function() 
+        {
+            map = new Microsoft.Maps.Map(document.getElementById('myMap'), 
+            { 
+                  credentials: 'AmxdhBs_v4CGLnmLy1BSpfh2wnBLTEdD_NBB6QqF72MN_YnLRzvptDmaLR_RFqVK', 
+                  theme: new Microsoft.Maps.Themes.BingTheme(),
+				  showMapTypeSelector: false,
+				  enableClickableLogo: false,
+				  enableSearchLogo: false
+				  
+            }); 
+        }});
+		
+		setTimeout(goCenter,2000);
+		setTimeout(attachPushpinDragEndEvent,5000);
+    }
+    
+	function goCenter()
+	{
+		var geoLocationProvider = new Microsoft.Maps.GeoLocationProvider(map);  
+        geoLocationProvider.getCurrentPosition({ showAccuracyCircle: false, });
+		setTimeout(getCenter,3000);
+	}
+	
+	function getCenter()
+	{
+		var loc = map.getCenter();
+		//alert("lat : " + loc.latitude + " lon : " + loc.longitude);
+		document.getElementById('tlat').value = loc.latitude;
+		document.getElementById('tlon').value = loc.longitude;
+		tlat = loc.latitude;
+		tlon = loc.longitude;
+		Microsoft.Maps.loadModule('Microsoft.Maps.Search', { callback: searchModuleLoaded });
+		//setTimeout(searchModuleLoaded,2000);
+	}
+	
+	function attachPushpinDragEndEvent()
+	{
+		var pushpinOptions = {draggable:true}; 
+		var pushpin= new Microsoft.Maps.Pushpin(map.getCenter(), pushpinOptions); 
+		var pushpindragend= Microsoft.Maps.Events.addHandler(pushpin, 'dragend', endDragDetails);  
+		map.entities.push(pushpin); 
+		//alert('stop dragging newly added pushpin to raise event');
+	}
+      
+	endDragDetails = function (e) 
+	{
+		var loc = e.entity.getLocation();
+		
+		document.getElementById('tlat').value = loc.latitude;
+		document.getElementById('tlon').value = loc.longitude;
+		
+		tlat = loc.latitude;
+		tlon = loc.longitude;
+		Microsoft.Maps.loadModule('Microsoft.Maps.Search', { callback: searchModuleLoaded });
+		//alert("Event Info - start drag \n" + "Start Latitude/Longitude: " + e.entity.getLocation() ); 
+		//alert("lat : " + loc.latitude + " lon : " + loc.longitude);
+	}
+	 
+	 
+	 //search nama location by longitude dan latitude(alif) OLD
+	function searchModuleLoaded()
+	{
+		var searchManager = new Microsoft.Maps.Search.SearchManager(map);
+		var reverseGeocodeRequest = {location:new Microsoft.Maps.Location(tlat,tlon), count:10, callback:reverseGeocodeCallback, errorCallback:errCallback};
+		searchManager.reverseGeocode(reverseGeocodeRequest);
+		//alert("searchModuleLoaded "+tlat+" "+tlon);
+	}
+	function reverseGeocodeCallback(result)
+	{
+		document.getElementById("taddress").value = result.name;
+		document.getElementById('viewLocation').innerHTML = "Pin : "+result.name;
+	}
+	function errCallback(request)
+	{
+		//alert("An error occurred! GeocodeRequest Failed");
+	}
+	 
+	 
+	 
+      </script>
+<!-- -->
+
+
+<style>
+.progress { position:relative; width:100%; border: 1px solid #ddd; padding: 1px; border-radius: 3px; }
+.bar { background-color: rgb(0, 130, 135); width:0%; height:20px; border-radius: 3px; }
+.percent { position:absolute; display:inline-block; top:3px; left:48%; }
+</style>
+<title>Pin __SYSNAME__ :: _AFNAME_ _ALNAME_</title>   <!--__SYSNAME__-->
+</head>
+
+<body class="metrouicss" onload="getMap();">
+
+<div class="nav-bar bg-color-darken">
+  <div class="nav-bar-inner"> <span class="element">Pin __SYSNAME__ :: _AFNAME_ _ALNAME_</span> <span class="divider"></span>
+    <ul class="menu">
+      <li><a href="?op=home">Pin-It Home</a></li>
+      
+      <li data-role="dropdown"> <a href="#">Pin!</a>
+        <ul class="dropdown-menu">
+          <li><a href="?op=entertainment">Pin-Entertainment</a></li>
+          <li><a href="?op=traffics">Pin-Traffics</a></li>
+          <li><a href="?op=cloud">Pin-Cloud</a></li>
+          <li><a href="?op=shopping">Pin-Shopping</a></li>
+          <li><a href="?op=job">Pin-Jobs</a></li>
+          <li><a href="#" onClick="logout();">Log Out</a></li>
+        </ul>
+      </li>
+      
+    </ul>
+  </div>
+</div>
+<div class="page">
+  <div class="page-header">
+    <div class="page-header-content">
+      <h1> Welcome, <span class="fg-color-pink">_AFNAME_ _ALNAME_</span>.</h1>
+    </div>
+  </div>
+  <div class="page-region">
+    <div class="page-region-content">
+      <div class="page-control" data-role="page-control"> 
+        <!-- Responsive controls --> 
+        <span class="menu-pull"></span>
+        <div class="menu-pull-bar"></div>
+        <!-- Tabs -->
+        <ul>
+          <li class="active"><a href="#searchProduct" onclick="document.getElementsByName('iSearchProduct')[0].src=document.getElementsByName('iSearchProduct')[0].src;">
+          Search Product</a></li>
+          <li><a href="#wishlist" onclick="document.getElementsByName('iWishlist')[0].src=document.getElementsByName('iWishlist')[0].src;">
+          Wishlist</a></li>
+          <li><a href="#myProduct" onclick="document.getElementsByName('iMyProduct')[0].src=document.getElementsByName('iMyProduct')[0].src;">
+          My Product</a></li>
+          <li><a href="#saveAds" onclick="document.getElementsByName('iSaveAds')[0].src=document.getElementsByName('iSaveAds')[0].src;">
+          Save Ads</a></li>
+          <li><a href="#postNew">Pin New Product</a></li>
+        </ul>
+        <!-- Tabs content -->
+        <div class="frames">
+        
+        <!-- search product tab -->
+          <div class="frame active" id="searchProduct">
+            <iframe name="iSearchProduct" src="modules/pages/trades/newsearch.php" frameborder="0" style="height:1000px; width:100%;"></iframe>
+          </div>
+          
+          <!-- my product tab -->
+          <div class="frame" id="myProduct">
+            <iframe name="iMyProduct" src="modules/pages/trades/myproduct.php" frameborder="0" style="height:600px; width:100%; overflow-x:'hidden';"></iframe>
+          </div>
+          
+          <!-- save ads tab -->
+          <div class="frame" id="saveAds">
+            <iframe name="iSaveAds" src="modules/pages/trades/saveads.php" frameborder="0" style="height:1000px; width:100%;"></iframe>
+          </div>
+          
+          <!-- wishlist tab -->
+          <div class="frame" id="wishlist">
+            <iframe name="iWishlist" src="modules/pages/trades/wishlistmenu.php" frameborder="0" style="height:600px; width:100%;"></iframe>
+          </div>
+          
+          <!-- post new product tab -->
+          <div class="frame" id="postNew">
+            <div style="width:97%">
+            
+            <form method="post" enctype="multipart/form-data" action="index.php?op=trades&go=upload" >
+            <input type="hidden" name="action" value="trades" />
+            <input type="hidden" name="aid" value="__AID__" />
+            <input type="hidden" name="tlat" id="tlat" />
+            <input type="hidden" name="tlon" id="tlon" />
+            <input type="hidden" name="taddress" id="taddress" />
+            <table>
+                <tr>
+                    <td width="15%">Category</td>
+                    <td>
+                    <div class="input-control select" style="width:50%">
+                        <select name="ttype">
+                            <option selected="selected" disabled="disabled" value="unchecked">Select item category</option>
+                            <option value="Vehicles">Vehicles</option>
+                            <option value="Properties">Properties</option>
+                            <option value="Electronics">Electronics</option>
+                            <option value="Personal Items">Personal Items</option>
+                            <option value="Hobbies">Hobbies</option>
+                            <option value="Services">Services</option>
+                            <option value="Others">Others</option>
+                        </select>
+                    </div>
+                    </td>
+                </tr> 
+                <tr>
+                    <td>Title</td>
+                    <td>
+                    <div class="input-control text">
+                        <input type="text" placeholder="Enter item title" name="ttitle" required="required"/>
+                        <button class="btn-clear" tabindex="-1" type="button" />
+                    </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td valign="top">Description</td>
+                    <td>
+                    <div class="input-control textarea">
+                        <textarea placeholder="Enter item description" name="tdescription" required="required"></textarea>
+                    </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td valign="top">Quantity</td>
+                    <td>
+                    <div class="input-control text">
+                        <input type="number" placeholder="Enter item quantity" name="tquantity" required="required"/>
+                        <button class="btn-clear" tabindex="-1" type="button" />
+                    </div>
+                    </td>
+                </tr>
+                <tr>
+                	<td valign="top">Price (RM)</td>
+                    <td>
+                    <div class="input-control text">
+                        <input type="number" placeholder="Enter item price (99.99)" name="tprice" required="required"/>
+                        <button class="btn-clear" tabindex="-1" type="button" />
+                    </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td valign="top">Location</td>
+                    <td>
+                    <div id="viewLocation" style="color:#00F;"></div><br />
+                    <div id='myMap' style="position:relative; width:100%; height:300px;"></div></td>
+                </tr>
+                <tr>
+                    <td valign="top">Picture</td>
+                    <td><label for="file">Filename:</label>
+                        <input type="file" name="file" id="file">
+                        
+                    </td>
+                </tr>
+            </table> 
+            <input type="submit" />
+            </form>
+            
+            </div>
+            
+          </div>
+          
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+(function() {
+    
+var bar = $('.bar');
+var percent = $('.percent');
+var status = $('.status');
+   
+$("#form1").ajaxForm({
+    beforeSend: function() {
+        status.empty();
+        var percentVal = '0%';
+        bar.width(percentVal)
+        percent.html(percentVal);
+    },
+    uploadProgress: function(event, position, total, percentComplete) {
+        var percentVal = percentComplete + '%';
+        bar.width(percentVal)
+        percent.html(percentVal);
+    },
+    success: function() {
+        var percentVal = '100%';
+        bar.width(percentVal)
+        percent.html(percentVal);
+    },
+	complete: function() {
+		status.html("<center>File uploaded succesfully.</center>");
+		
+	}
+}); 
+
+})();       
+
+</script>
+<!--
+<p>__LOGINSTATUS__</p>
+
+<form id="form1" name="form1" method="post" action="">
+  <p>
+    <label for="samplesahaja"></label>
+    __TEST1__</p>
+  <p>__TEST2__</p>
+  <p>&nbsp;</p>
+  <p>&nbsp;</p>
+  <p>__LOGINSTATUS__</p>
+  <p></p>
+  <p>Just fill it in the blank for the sample:</p>
+  <p>
+    <input type="text" name="samplesahaja" id="samplesahaja" />
+  </p>
+  <p>
+    <input type="submit" name="opchk" id="opchk" value="Test Only" />
+  </p>
+</form>
+-->
+</body>
+</html>
+
+
+

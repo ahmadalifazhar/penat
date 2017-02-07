@@ -1,0 +1,66 @@
+.feeds_style table {
+	border:1px;
+	background-color:#F8F8F8;
+	border-radius:3px;
+	box-shadow:1px 1px 1px 1px #ccc;	
+}
+.feeds_style .username_style {
+	font-family:Arial;
+	font-weight:bold;
+	font-size:14px;
+	color:#5882FA;
+	margin:5px 0px 0px 0px;
+}
+
+.feeds_style .current_location_style {
+	font-family:Arial;
+	font-weight:bold;
+	font-size:10px;
+	color:#5882FA;
+	margin:0px 0px 8px 0px;
+}
+
+.feeds_style .horizontal_custom_height {
+	line-height:1px;
+	margin:0px 0px 0px 0px;
+}
+
+.feeds_style .profile_picture {
+	margin:0px 5px 0px 5px;
+}
+.feeds_style .comment_profile_picture {
+	padding-left:16px;
+}
+.feeds_style .comment_username_style {
+	font-family:Arial;
+	font-weight:bold;
+	font-size:14px;
+	color:#5882FA;
+	margin:5px 0px 0px 0px;
+}
+
+.feeds_style td.custom_style {
+	height:5px;
+}
+
+.feeds_style .post {
+	font-family:Arial;
+	font-weight:bold;
+	font-size:10px;
+	color:#585858;
+	margin:0px 5px 0px 5px;
+}
+
+.feeds_style .comment_text_style {
+	font-family:Arial;
+	font-weight:bold;
+	font-size:10px;
+	color:#585858;
+	margin:10px 5px 0px 0px;
+}
+.feeds_style .comment_like_hate {
+	font-family:Arial;
+	font-size:10px;
+	color:#5882FA;
+	margin:0px 5px 0px 5px;
+}

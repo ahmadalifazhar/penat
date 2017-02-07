@@ -1,0 +1,289 @@
+
+html, body {
+	
+	margin: 0;
+	padding: 0;
+	width: 100%;
+	height: 100%;
+	overflow-y:hidden;
+	font-family:"Segoe UI","Segoe UI Web Regular","Segoe UI Symbol","Helvetica Neue","BBAlpha Sans","S60 Sans",Arial,"sans-serif";
+}
+
+.content {
+	min-height: 100%;
+	position: relative;
+	overflow: auto; 
+}
+
+.contentleft {
+	min-height: 100%;
+	position: relative;
+	overflow: auto;
+	z-index: 99; 
+}
+
+
+.contentcenter {
+	/*min-height: 100%;*/
+	position: relative;
+	overflow: auto;
+	height:400px;
+}
+
+.background {
+	position: absolute;
+	z-index: -1;
+	top: 0;
+	bottom: 0;
+	margin: 0;
+	padding: 0;
+}
+
+.top_block {
+	width: 100%;
+	display: block; 
+}
+
+.bottom_block {
+	position: absolute;
+	width: 100%;
+	display: block;
+	bottom: 0; 
+}
+
+.left_block {
+	display: block;
+	float: left; 
+	
+
+}
+
+.right_block {
+	display: block;
+	float: right; 
+}
+
+.center_block {
+	display: block;
+	width: auto;
+	height:auto;
+}
+
+.Top_Header {
+	width: 100%;
+	height: 40px;
+	background-color: #6494ed;
+}
+
+.background.Left_LiveBar {
+	height: auto !important;
+	padding-bottom: 0;
+	left: 0;
+	width: 350px;
+	background-color: #fff;
+	margin-top: 0px;
+	box-shadow: 1px 0px 2px #888888;
+	position:absolute;
+	z-index:1;
+	
+}
+
+.Left_LiveBar {
+	height: auto;
+	width: 350px;
+	padding-bottom: 0px;
+	box-shadow: 1px 0px 2px #888888;
+	z-index:1;
+	
+}
+
+.background.Center {
+	height: auto !important;
+	padding-bottom: 0;
+	left: 0;
+	right: 0;
+	background-color: #ffffff;
+	margin-top: 50px;
+	margin-left: 300px; 
+}
+
+.Center {
+	width: auto;
+	height: auto;
+	padding-bottom: 0px;
+	
+}
+
+<!-- Drop Down Top Menu Start -->
+
+.glossymenu{
+top:0px;
+margin: 0 0;
+padding: 0;
+width: 100%; /*width of menu*/
+border-bottom-width: 0;
+}
+
+.glossymenu a.menuitem{
+background-color:#666666;
+font-family:"Segoe UI","Segoe UI Web Regular","Segoe UI Symbol","Helvetica Neue","BBAlpha Sans","S60 Sans",Arial,"sans-serif";
+color: white;
+display: block;
+position: relative; /*To help in the anchoring of the ".statusicon" icon image*/
+width: auto;
+padding: 4px;
+/*padding-left: 10px;*/
+text-decoration: none;
+height:31px;
+cursor: pointer;
+
+}
+
+.top_dropper {
+    display: table-cell;
+    padding:4px;
+	cursor:pointer;
+    border: 0px solid #f00;
+	right:4px;
+	width:50px;
+	float:left
+}
+.fname {
+	cursor:pointer;
+    font:15px Segoe UI Semibold;
+	text-decoration:none;
+	padding:7px 4px 1px 3px;
+	float:left
+	
+}
+.profile_picture {
+    display: table-cell;
+    padding:3px 3px 3px 4px;
+    border: 0px solid #f00;
+	width:30px;
+	float:left
+}
+.messaging {
+	cursor:pointer;
+    display: table-cell;
+    padding:4px 0px 4px 4px;
+    border: 0px solid #f00;
+	float:left
+}
+.setting {
+	cursor:pointer;
+    display: table-cell;
+    padding:3px 0px 4px 1px;
+    border: 0px solid #f00;
+	float:left
+}
+.search {
+	cursor:pointer;
+    display: table-cell;
+    padding:4px 0px 5px 0px;
+    border: 0px solid #f00;
+	float:left
+}
+.glossymenu .search {
+    display: table-cell;
+    padding:3px 0px 5px 0px;
+    border: 0px solid #f00;
+	width:50px;
+	float:left
+}
+
+.glossymenu a.menuitem:visited, .glossymenu .menuitem:active{
+color: white;
+}
+
+.glossymenu a.menuitem .statusicon{ /*CSS for icon image that gets dynamically added to headers*/
+position: absolute;
+top: 5px;
+right: 5px;
+border: none;
+}
+
+.glossymenu a.menuitem:hover{
+background-color:#333333;
+}
+
+.glossymenu div.submenu{ /*DIV that contains each sub menu*/
+background: white;
+}
+
+.glossymenu div.submenu ul{ /*UL of each sub menu*/
+list-style-type: none;
+margin: 0;
+padding: 0;
+}
+
+.glossymenu div.submenu ul li{
+background-color:#1d1d1d;
+color:#FFFFFF;
+
+}
+
+.glossymenu div.submenu ul li a{
+display: block;
+font-family:"Segoe UI","Segoe UI Web Regular","Segoe UI Symbol","Helvetica Neue","BBAlpha Sans","S60 Sans",Arial,"sans-serif";
+color: white;
+text-decoration: none;
+padding: 2px 0;
+padding-left: 10px;
+}
+
+.glossymenu div.submenu ul li a:hover{
+background: #DFDCCB;
+colorz: white;
+}
+
+#cssmenu ul{
+	margin:0;
+	padding:0;
+	list-style-type:none;
+	width:auto;
+	position:relative;
+	display:block;
+	height:100px;
+	text-transform:uppercase;
+	font-size:14px;
+	font-family:"Segoe UI","Segoe UI Web Regular","Segoe UI Symbol","Helvetica Neue","BBAlpha Sans","S60 Sans",Arial,"sans-serif";
+}
+#cssmenu li{
+	display:block;
+	float:left;
+	margin:0;
+	pading:0;
+	}
+#cssmenu li a{
+	display:block;
+	float:left;
+	color: #FFFF00;
+	text-decoration:none;
+	padding:8px 15px 8px 15px;
+	border: none;
+	}
+#cssmenu li a:hover{
+	background:transparent #333333;
+	}
+	
+
+#PinItMap{
+	position:relative;
+	width:100%; 
+	height:100%;
+}
+
+#bottomMenu{
+	-moz-transition:background-color 0.6s;   
+ 	-webkit-transition:background-color 0.6s;
+ 	width:200px;
+  	height:200px;
+	position:relative;
+	background-color:#6495ED;
+	top:-330px;
+	margin:auto;
+	width:200px;
+	height:200px;
+	text-align:center;
+}

@@ -1,0 +1,201 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<link rel="stylesheet" type="text/css" href="css/tiny_style.css" />
+<link href="metro/css/modern.css" rel="stylesheet">
+<link href="metro/css/modern-responsive.css" rel="stylesheet">
+<link href="metro/css/site.css" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="js/tinybox.js"></script>
+
+<script type="text/javascript">
+
+function hideshow(which){
+if (!document.getElementById)
+return
+
+
+if (which.style.display=="block")
+{
+	__DIVPOSTSCMT__
+}
+else
+{
+	__DIVPOSTSCMT__
+which.style.display="block";
+}
+}
+
+</script>
+
+	<meta charset="utf-8" />
+	<title>Social User Profile Page in HTML5/CSS3[DEMO]</title>
+	<link rel="stylesheet" type="text/css" href="css/global.css" />
+    <style>
+	* {margin: 0;
+		padding: 0
+	}
+	::-webkit-scrollbar {
+		  width: 15px;
+	} 
+	
+	::-webkit-scrollbar-track {
+		  background-color: #FFFFFF;
+	} 
+
+	::-webkit-scrollbar-thumb {
+		  background-color: #bada55;
+		  
+	} 
+
+	::-webkit-scrollbar-button {
+		  background-color: #bada55;
+	} 
+
+	::-webkit-scrollbar-corner {
+		  background-color: #FFFFFF;
+	} 
+</style>
+</head>
+
+<body>	
+<div id="content" class="clearfix">
+  <section id="left">
+            <div id="userStats" class="clearfix">
+                        
+                  <div class="data">
+                  <table>
+                      <tr>
+                          <td><div class="pic">
+                                    <a href="#"><img src="__MYPIC__" width="150" height="150" /></a>
+                                </div>
+                          </td>
+                          <td style="margin-bottom:5px"><h1>Howdy, __AFNAME__ __ALNAME__ (__AUNAME__)</h1>
+                                        <h3>Malacca</h3>
+                                        <form method=post action="?op=account/friends" name="haa"><h3>
+    <input type=hidden name=aid value="__USERID__">
+      <input type="__BTNTYPE__" name="opchk" id="opchk" value="__BTNNAME__" style="margin-top:2px;margin-right:-1px;">
+   </h3></form>
+                                        <h3></h3>
+                                        <h3>View __AUNAME__'s <a target="_blank" href="?op=cloud&userid=__AID__">files and albums</a> / <a target="_blank" href="?op=traffics&aid=__AID__">traffics</a> / <a target="_blank" href="?op=shopping&aid=__AID__">shoppings</a> / <a target="_blank" href="?op=trades&aid=__AID__">trades</a> / <a target="_blank" href="?op=jobs&aid=__AID__">jobs</a> / <a target="_blank" href="?op=entertainment&aid=__AID__">entertainment</a></h3>
+                                        <div class="socialMediaLinks">
+                                            <a href="http://gowalla.com/users/JakeRocheleau" rel="me" target="_blank"><img src="userBarContent/img/gowalla.png" /></a>
+                                        </div>
+                                        <div class="sep"></div>
+                                        <ul class="numbers clearfix">
+                                            <li>Pin<strong>_TOTALPOST_</strong></li>
+                                            <li>Friends<strong>_FRIENDS_</strong></li>
+                                            <li class="nobrdr">Days Out<strong>_DAYSOUT_</strong></li>
+                                        </ul>
+                           </td>
+                       </tr>
+                       _POSTS_
+                   </table>
+                                
+                                
+				 </div>	
+            </div>
+  </section>
+</div>
+</body>
+<link rel="stylesheet" type="text/css" href="js/jquery.jscrollpane.css" />	
+		
+	<!-- latest jQuery direct from google's CDN -->
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+	<!-- the jScrollPane script -->
+	<script type="text/javascript" src="js/jquery.jscrollpane.min.js"></script>
+	
+	<!--instantiate after some browser sniffing to rule out webkit browsers-->
+	<script type="text/javascript">
+	__OTHERSCRIPTS__
+	
+	$('#msgpinit2').keypress(function() {
+			//alert("marhazk currently editing it");
+			var str = new String(document.getElementById("msgpinit2").value);
+			var strArray = new Array;
+			var strBool = new Array;
+			for (strb = 0; strb < strArray.length; strb++)
+			{
+				strBool[strb] = false;
+			}
+			var foundStr = false;
+			strArray = str.split(" ");
+			if (true)
+			{
+				curLen = str.length;
+				for (chks = 0; chks < strArray.length; chks++)
+				{
+					var varStr = new String(strArray[chks].toLowerCase());
+					var tagOrNotText = new String("@").toLowerCase();
+					var tagOrNot=varStr.match(tagOrNotText);
+					if (varStr.length>2)
+					{
+						if (tagOrNot)
+						{
+							for (chkn = 0; chkn < accDBfl.length; chkn++)
+							{
+								var adb1 = new String("@" + accDBfl[chkn]).toLowerCase();
+								var adb2 = new String("@" + accDBun[chkn]).toLowerCase();
+								var chknm1=adb1.match(varStr);
+								var chknm2=adb2.match(varStr);
+								if (chknm2)
+								{
+									if ((chknm2 != adb2) && ((varStr.length < adb2.length-1) || (varStr.length > adb2.length)))
+									{
+										
+										//alert(varStr);
+										//alert(adb2.length);
+										//str=str.replace(chknm2, ":XtagX:" + accDBun[chkn]) + " ";
+										document.getElementById("listag2").style.display="block";
+										str = str.replace(varStr, "");
+										str = str.replace(chknm2, "");
+										document.getElementById("msgpinit2").value = str;
+										$.ajax({
+											url: "?op=home/tags&ajax=1&tagid=msgpinit2&val="+chknm2,
+											cache: false,
+											success: function(html){		
+												$("#listag2").html(html);
+											},
+										});
+										return false;
+									}
+								}
+								else if (chknm1)
+								{
+									if ((chknm1 != adb1) && ((varStr.length < adb1.length-1) || (varStr.length > adb1.length)))
+									{
+										//alert(varStr.length);
+										//alert(adb2.length);
+										//str=str.replace(chknm1, ":XtagX:" + accDBun[chkn]) + " ";
+										document.getElementById("listag2").style.display="block";
+										str = str.replace(varStr, "");
+										str = str.replace(chknm1, "");
+										document.getElementById("msgpinit2").value = str;
+										//$("#listag").html("TEST2");
+										$.ajax({
+											url: "?op=home/tags&ajax=1&tagid=msgpinit2&val="+chknm1,
+											cache: false,
+											success: function(html){		
+												$("#listag2").html(html);
+											},
+										});
+										return false;
+									}
+								}
+							}
+						}
+					}
+				}
+				//document.getElementById("msgpinit").value = str.replace(":XtagX:", "@");
+				document.getElementById("msgpinit2").value = str;
+				curLen = str.length;
+			}
+		});
+	  $(document).ready(function () {
+	      if (!$.browser.webkit) {
+	          $('.container').jScrollPane();
+	      }
+	  });
+	
+	</script>
+</html>

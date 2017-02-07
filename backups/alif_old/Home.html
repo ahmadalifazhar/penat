@@ -1,0 +1,375 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>Pin.It</title>
+  
+  <link rel="stylesheet" type="text/css" href="css/style.css"   />
+ 	<link rel="stylesheet" type="text/css" href="css/tiny_style.css" />
+    
+    <script src="js/jquery-1.8.2.js" type="text/javascript"></script>
+	<script src="js/jquery-1.8.2.min.js" type="text/javascript"></script>
+    <script src="js/jquery-1.8.3.js" type="text/javascript"></script>
+    <script type="text/javascript" src="http://ecn.dev.virtualearth.net/mapcontrol/mapcontrol.ashx?v=7.0"></script>
+  	<script type='text/javascript' src='js/jquery-1.7.1.js'></script>
+   	<script type='text/javascript' src='https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js'></script>
+  	<script type="text/javascript" src="js/tinybox.js"></script>
+    
+    <script type="text/javascript" src="js/map2.js"></script>
+  
+  <style type='text/css'>
+    html, body {
+	
+	margin: 0;
+	padding: 0;
+	width: 100%;
+	height: 100%;
+	overflow:hidden;
+	font-family:"Segoe UI","Segoe UI Web Regular","Segoe UI Symbol","Helvetica Neue","BBAlpha Sans","S60 Sans",Arial,"sans-serif";
+}
+
+.main-container
+    {
+		
+        width:100%;
+		height:100%;
+        overflow:hidden;
+    }
+    .left-section{
+        position:relative;
+        width: 300px;
+        height:100%;
+        float: left;
+        left:0px;
+		color:#FFFFFF;
+		overflow:hidden;
+		display:inline;
+		z-index:10;
+		
+    }
+	.left-section .contentx {
+	padding-top: 10px;
+	padding-left:10px;
+    float:left;
+    width:270px;
+    height:100%;
+	background:#bada55;
+}
+
+.left-section .tab {
+    cursor:pointer;
+    float:right;
+    width:20px;
+    height:100%;
+	background-image:url(images/VmenuRec.png);
+	background-repeat:no-repeat;
+	box-shadow: 1px 0px 3px #888888;
+	background-color:#bada55;
+	
+}
+
+.left-section .tab: hover{
+opacity:0.9;
+}
+	
+	
+    .right-section
+    {
+	position:absolute;
+	height:100%;
+	background-color:#333;
+	left:299px;
+	z-index:10;
+    }
+	
+	  #sidebox {
+	float:left;
+	position:absolute;
+	left:-1px;
+	top:0px;
+	width:315px;
+	height:98.3%;
+	z-index:10;	
+}
+
+#sidebox .contentx {
+	padding-top: 10px;
+	padding-left:10px;
+    float:left;
+    width:290px;
+    height:100%;
+	box-shadow: 1px 0px 3px #888888;
+	opacity:0.9;
+	background:#bada55;
+	z-index:20;
+}
+
+#sidebox .tab {
+	margin-top:90%;
+    cursor:pointer;
+    float:right;
+    width:15px;
+    height:60px;
+	background-image:url(images/VmenuRec.png);
+	box-shadow: 1px 0px 3px #888888;
+	background-color:#bada55;
+	
+}
+
+.tab: hover{
+background-color:#fff;
+}
+
+
+<!-- topSlider Part-->
+  <style type='text/css'>
+    #userBar {
+    top:0px;
+    width:100%;
+	
+}
+#userBar .content {
+    top:0px;
+    width:100%;
+    height:33px;
+    background:#bada55;
+	box-shadow: 1px 0px 3px #888888;
+	overflow:hidden;
+    z-index:100;
+	
+}
+
+#topSlider {
+    position:absolute;
+    top:-130px;
+    width:100%;
+	z-index:90;
+
+}
+
+#topSlider .content {
+    top:0px;
+	padding-top:1px;
+	padding-bottom:1px;
+    width:100%;
+    background:#333; 
+	opacity:0.9;
+    z-index:40;
+}
+
+
+
+.toggle{
+    cursor:pointer;
+    float:right;
+	padding:3px 4px 3px 4px;
+    -moz-transition: all .5s;
+    -webkit-transition: all .5s;
+    -o-transition: all .5s;
+    transition: all .5s;
+}
+
+.rotate {  
+	cursor:pointer;
+    float:right;
+	padding:0px 0px 0px 4px;
+    -ms-transform: rotate(180deg);
+    -webkit-transform: rotate(180deg);
+    -o-transform: rotate(180deg);
+    -moz-transform: rotate(180deg);
+    transform: rotate(180deg);
+}
+  </style>
+  
+
+
+<script type='text/javascript'>//<![CDATA[ 
+$(window).load(function(){
+
+$(".right-section").width($(window).width()-300);
+$(".right-section").height($(window).height()-30);
+
+
+$('.left-section .tab').toggle(function(){
+    $('.left-section').animate({'left':-140},"slow");
+	$('.right-section').animate({'left':20},"slow");
+	 var nextWidth = $(window).width()-20;
+	$(".right-section").animate({'width':nextWidth},600);
+	
+}, function(){
+    $('.left-section').animate({'left':0},"slow");
+	$('.right-section').animate({'left':299},"slow");
+	var nextWidth = $(window).width()-299;
+	$(".right-section").animate({'width':nextWidth},600);
+
+    
+	
+	
+});
+});//]]>  
+
+</script>
+<script type='text/javascript'>
+
+		$(document).ready(function() {
+		$("#PinItMap").height($(document).height()-40);
+		});
+
+$(window).load(function(){
+$('#userBar .toggle').toggle(function(){
+    $('#topSlider').animate({'top':33});
+    $("#tggleBtn").toggleClass("rotate");
+}, function(){
+    $('#topSlider').animate({'top':-130});
+    $("#tggleBtn").toggleClass("rotate");
+});
+});//]]>  
+
+<!-- BING MAP FUNCTIONS -->
+
+ var map = null;
+      function getMap()
+      {
+        map = new Microsoft.Maps.Map(
+									 document.getElementById('PinItMap'), 
+									 {
+										 credentials: 'AmxdhBs_v4CGLnmLy1BSpfh2wnBLTEdD_NBB6QqF72MN_YnLRzvptDmaLR_RFqVK',
+										 showMapTypeSelector:false,
+										 enableSearchLogo:false,
+										 disableBirdseye:true
+									 }
+									 );
+      }   
+	  
+	  <!-- get current location -->
+	    function getCurrentLocation()
+      {
+        var geoLocationProvider = new Microsoft.Maps.GeoLocationProvider(map); 
+		geoLocationProvider.getCurrentPosition(); 
+		//displayAlert('Current location set, based on your browser support for geo location API');
+      }
+	  
+	  <!-- add static pin -->
+	  function addCustomPushpin()
+      {
+        var pushpinOptions = {icon:'images/pin3.png',width: 19, height: 26};  <!-- width:38, height:51  -->
+        var pushpin= new Microsoft.Maps.Pushpin(map.getCenter(), pushpinOptions);
+        map.entities.push(pushpin);
+      }
+	  
+	  <!-- go to current location -->
+	  function getCenter()
+      {
+        var latlon = map.getCenter();
+        alert('Lat/Long: ' + latlon.latitude +'/' + latlon.longitude);
+      }
+	  function getCenter2()
+      {
+        var latlon = map.getCenter();
+        alert('Lat/Long: ' + latlon.latitude +'/' + latlon.longitude);
+		setInfoBoxLocation(latlon.latitude,latlon.longitude);
+		
+      }
+	  <!-- pin post -->
+	  function pin()
+      {
+        var geoLocationProvider = new Microsoft.Maps.GeoLocationProvider(map); 
+		geoLocationProvider.getCurrentPosition();
+		setTimeout(addCustomPushpin,500);
+		setTimeout(getCenter2,500);
+      }
+	  
+	  <!-- set pin location -->
+	  function updatePushpinLocation()
+      {
+        var pushpin1= new Microsoft.Maps.Pushpin(map.getCenter(), null); 
+        map.entities.push(pushpin1);
+		map.entities.push(new Microsoft.Maps.Infobox(new Microsoft.Maps.Location(2.270000,102.280295), {title: 'London', description: 'description here', pushpin: pushpin1})); 
+        pushpin1.setLocation(new Microsoft.Maps.Location(2.270000,102.280295));
+        //map.setView({zoom: 14, center: new Microsoft.Maps.Location(2.270000,102.280295)});
+		
+		//add-on
+		var pushpin2= new Microsoft.Maps.Pushpin(map.getCenter(), null);
+		map.entities.push(pushpin2);
+		pushpin2.setLocation(new Microsoft.Maps.Location(2.265000,102.282295));
+        //map.setView({zoom: 14, center: new Microsoft.Maps.Location(2.280000,102.280295)});
+        //alert('pushpin location updated'); 
+      }
+	  
+	  <!-- Pinfobox -->
+	  function setInfoBoxLocation(x,y)
+      {
+        //map.entities.clear();         
+        var infoboxOptions = {width :200, height :100, showCloseButton: true, zIndex: 0, offset:new Microsoft.Maps.Point(10,0), showPointer: true,
+							  title:'Your Location',
+							  description:'You are here you dawg!' }; 
+							  
+        var defaultInfobox = new Microsoft.Maps.Infobox(map.getCenter(), infoboxOptions );    
+        map.entities.push(defaultInfobox); 
+        //alert('Now Setting Location'); 
+        defaultInfobox.setLocation(new Microsoft.Maps.Location(x,y));
+      }
+
+<!-- BING MAP FUNCTIONS END -->
+
+  var intervalReposotionNavBar = setInterval(RepositionNavigationElement, 50);
+ 
+    
+
+</script>
+
+    
+    
+    
+    
+</head>
+<body onLoad="getMap();getCurrentLocation();updatePushpinLocation();">
+<!-- Start Drop Down Top Menu-->
+
+<div id="userBar">
+  <div class="userBar content">
+    <div id='tggleBtn' class='toggle'><img src="images/userBar/toggleBtn.png" width="27" height="27"></div>
+    <div class="profile_picture"><img src="images/userBar/profile_picture.jpg" width="27" height="27"></div>
+    <div class="fname" onClick="TINY.box.show({iframe:'userBarContent/profile.html',boxid:'frameless',width:750,height:450,fixed:false,maskid:'bluemask',maskopacity:40,closejs:function(){closeJS()}})"">Zeny Ramli</div>
+    <div class="messaging"><img src="images/userBar/Messaging-Metro.png" width="27" height="27" onClick="TINY.box.show({iframe:'userBarContent/inbox.htm',boxid:'frameless',width:750,height:450,fixed:false,maskid:'bluemask',maskopacity:40,closejs:function(){closeJS()}})""></div>
+    <div class="setting"><img src="images/userBar/Configure-Metro.png" width="27" height="27" onClick="TINY.box.show({iframe:'userBarContent/setting.htm',boxid:'frameless',width:750,height:450,fixed:false,maskid:'bluemask',maskopacity:40,closejs:function(){closeJS()}})"></div>
+    <div class="search"><img src="images/userBar/Search-Metro.png" width="26" height="26" onClick="TINY.box.show({iframe:'userBarContent/search.htm',boxid:'frameless',width:750,height:450,fixed:false,maskid:'bluemask',maskopacity:40,closejs:function(){closeJS()}})"></div>
+  </div>
+</div>
+
+<div id="topSlider">
+<div class="topSlider content">
+  <div id="cssmenu" >
+      <ul>
+        <li> <a href="http://www.facebook.com"><img src="" style="background-image:url(images/Personal80x80.png);width:80px;height:80px;" alt=""></a> </li>
+        <!--
+        <li> <a href="http://www.google.com"><img src="" style="background-image:url(images/Personal80x80.png);width:80px;height:80px;" alt=""></a> </li>
+        <li> <a href="http://www.yahoo.com" target="_top"><img src="" style="background-image:url(images/Personal80x80.png);width:80px;height:80px;" alt=""></a> </li>-->
+      </ul>
+     
+    </div>
+</div>
+</div>
+
+
+
+
+<div class="main-container">
+  <div class="left-section">
+  <div class="left-section tab"></div>
+  <div class="left-section contentx">
+  Left Slider<br>
+welcome to Pin.It
+  </div>
+  </div>
+  <div class="right-section">
+  <div id='PinItMap' ></div>
+  </div>
+</div>
+  
+</body>
+
+
+</html>
+

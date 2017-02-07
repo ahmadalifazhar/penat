@@ -1,0 +1,108 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link href="metro/css/modern.css" rel="stylesheet">
+<link href="metro/css/modern-responsive.css" rel="stylesheet">
+<link href="metro/css/site.css" rel="stylesheet" type="text/css">
+<link href="metro/js/google-code-prettify/prettify.css" rel="stylesheet" type="text/css">
+<link href="metro/js/tinybox/tiny.css" rel="stylesheet" type="text/css">
+<link rel="stylesheet" type="text/css" href="metro/js/player/mediaelementplayer.css" />
+<script type="text/javascript" src="metro/js/assets/jquery-1.9.0.min.js"></script>
+<script type="text/javascript" src="metro/js/assets/jquery.mousewheel.min.js"></script>
+<script type="text/javascript" src="metro/js/assets/moment.js"></script>
+<script type="text/javascript" src="metro/js/assets/moment_langs.js"></script>
+<script type="text/javascript" src="metro/js/modern/dropdown.js"></script>
+<script type="text/javascript" src="metro/js/modern/accordion.js"></script>
+<script type="text/javascript" src="metro/js/modern/buttonset.js"></script>
+<script type="text/javascript" src="metro/js/modern/carousel.js"></script>
+<script type="text/javascript" src="metro/js/modern/input-control.js"></script>
+<script type="text/javascript" src="metro/js/modern/pagecontrol.js"></script>
+<script type="text/javascript" src="metro/js/modern/rating.js"></script>
+<script type="text/javascript" src="metro/js/modern/slider.js"></script>
+<script type="text/javascript" src="metro/js/modern/tile-slider.js"></script>
+<script type="text/javascript" src="metro/js/modern/tile-drag.js"></script>
+<script type="text/javascript" src="metro/js/modern/calendar.js"></script>
+<script type="text/javascript" src="metro/js/tinybox/tinybox.js"></script>
+<script type="text/javascript" src="metro/js/player/mediaelement-and-player.js"></script>
+<script type="text/javascript" src="metro/js/player/audio-player.js"></script>
+<script src="http://malsup.github.com/jquery.form.js"></script>
+<!--<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+-->
+
+<style>
+.progress {
+	position: relative;
+	width: 100%;
+	border: 1px solid #ddd;
+	padding: 1px;
+	border-radius: 3px;
+}
+.bar {
+	background-color: rgb(0, 130, 135);
+	width: 0%;
+	height: 20px;
+	border-radius: 3px;
+}
+.percent {
+	position: absolute;
+	display: inline-block;
+	top: 3px;
+	left: 48%;
+}
+</style>
+<title>Pin __SYSTITLE__</title>
+</head>
+
+<body class="metrouicss">
+<div id="map" style="position:relative; width: 799px; height: 499px"></div>
+            <script type="text/javascript" src="http://dev.virtualearth.net/mapcontrol/mapcontrol.ashx?v=6.2"></script> 
+            <script type="text/javascript">
+  var map;
+  function onchg(lat, lon)
+  {
+    map = new VEMap('map');
+    map.LoadMap(new VELatLong(lat, lon), 15 ,'r' ,false);
+    $("#zoom").val(15);
+    $("#lat").val(lat);
+    $("#long").val(lon);
+    map.AttachEvent("onendzoom",EndZoomHandler);
+	GetLocationInfo(map.GetCenter());
+  }
+  window.onload=function()
+  {
+    map = new VEMap('map');
+    map.LoadMap(new VELatLong(__PLAT__, __PLON__), 15 ,'r' ,false);
+    map.AttachEvent("onendzoom",EndZoomHandler);
+  }
+
+  function EndZoomHandler(e)
+  {
+  }
+
+  function ClickHandler(e)
+  {
+    var latlng = map.PixelToLatLong(new VEPixel(e.mapX, e.mapY));
+    GetLocationInfo(latlng);
+  }
+
+  function GetLocationInfo(latlng)
+  {
+    // add pushpin
+    map.DeleteAllShapes();
+    var shape = new VEShape(VEShapeType.Pushpin, latlng);
+    map.AddShape(shape);
+
+  }
+</script> 
+</div>
+<script>
+//<![CDATA[ 
+$(window).load(function(){
+	//Now ONLOAD HOYEH
+	GetLocationInfo(map.GetCenter());
+});//]]> 
+
+</script>
+</body>
+</html>

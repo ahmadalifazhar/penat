@@ -1,0 +1,31 @@
+<form name="form1" method="post" action="">
+  <p>
+    <input type="hidden" name="a1" id="a1" value="<?php echo base64_encode($_POST[auname]);?>"/>
+    <input type="hidden" name="a2" id="a2"  value="<?php echo base64_encode($_POST[aemail]);?>"/>
+    <input type="hidden" name="a3" id="a3"  value="<?php echo base64_encode($_POST[afname]);?>"/>
+    <input type="hidden" name="a4" id="a4"  value="<?php echo base64_encode($_POST[alname]);?>"/>
+  </p>
+  <p>Password:
+    <input type="password" name="apwd1" id="apwd1" />
+  </p>
+  <p>Prompt Password:
+    <input type="password" name="apwd2" id="apwd2" />
+  </p>
+  <p>Secret Question:  
+    <select name="asq" id="asq">
+    <?php
+	$asqq = mysql_query("SELECT * FROM questions");
+	while ($asqr = mysql_fetch_array($asqq))
+	{
+	?>
+    <option value="<?php echo $asqr[asq];?>"><?php echo $asqr[asqtext];?></option>
+    <?php } ?>
+    </select>
+  </p>
+  <p>Secret Answer:  
+    <input type="text" name="asa" id="asa">
+  </p>
+  <p>
+    <input type="submit" name="opchk" id="opchk" value="Register">
+  </p>
+</form>

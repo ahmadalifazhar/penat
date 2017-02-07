@@ -1,0 +1,117 @@
+
+<?php
+ob_start();
+?>
+      <form name="pinitpost" method="post" action="?op=home">
+       <input type="hidden" name="lat" id="latid">
+       <input type="hidden" name="lon" id="lonid">
+      <p>
+          <textarea name="msg" id="msg" cols="28" rows="5" style="resize:vertical"></textarea>
+        </p>
+        <p>
+          <input type="submit" name="opchk" id="opchk" value="PinIt!">
+        </p>
+      </form>
+    <p><strong>Newsfeeds</strong>    </p>
+    <table width=100% border=0>
+      <?php
+	foreach($newsfeedrDB as $newsfeedr)
+	{
+		
+	if (file_exists("./images/uploaded_images/resized/".$newsfeedr[apic].".jpg"))
+		$pic = "./images/uploaded_images/resized/".$newsfeedr[apic].".jpg";
+	else
+		$pic = "./images/nopic.jpg";
+	?>
+      <tr><td><img width=28 height=28 src="<?php echo $pic;?>"> <?php echo $newsfeedr[afname];?> <?php echo $newsfeedr[alname];?></td><td><?php echo $newsfeedr[ptext];?></td></tr>
+    <tr><td width=30%></td><td width=70%>
+    <?php
+	$num = 0;
+	$enableLike = true;
+	$likeq = mysql_query("SELECT * FROM likes WHERE target=".$newsfeedr[pid]);
+	while ($likerow = mysql_fetch_array($likeq))
+	{
+		if ($likerow[aid] == $chkid)
+			$enableLike = false;
+		$num++;
+	}
+	if ($num >= 1)
+	{
+	?>
+    <p><i><?php echo $num;?> likes this post</i></p>
+    <?php } ?>
+    <?php
+	$num = 0;
+	$enableDislike = true;
+	$dlikeq = mysql_query("SELECT * FROM dislikes WHERE target=".$newsfeedr[pid]);
+	while ($dlikerow = mysql_fetch_array($dlikeq))
+	{
+		if ($dlikerow[aid] == $chkid)
+			$enableDislike = false;
+		$num++;
+	}
+	if ($num >= 1)
+	{
+	?>
+    <p><i><?php echo $num;?> dislikes this post</i></p>
+    <?php } ?>
+      <form id="form2" name="form2" method="post" action="">
+      <input type=hidden name=pid value="<?php echo $newsfeedr[pid];?>" />
+      <input type=hidden name=aid value="<?php echo $newsfeedr[aid];?>" />
+<table width=100%>
+<?php
+$commentq = mysql_query("SELECT * FROM posts, accounts WHERE posts.proot=".$newsfeedr[pid]." AND accounts.aid=posts.aid ORDER BY posts.pid ASC");
+while ($commentr = mysql_fetch_array($commentq))
+{
+	if (file_exists("./images/uploaded_images/resized/".$commentr[apic].".jpg"))
+		$cpic = "./images/uploaded_images/resized/".$commentr[apic].".jpg";
+	else
+		$cpic = "./images/nopic.jpg";
+	?>
+<tr>
+<td width=30%><img width=50 height=55 src="<?php echo $cpic;?>"><BR /><?php echo $commentr[afname];?> <?php echo $commentr[alname];?></td>
+<td width=70%><?php echo $commentr[ptext];?></td>
+</tr>
+<?php
+}
+?>
+</table>
+<div id="adiv<?php echo $newsfeedr[pid];?>" style="font:24px bold; display: block">
+
+          <p>
+          <?php if ($enableLike) { ?>
+            <input type="submit" name="opchk" id="opchk" value="PinLike!" />
+            <?php } else {?>
+            <input type="submit" name="opchk" id="opchk" value="UnPinLike!" />
+            <?php } ?>
+          <?php if ($enableDislike) { ?>
+            <input type="submit" name="opchk" id="opchk" value="PinDislike!" />
+            <?php } else {?>
+            <input type="submit" name="opchk" id="opchk" value="UnPinDislike!" />
+            <?php } ?>
+            <a href="javascript:hideshow(document.getElementById('adiv<?php echo $newsfeedr[pid];?>'),document.getElementById('bdiv<?php echo $newsfeedr[pid];?>'))"><input type="button" name="opchk" id="opchk" value="PinReply!" /></a>
+          </p></div>
+<div id="bdiv<?php echo $newsfeedr[pid];?>" style="font:24px bold; display: none">
+
+        <p>
+          <textarea name="msg" id="msg" rows="5" onMouseOut="javascript:hideshow(document.getElementById('adiv<?php echo $newsfeedr[pid];?>'),document.getElementById('bdiv<?php echo $newsfeedr[pid];?>')"></textarea>
+          </p>
+          <p>
+          <?php if ($enableLike) { ?>
+            <input type="submit" name="opchk" id="opchk" value="PinLike!" />
+            <?php } else { ?>
+            <input type="submit" name="opchk" id="opchk" value="UnPinLike!" />
+            <?php } ?>
+          <?php if ($enableDislike) { ?>
+            <input type="submit" name="opchk" id="opchk" value="PinDislike!" />
+            <?php } else { ?>
+            <input type="submit" name="opchk" id="opchk" value="UnPinDislike!" />
+            <?php } ?>
+            <input type="submit" name="opchk" id="opchk2" value="PinReply!" />
+          </p></div>
+        </form>
+        <p>&nbsp;</p></td></tr>
+    <tr><td colspan=2></td></tr>
+    <?php } ?>
+</table>
+<?php $leftside = ob_get_clean();?>

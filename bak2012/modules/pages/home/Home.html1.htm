@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<title>Pin.It</title>
+<!-- stylesheet-->
+<link rel="stylesheet" type="text/css" href="css/stylee.css"   />
+<link rel="stylesheet" type="text/css" href="css/feeds_style.css"   />
+<link rel="stylesheet" type="text/css" href="css/tiny_style.css" />
+<link href="metro/css/modern.css" rel="stylesheet">
+<link href="metro/css/modern-responsive.css" rel="stylesheet">
+<link href="metro/css/site.css" rel="stylesheet" type="text/css">
+<link href="metro/js/google-code-prettify/prettify.css" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="metro/js/assets/jquery-1.9.0.min.js"></script>
+<script type="text/javascript" src="metro/js/assets/jquery.mousewheel.min.js"></script>
+<script type="text/javascript" src="metro/js/assets/moment.js"></script>
+<script type="text/javascript" src="metro/js/assets/moment_langs.js"></script>
+<script type="text/javascript" src="metro/js/modern/dropdown.js"></script>
+<script type="text/javascript" src="metro/js/modern/accordion.js"></script>
+<script type="text/javascript" src="metro/js/modern/buttonset.js"></script>
+<script type="text/javascript" src="metro/js/modern/carousel.js"></script>
+<script type="text/javascript" src="metro/js/modern/input-control.js"></script>
+<script type="text/javascript" src="metro/js/modern/pagecontrol.js"></script>
+<script type="text/javascript" src="metro/js/modern/rating.js"></script>
+<script type="text/javascript" src="metro/js/modern/slider.js"></script>
+<script type="text/javascript" src="metro/js/modern/tile-slider.js"></script>
+<script type="text/javascript" src="metro/js/modern/tile-drag.js"></script>
+<script type="text/javascript" src="metro/js/modern/calendar.js"></script>
+<script src="js/jquery-1.8.3.js" type="text/javascript"></script>
+<script type="text/javascript" src="js/tinybox.js"></script>
+<script type="text/javascript" src="http://ecn.dev.virtualearth.net/mapcontrol/mapcontrol.ashx?v=7.0"></script>
+<!--<script type="text/javascript" src="js/mapfix.alif.20130426.js"></script>
+-->
+<script type="text/javascript" src="js/mapfix.20130503c.js"></script>
+
+
+<script type="text/javascript">
+
+var chkComment = true;
+
+function hideshow(which, and){
+if (!document.getElementById)
+return
+
+__DIVPOSTS__
+
+if (which.style.display=="block")
+which.style.display="none";
+else
+{
+	which.style.display="block";
+}
+if (and.style.display=="block")
+and.style.display="none";
+else
+{
+	chkComment = false;
+	and.style.display="block";
+}
+}
+
+function hideshowpin(which){
+if (!document.getElementById)
+return
+
+if (which.style.display=="block")
+which.style.display="none";
+else
+{
+	document.getElementById("pinitFC11").style.display="none";
+	document.getElementById("pinitFC12").style.display="none";
+	document.getElementById("pinitFC13").style.display="none";
+	document.getElementById("pinitFC14").style.display="none";
+	document.getElementById("pinitFC15").style.display="none";
+	document.getElementById("pinitFC16").style.display="none";
+	document.getElementById("pinitFC17").style.display="none";
+	which.style.display="block";
+}
+}
+</script>
+<script type="text/javascript">
+
+<!-- set pin location -->
+function pushpin()
+{
+	//alert("hello");
+	
+	var i = null;
+	var tid = new Array();
+	var title = new Array();
+	var descript = new Array();
+	var latitude = new Array();
+	var longitude = new Array();
+	var pushpin = new Array();
+	
+	//Marhazli
+	// Traffics/Transportation (0-7)
+	var ppFC = new Array();
+	var maxFC = 7;
+	for (var numFC = 0; numFC <= maxFC; numFC++)
+	{
+		ppFC[numFC]		= new Array();
+		ppFC[numFC][0]	= null; //i
+		ppFC[numFC][1]	= new Array(); //tid
+		ppFC[numFC][2]	= new Array(); //title
+		ppFC[numFC][3]	= new Array(); //desc
+		ppFC[numFC][4]	= new Array(); //lat
+		ppFC[numFC][5]	= new Array(); //lon
+		ppFC[numFC][6]	= new Array(); //pushpin
+	}
+	
+	__PUSHPIN__
+	
+	
+	Microsoft.Maps.loadModule('Microsoft.Maps.Themes.BingTheme', { callback: function() { 
+	for(var x = 0; x < i ; x++)
+	{
+	pushpin[x]= new Microsoft.Maps.Pushpin(map.getCenter(), pushpinOptions); 
+	map.entities.push(pushpin[x]);
+	var infoboxOption = {title: title[x], description: descript[x], pushpin: pushpin[x],};
+	map.entities.push(new Microsoft.Maps.Infobox(new Microsoft.Maps.Location(latitude[x],longitude[x]),infoboxOption)); 
+	pushpin[x].setLocation(new Microsoft.Maps.Location(latitude[x],longitude[x]));
+	}
+	//Marhazli
+	for (var numFC = 0; numFC <= maxFC; numFC++)
+	{
+		for(var x = 0; x < ppFC[numFC][0] ; x++)
+		{
+			ppFC[numFC][6][x]= new Microsoft.Maps.Pushpin(map.getCenter(), pushpinOptionsFC[numFC]); 
+			map.entities.push(ppFC[numFC][6][x]);
+			var infoboxOption = {title: ppFC[numFC][2][x], description: ppFC[numFC][3][x], pushpin: ppFC[numFC][6][x],};
+			map.entities.push(new Microsoft.Maps.Infobox(new Microsoft.Maps.Location(ppFC[numFC][4][x],ppFC[numFC][5][x]),infoboxOption)); 
+			ppFC[numFC][6][x].setLocation(new Microsoft.Maps.Location(ppFC[numFC][4][x],ppFC[numFC][5][x]));
+		}
+	}
+	}});
+	
+	
+	
+	
+}
+
+</script>
+<script type='text/javascript'>//<![CDATA[ 
+<!-- JS for left slider menu and auto resize map width (alif)-->
+$(window).load(function(){
+$(".right-section").width($(window).width()-300);
+$(".right-section").height($(window).height()-30);
+
+
+$('.left-section .tab').toggle(function(){
+    $('.left-section').animate({'left':-140},"slow");
+	$('.right-section').animate({'left':20},"slow");
+	 var nextWidth = $(window).width()-20;
+	$(".right-section").animate({'width':nextWidth},600);
+	
+}, function(){
+    $('.left-section').animate({'left':0},"slow");
+	$('.right-section').animate({'left':299},"slow");
+	var nextWidth = $(window).width()-299;
+	$(".right-section").animate({'width':nextWidth},600);
+});
+});//]]>  
+
+//function to reset map size(right-section) if user change windows size
+$(window).resize(function() {
+  $(".right-section").width($(window).width()-300);
+$(".right-section").height($(window).height()-30);
+});
+<!-- End JS for left slider menu and auto resize map width-->
+</script>
+<script type='text/javascript'>
+		
+/*set map height 100%-40%, 40 for top bar menu
+$(document).ready(function() {
+$("#PinItMap").height($(document).height()-90);
+});*/
+
+//js for toggle button for calling top slider menu, and rotate icon by calling .rotate CSS class
+$(window).load(function(){
+$('#userBar .toggle').toggle(function(){
+    $('#topSlider').animate({'top':33});
+    $("#tggleBtn").toggleClass("rotate");
+}, function(){
+    $('#topSlider').animate({'top':-139});
+    $("#tggleBtn").toggleClass("rotate");
+});
+});//]]> 
+
+function logout()
+{
+	window.location = "?op=logout";
+}
+function homepage()
+{
+	window.location = "?op=home";
+}
+	
+	
+</script>
+</head>
+<body onLoad="getMap();pushpin();" >
+<!-- Start Drop Down Top Menu   -->
+<div id="userBar">
+  <div class="userBar content">
+    <div id='tggleBtn' class='toggle'><img src="images/userBar/toggleBtn.png" width="27" height="27"></div>
+    <div class="profile_picture"><a href="?op=home"><img src="__MYPIC__" width="27" height="27"></a></div>
+    <div class="metrouicss fname">
+     <div class="toolbar" style="float:right; padding-left:7px">
+        <button class="mini bg-color-blue fg-color-white" onClick="homepage();"><i class="icon-home"></i></button>
+        <button class="mini bg-color-blue fg-color-white" onClick="TINY.box.show({iframe:'?op=inbox',boxid:'frameless',width:750,height:450,fixed:false,maskid:'bluemask',maskopacity:40,closejs:function(){closeJS()}})"><i class="icon-newspaper"></i></button>
+        <button class="mini bg-color-blue fg-color-white" onClick="TINY.box.show({iframe:'?op=friends',boxid:'frameless',width:750,height:450,fixed:false,maskid:'bluemask',maskopacity:40,closejs:function(){closeJS()}})"><i class="icon-search"></i></button>
+        <button class="mini bg-color-blue fg-color-white" onClick="TINY.box.show({iframe:'?op=setting',boxid:'frameless',width:750,height:450,fixed:false,maskid:'bluemask',maskopacity:40,closejs:function(){closeJS()}})"><i class="icon-wrench"></i></button>
+        <button class="mini bg-color-blue fg-color-white" onClick="logout();"><i class="icon-forward"></i>Logout</button>
+      </div><span style="color:white;">Howdy,</span> <a href="#" onClick="TINY.box.show({iframe:'?op=profile',boxid:'frameless',width:750,height:450,fixed:false,maskid:'bluemask',maskopacity:40,closejs:function(){closeJS()}})">__AFNAME__ __ALNAME__</a>
+     
+    </div>
+    
+    <!--  <div class="messaging"><img src="images/userBar/Messaging-Metro.png" width="27" height="27" onClick="TINY.box.show({iframe:'?op=inbox',boxid:'frameless',width:750,height:450,fixed:false,maskid:'bluemask',maskopacity:40,closejs:function(){closeJS()}})"></div>
+    <div class="setting"><img src="images/userBar/Configure-Metro.png" width="27" height="27" onClick="TINY.box.show({iframe:'?op=setting',boxid:'frameless',width:750,height:450,fixed:false,maskid:'bluemask',maskopacity:40,closejs:function(){closeJS()}})"></div>
+    <div class="search"><img src="images/userBar/Search-Metro.png" width="26" height="26" onClick="TINY.box.show({iframe:'?op=friends',boxid:'frameless',width:750,height:450,fixed:false,maskid:'bluemask',maskopacity:40,closejs:function(){closeJS()}})"></div>--> 
+    
+  </div>
+</div>
+<div id="topSlider" style="top:-139px">
+  <div class="topSlider content"  style="padding-top:10px; padding-left:10px" >
+    <div class="metrouicss">
+      <div class="tile image outline-color-green">
+        <div class="tile-content"> <img src="__MYPIC__" alt="" />
+          <div class="brand">
+            <div class="name">Profile</div>
+          </div>
+        </div>
+      </div>
+    <div class="tile image outline-color-green">
+        <div class="tile-content"> <img src="images/job.jpg" alt="" />
+          <div class="brand">
+            <div class="name">Jobs</div>
+          </div>
+        </div>
+      </div>
+    <div class="tile image outline-color-green">
+        <div class="tile-content"> <img src="images/entertainment.jpg" alt="" />
+          <div class="brand">
+            <div class="name">Entertainment</div>
+          </div>
+        </div>
+      </div>
+    <div class="tile image outline-color-green">
+        <div class="tile-content"> <img src="images/transportation.png" alt="" />
+          <div class="brand">
+            <div class="name">Transportation</div>
+          </div>
+        </div>
+      </div>
+    <div class="tile image outline-color-green">
+        <div class="tile-content"> <img src="images/clouds.png" alt="" />
+          <div class="brand">
+            <div class="name">Pin-cloud Storage</div>
+          </div>
+        </div>
+      </div>
+      <!-- <ul>
+<li> <a href="http://www.facebook.com"><img src="" style="background-image:url(images/Personal80x80.png);width:80px;height:80px;" alt=""></a> </li>
+        
+        <li> <a href="http://www.google.com"><img src="" style="background-image:url(images/Personal80x80.png);width:80px;height:80px;" alt=""></a> </li>
+        <li> <a href="http://www.yahoo.com" target="_top"><img src="" style="background-image:url(images/Personal80x80.png);width:80px;height:80px;" alt=""></a> </li>
+        
+        <li><a href="?op=home">HOME</a></li>
+        <li><a href="?op=profile">PROFILE</a></li>
+        <li><a href="?op=account/friends">FRIENDS</a></li>
+        <li><a href="?op=account/settings">SETTINGS</a></li>
+      </ul>--> 
+    </div>
+  </div>
+</div>
+<div class="main-container">
+  <div class="left-section">
+    <div class="left-section tab"></div>
+    <div class="left-section contentx" style="overflow:scroll;scrollbar-base-color:#bada55;scrollbar-arrow-color:#333;">
+      <div> _LEFTSIDE_ </div>
+    </div>
+  </div>
+  <div class="right-section">
+    <ul id="popupmenu" class="pmenu">
+      <li><a href="#" onclick='' class="parent">Write Pin at This Location</a>
+        <ul class="pmenu" style="width:270px">
+          <div align="center">
+            <form name="pinitpost2" method="post" action="?op=home">
+              <input type="hidden" name="latUserDefine" id="latidUserDefine">
+              <input type="hidden" name="lonUserDefine" id="lonidUserDefine">
+              <input type="hidden" name="locnameUserDefine" id="locnameidUserDefine">
+              <p>
+                <textarea name="msg" id="msg" cols="30" rows="5" style="resize:vertical"></textarea>
+              </p>
+              <p> 
+                <!-- <input type="radio" name="ptype" value="1">Jobs<br /> 
+		<input type="radio" name="ptype" value="2">Trades<br /> 
+        <input type="radio" name="ptype" value="3">Promotions<br /> 
+        <input type="radio" name="ptype" value="4">Entertainments<br />   -->
+        <table width=100% border=0>
+<tr>
+<td width=33% valign="top" style="font:Tahoma 12px bold">
+<input type="radio" name="pcat" value="0" onClick="hideshowpin(document.getElementById('pinitFC10'));" checked=checked >Pinit</td>
+<td width=34% valign="top" style="font:Tahoma 12px bold">
+<input type="radio" name="pcat" value="1100" onClick="hideshowpin(document.getElementById('pinitFC11'));">Jobs
+</td>
+<td width=33% valign="top" style="font:Tahoma 12px bold">
+<input type="radio" name="pcat" value="1200" onClick="hideshowpin(document.getElementById('pinitFC12'));">Fun
+</td>
+</tr>
+<tr>
+<td width=33% valign="top" style="font:Tahoma 12px bold"> 
+<input type="radio" name="pcat" value="1300" onClick="hideshowpin(document.getElementById('pinitFC13'));">Traffics 
+</td>
+<td width=34% valign="top" style="font:Tahoma 12px bold">
+<input type="radio" name="pcat" value="1400" onClick="hideshowpin(document.getElementById('pinitFC14'));">Cloud
+</td>
+<td width=33% valign="top" style="font:Tahoma 12px bold">
+<input type="radio" name="pcat" value="1500" onClick="hideshowpin(document.getElementById('pinitFC15'));">Education
+</td>
+</tr>
+<tr>
+<td width=33% valign="top" style="font:Tahoma 12px bold">
+<input type="radio" name="pcat" value="1600" onClick="hideshowpin(document.getElementById('pinitFC16'));">Trades
+</td>
+<td width=34% valign="top" style="font:Tahoma 12px bold">
+<input type="radio" name="pcat" value="1700" onClick="hideshowpin(document.getElementById('pinitFC17'));">Shopping
+</td>
+<td width=33% valign="top" style="font:Tahoma 12px bold">
+</td>
+</tr>
+</table>
+                <hr>
+                <div id="pinitFC10" style="font:10px; display: none; margin-top:20px;">
+        		</div>
+                <div id="pinitFC11" style="font:10px; display: none; margin-top:20px;">
+        		</div>
+                <div id="pinitFC12" style="font:10px; display: none; margin-top:20px;">
+        		</div>
+                <div id="pinitFC13" style="font:10px; display: none; margin-top:20px;">
+	                <input type="radio" name="pcat" value="1301">Light Traffics<br /> 
+                    <input type="radio" name="pcat" value="1302">Medium Traffics<br /> 
+                    <input type="radio" name="pcat" value="1303">Heavy Traffics<br /> 
+                    <input type="radio" name="pcat" value="1304">Speed Traps/Road Blocks<br /> 
+                    <input type="radio" name="pcat" value="1305">Accidents<br /> 
+                    <input type="radio" name="pcat" value="1306">Vehicles Stopped By<br />
+                    <input type="radio" name="pcat" value="1307">Activities<br />
+        		</div>
+                <div id="pinitFC14" style="font:10px; display: none; margin-top:20px;">
+        		</div>
+                <div id="pinitFC15" style="font:10px; display: none; margin-top:20px;">
+        		</div>
+                <div id="pinitFC16" style="font:10px; display: none; margin-top:20px;">
+        		</div>
+                <div id="pinitFC17" style="font:10px; display: none; margin-top:20px;">
+        		</div>
+                <input type="submit" name="opchk" id="opchk" value="PinIt Here!">
+              </p>
+            </form>
+          </div>
+        </ul>
+      </li>
+      <li><a href="#" onClick="pinPost();hidePopupMenu()">Pin It!</a></li>
+      <li><a href="#" onClick="ZoomIn();hidePopupMenu()">Zoom In</a></li>
+      <li><a href="#" onClick="ZoomOut();hidePopupMenu()">Zoom Out</a></li>
+      <li><a href="#" onclick='' class="parent">Switch View</a>
+        <ul class="pmenu">
+          <li><a href="#" 
+      onclick="setMapType('aerial');hidePopupMenu()">Aerial</a></li>
+          <li><a href="#" 
+      onclick="setMapType('road');hidePopupMenu()">Road</a></li>
+          <li><a href="#" 
+      onclick="setMapType('birdseye');hidePopupMenu()">Birdseye</a></li>
+        </ul>
+      </li>
+      <li><a href="#" onClick="javascript:alert('Map is centered on:  ' + map.getCenter());hidePopupMenu();">Point coordinates</a></li>
+    </ul>
+    <div id='PinItMap' style="width:100%; height:400px" oncontextmenu = "return false"></div>
+  </div>
+</div>
+<script type="text/javascript">
+// jQuery Document
+// Marhazk -custom NEWSFEEDS
+$(document).ready(function(){
+	//If user submits the form
+	
+	$("#opchkpinit").click(function(){	
+		var val1 = $("#latid").val();
+		var val2 = $("#lonid").val();
+		var val3 = $("#locnameid").val();
+		var val4 = $("#msgpinit").val();
+		$.post("http://www.pinit.uni.me/?op=home&ajax=1", {lat: val1, lon: val2, locname: val3, msg: val4});
+		$("#msgpinit").attr("value", "");
+		//alert('MSG SENT');
+		return false;
+	});
+	
+	//Load the file containing the chat log
+	function loadLog(){		
+		if (chkComment)
+		{
+			//var oldscrollHeight = $("#newsfeeds").attr("scrollHeight") - 20;
+			$.ajax({
+				url: "http://www.pinit.uni.me/?op=home&ajax=1",
+				cache: false,
+				success: function(html){		
+					$("#newsfeeds").html(html); //Insert chat log into the #chatbox div				
+					//var newscrollHeight = $("#newsfeeds").attr("scrollHeight") - 20;
+					//if(newscrollHeight > oldscrollHeight){
+					//	$("#newsfeeds").animate({ scrollTop: newscrollHeight }, 'normal'); //Autoscroll to bottom of div
+					//}				
+				},
+			});
+		}
+	}
+	setInterval (loadLog, 2500);	//Reload file every 2.5 seconds
+	
+	//If user wants to end session
+});
+</script>
+</body>
+</html>

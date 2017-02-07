@@ -1,0 +1,332 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>Pin.It</title>
+  
+  <link rel="stylesheet" type="text/css" href="css/style.css"   />
+ 	<link rel="stylesheet" type="text/css" href="css/tiny_style.css" />
+    
+    <script src="js/jquery-1.8.2.js" type="text/javascript"></script>
+	<script src="js/jquery-1.8.2.min.js" type="text/javascript"></script>
+    <script src="js/jquery-1.8.3.js" type="text/javascript"></script>
+    <script type="text/javascript" src="http://ecn.dev.virtualearth.net/mapcontrol/mapcontrol.ashx?v=7.0"></script>
+  	<script type='text/javascript' src='js/jquery-1.7.1.js'></script>
+   	<script type='text/javascript' src='https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js'></script>
+  	<script type="text/javascript" src="js/tinybox.js"></script>
+    
+    <script type="text/javascript" src="js/map2.js"></script>
+  
+  <style type='text/css'>
+    html, body {
+	
+	margin: 0;
+	padding: 0;
+	width: 100%;
+	height: 100%;
+	overflow:hidden;
+	font-family:"Segoe UI","Segoe UI Web Regular","Segoe UI Symbol","Helvetica Neue","BBAlpha Sans","S60 Sans",Arial,"sans-serif";
+}
+
+.main-container
+    {
+		
+        width:100%;
+		height:100%;
+        overflow:hidden;
+    }
+    .left-section{
+        position:relative;
+        width: 300px;
+        height:100%;
+        float: left;
+        left:0px;
+		color:#FFFFFF;
+		overflow:hidden;
+		display:inline;
+		z-index:10;
+		
+    }
+	.left-section .contentx {
+	padding-top: 10px;
+	padding-left:10px;
+    float:left;
+    width:270px;
+    height:100%;
+	background:#bada55;
+}
+
+.left-section .tab {
+    cursor:pointer;
+    float:right;
+    width:20px;
+    height:100%;
+	background-image:url(images/VmenuRec.png);
+	background-repeat:no-repeat;
+	box-shadow: 1px 0px 3px #888888;
+	background-color:#bada55;
+	
+}
+
+.left-section .tab: hover{
+opacity:0.9;
+}
+	
+	
+    .right-section
+    {
+	position:absolute;
+	height:100%;
+	background-color:#333;
+	left:299px;
+	z-index:10;
+    }
+
+.tab: hover{
+background-color:#fff;
+}
+
+
+<!-- topSlider Part-->
+  <style type='text/css'>
+    #userBar {
+    top:0px;
+    width:100%;
+	
+}
+#userBar .content {
+    top:0px;
+    width:100%;
+    height:33px;
+    background:#bada55;
+	box-shadow: 1px 0px 3px #888888;
+	overflow:hidden;
+    z-index:100;
+	
+}
+
+#topSlider {
+    position:absolute;
+    top:-130px;
+    width:100%;
+	z-index:90;
+
+}
+
+#topSlider .content {
+    top:0px;
+	padding-top:1px;
+	padding-bottom:1px;
+    width:100%;
+    background:#333; 
+	opacity:0.9;
+    z-index:40;
+}
+
+
+
+.toggle{
+    cursor:pointer;
+    float:right;
+	padding:3px 4px 3px 4px;
+    -moz-transition: all .5s;
+    -webkit-transition: all .5s;
+    -o-transition: all .5s;
+    transition: all .5s;
+}
+
+.rotate {  
+	cursor:pointer;
+    float:right;
+	padding:0px 0px 0px 4px;
+    -ms-transform: rotate(180deg);
+    -webkit-transform: rotate(180deg);
+    -o-transform: rotate(180deg);
+    -moz-transform: rotate(180deg);
+    transform: rotate(180deg);
+}
+
+
+<!-- Start CSS for Context Menu (alif)-->
+
+ul, li{margin:0;padding:0;}
+
+ul.pmenu {
+        position:absolute;
+        margin: 0;
+        padding: 1px;
+        list-style: none;
+        width: 150px; /* Width of Menu Items */
+        border: 1px solid #ccc;
+        background:white;
+        display:none;
+		left:auto;
+		top:auto;
+        z-index:10;
+}
+
+ul.pmenu li {
+         position: relative;
+}
+
+ul.pmenu li ul {
+         position: absolute;
+         left: 150px; /* Set 1px less than menu width */
+         top: 0;
+         display: none;
+         z-index:10;
+}
+
+/* Styles for Menu Items */
+ul.pmenu li a {
+         display: block;
+         text-decoration: none;
+         color: black;
+         padding: 2px 5px 2px 20px;
+}
+
+ul.pmenu li a:hover {
+    background:#335EA8;
+    color:white;
+}
+
+ul.pmenu li a.parent {
+    background:url('drop_down_triangle.gif') no-repeat 140px 4px; 
+}
+ul.pmenu li a.parent:hover {
+    background:#335EA8 url('drop_down_triangle_hover.gif') no-repeat 140px 4px;
+}
+
+/* IE \*/
+* html ul.pmenu li { float: left; height: 1%; }
+* html ul.pmenu li a { height: 1%; }
+* html ul.pmenu li ul {left:147px;}
+/* End */
+
+ul.pmenu li:hover ul, ul.pmenu li.over ul { display: block; } /* The magic */
+ul.pmenu li ul{left:150px;}
+
+<!-- End CSS for context menu (alif)-->
+
+  </style>
+  
+
+
+<script type='text/javascript'>//<![CDATA[ 
+<!-- JS for left slider menu and auto resize map width (alif)-->
+$(window).load(function(){
+$(".right-section").width($(window).width()-300);
+$(".right-section").height($(window).height()-30);
+
+
+$('.left-section .tab').toggle(function(){
+    $('.left-section').animate({'left':-140},"slow");
+	$('.right-section').animate({'left':20},"slow");
+	 var nextWidth = $(window).width()-20;
+	$(".right-section").animate({'width':nextWidth},600);
+	
+}, function(){
+    $('.left-section').animate({'left':0},"slow");
+	$('.right-section').animate({'left':299},"slow");
+	var nextWidth = $(window).width()-299;
+	$(".right-section").animate({'width':nextWidth},600);
+});
+});//]]>  
+
+//function to reset map size(right-section) if user change windows size
+$(window).resize(function() {
+  $(".right-section").width($(window).width()-300);
+$(".right-section").height($(window).height()-30);
+});
+<!-- End JS for left slider menu and auto resize map width-->
+</script>
+
+<script type='text/javascript'>
+		
+/*set map height 100%-40%, 40 for top bar menu
+$(document).ready(function() {
+$("#PinItMap").height($(document).height()-90);
+});*/
+
+//js for toggle button for calling top slider menu, and rotate icon by calling .rotate CSS class
+$(window).load(function(){
+$('#userBar .toggle').toggle(function(){
+    $('#topSlider').animate({'top':33});
+    $("#tggleBtn").toggleClass("rotate");
+}, function(){
+    $('#topSlider').animate({'top':-130});
+    $("#tggleBtn").toggleClass("rotate");
+});
+});//]]> 
+
+</script>
+
+    
+    
+    
+    
+</head>
+<body onLoad="getMap();getCurrentLocation();" oncontextmenu = "return false">
+<!-- Start Drop Down Top Menu-->
+
+<div id="userBar">
+  <div class="userBar content">
+    <div id='tggleBtn' class='toggle'><img src="images/userBar/toggleBtn.png" width="27" height="27"></div>
+    <div class="profile_picture"><img src="images/userBar/profile_picture.jpg" width="27" height="27"></div>
+    <div class="fname" onClick="TINY.box.show({iframe:'userBarContent/profile.html',boxid:'frameless',width:750,height:450,fixed:false,maskid:'bluemask',maskopacity:40,closejs:function(){closeJS()}})"">Zeny Ramli</div>
+    <div class="messaging"><img src="images/userBar/Messaging-Metro.png" width="27" height="27" onClick="TINY.box.show({iframe:'userBarContent/inbox.htm',boxid:'frameless',width:750,height:450,fixed:false,maskid:'bluemask',maskopacity:40,closejs:function(){closeJS()}})""></div>
+    <div class="setting"><img src="images/userBar/Configure-Metro.png" width="27" height="27" onClick="TINY.box.show({iframe:'userBarContent/setting.htm',boxid:'frameless',width:750,height:450,fixed:false,maskid:'bluemask',maskopacity:40,closejs:function(){closeJS()}})"></div>
+    <div class="search"><img src="images/userBar/Search-Metro.png" width="26" height="26" onClick="TINY.box.show({iframe:'userBarContent/search.htm',boxid:'frameless',width:750,height:450,fixed:false,maskid:'bluemask',maskopacity:40,closejs:function(){closeJS()}})"></div>
+  </div>
+</div>
+
+<div id="topSlider">
+<div class="topSlider content">
+  <div id="cssmenu" >
+      <ul>
+        <li> <a href="http://www.facebook.com"><img src="" style="background-image:url(images/Personal80x80.png);width:80px;height:80px;" alt=""></a> </li>
+        <!--
+        <li> <a href="http://www.google.com"><img src="" style="background-image:url(images/Personal80x80.png);width:80px;height:80px;" alt=""></a> </li>
+        <li> <a href="http://www.yahoo.com" target="_top"><img src="" style="background-image:url(images/Personal80x80.png);width:80px;height:80px;" alt=""></a> </li>-->
+      </ul>
+     
+    </div>
+</div>
+</div>
+
+
+
+
+<div class="main-container">
+  <div class="left-section">
+  <div class="left-section tab"></div>
+  <div class="left-section contentx">
+  Left Slider<br>
+welcome to Pin.It
+  </div>
+  </div>
+  <div class="right-section">
+  
+  
+    <ul id="popupmenu" class="pmenu">
+    <li><a href="#" onclick='' class="parent">Switch view</a>
+    <ul class="pmenu">
+      <li><a href="#" onclick="map.SetMapStyle('h');hidePopupMenu()">Hybrid</a></li>
+      <li><a href="#" onclick="map.SetMapStyle('r');hidePopupMenu()">Road</a></li>
+      <li><a href="#" onclick="map.SetMapStyle('a');hidePopupMenu()">Aerial</a></li>
+    </ul>
+    </li>
+      <li><a href="#" onclick="ZoomIn();hidePopupMenu()">Zoom In</a></li>
+      <li><a href="#" onclick="ZoomOut();hidePopupMenu()">Zoom Out</a></li>
+    <li><a href="#" onclick="javascript:alert('Map is centered on:  ' + map.getCenter());hidePopupMenu();">Point coordinates</a></li>
+  </ul>
+  <div id='PinItMap' ></div>
+  </div>
+</div>
+  
+</body>
+
+
+</html>
+

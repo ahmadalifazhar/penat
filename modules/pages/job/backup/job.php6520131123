@@ -1,0 +1,282 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link href="metro/css/modern.css" rel="stylesheet">
+<link href="metro/css/modern-responsive.css" rel="stylesheet">
+<link href="metro/css/site.css" rel="stylesheet" type="text/css">
+<link href="metro/js/google-code-prettify/prettify.css" rel="stylesheet" type="text/css">
+<link href="metro/js/tinybox/tiny.css" rel="stylesheet" type="text/css">
+<link rel="stylesheet" type="text/css" href="metro/js/player/mediaelementplayer.css" />
+<script type="text/javascript" src="metro/js/assets/jquery-1.9.0.min.js"></script>
+<script type="text/javascript" src="metro/js/assets/jquery.mousewheel.min.js"></script>
+<script type="text/javascript" src="metro/js/modern/dropdown.js"></script>
+<script type="text/javascript" src="metro/js/modern/buttonset.js"></script>
+<script type="text/javascript" src="metro/js/modern/input-control.js"></script>
+<script type="text/javascript" src="metro/js/modern/pagecontrol.js"></script>
+<script type="text/javascript" src="metro/js/modern/calendar.js"></script>
+<script type="text/javascript" src="metro/js/tinybox/tinybox.js"></script>
+<script type="text/javascript" src="metro/js/modern/dialog.js"></script>
+
+<script>
+$(document).ready(function(){
+	//function for on hover menu at job title(alif)			   
+     $("#openOption1,#openOption2").mouseover(function () {
+             $("#tdOption1,#tdOption2").slideToggle('fast');		 
+      });
+	 
+	 //function for metro dialog box
+	 $('#postJob').click(function(e) {
+                            $.Dialog({
+                                'title'      : 'Post New Job',
+                                'content'    : '<iframe src="postJob.html" style="width:100%"></iframe>',
+                                'buttons'    : {
+                                    'Post'    : {
+                                        'action': function() {}
+                                    },
+                                    'Cancel'     : {
+                                        'action': function() {}
+                                    }
+                                }
+                            });
+                        });
+
+	
+});
+
+
+</script>
+<script type='text/javascript'>//<![CDATA[ 
+$(window).load(function(){
+$('#wrapper').hover(
+    function(){$('#divOtionMenu').stop().fadeIn(100);},
+    function(){$('#divOtionMenu').stop().fadeOut(100);}
+);
+});//]]>  
+
+
+function resizeIframe(iframe) {
+    iframe.height = iframe.contentWindow.document.body.scrollHeight + "px";
+  }
+</script>
+
+
+<style>
+.progress { position:relative; width:100%; border: 1px solid #ddd; padding: 1px; border-radius: 3px; }
+.bar { background-color: rgb(0, 130, 135); width:0%; height:20px; border-radius: 3px; }
+.percent { position:absolute; display:inline-block; top:3px; left:48%; }
+</style>
+
+<?php 
+$offlineDB = 'config/dbconnect.php';
+
+if (file_exists($offlineDB)) {
+    include("config/dbconnect.php");
+} else {
+
+include "../../config.php";
+include "../../accDB.php";
+include "../../functions.php";
+include "../../mailsys.php";
+include "../account/accounts.sys.php";
+}
+?>
+<title>Pin __SYSNAME__</title>
+</head>
+
+<body class="metrouicss" style="width:100%;height:100%">
+
+<div class="nav-bar bg-color-darken">
+  <div class="nav-bar-inner"> <span class="element">Pin __SYSNAME__ :: _AFNAME_ _ALNAME_</span> <span class="divider"></span>
+    <ul class="menu">
+      <li><a href="?op=home">Pin-It Home</a></li>
+      <li data-role="dropdown"> <a href="#">Others</a>
+        <ul class="dropdown-menu">
+          <li><a href="?op=entertainment">Entertainment</a></li>
+          <li><a href="?op=traffics">Traffics</a></li>
+          <li><a href="?op=cloud">Cloud</a></li>
+          <li><a href="?op=shopping">Shopping Tracker</a></li>
+          <li><a href="?op=trades">Trades</a></li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+</div><br />
+
+<div class="page" style="width:90%">
+  <div class="page-header">
+    <div class="page-header-content">
+      <h1> Welcome, <span class="fg-color-pink">_AFNAME_ _ALNAME_</span>.</h1>
+    </div>
+  </div>
+  <div class="page-region">
+    <div class="page-region-content">
+      <div class="page-control" data-role="page-control" > 
+        <!-- Responsive controls --> 
+        <span class="menu-pull"></span>
+        <div class="menu-pull-bar"></div>
+        <!-- Tabs -->
+        <ul>
+          <li class="active"><a href="#latestJobs">Latest Jobs Post</a></li>
+          <li><a href="#myJobPost">My Job Post</a></li>
+          <li><a href="#postNewJob">Post New Job</a></li>
+          <li class="place-right" title="Setting"><a href="#setting"><i class="icon-cog nrm"></i></a></li>
+        </ul>
+        <!-- Tabs content -->
+        <div class="frames">
+        <!-- Start Latest jobs content div-->
+          <div class="frame active" id="latestJobs">
+          
+          
+          <table>
+          <tr>
+          <td><div class="input-control text" style="width:400px; float:left">
+          <input type="text" id="searchText" placeholder="Enter Job Title" autofocus/>
+          <button class="btn-clear"></button>
+          </div>
+          </td>
+          <td>
+          <div class="input-control select" style="width:400px;">
+        <select name="jobCategory" id="jobCategory" required>
+            <option selected disabled="disabled" value="">--Select Category--</option>
+          <?php    
+          $query_selectCat = "SELECT * FROM category GROUP BY jcat_name ASC ";
+          $array_selectCat=mysql_query($query_selectCat) or die(mysql_error());
+          while($rowCat=mysql_fetch_array($array_selectCat))
+          { ?>
+          <option value="<?php echo $rowCat['jcat_id']; ?>"><?php echo $rowCat['jcat_name']; ?></option>
+          <?php
+          }?>
+        </select>
+    </div>
+    </td>
+          <td>
+<div class="input-control select">
+        <select name="jobCountry" id="jobCountry" required>
+            <option selected disabled="disabled" value="">--Select Country--</option>
+          <?php    
+          $query_selectCountry = "SELECT * FROM country GROUP BY country_name ASC ";
+          $array_selectCountry=mysql_query($query_selectCountry) or die(mysql_error());
+          while($rowCountry=mysql_fetch_array($array_selectCountry))
+          { ?>
+          <option value="<?php echo $rowCountry['country_code']; ?>"><?php echo $rowCountry['country_name']; ?></option>
+          <?php
+          }?>
+        </select>
+    </div>
+          </td>
+          </tr>
+          </table>  
+         <button class="bg-color-blue fg-color-white" onclick="window.open('?op=job&load=postJob', 'Post New Job', 'toolbar=no,resizable=yes,scrollbars=yes,width=800,height=500,left=20,top=20');" title="Post New Job">Post New Job</button>
+          
+            
+<table class="bordered">
+  <tr>
+    <td>
+    <div id="wrapper" style="display: table;">
+    <div id="divTitle" ><a href="#">_JOBTITLE_</a></div>
+    <div id="divOtionMenu" style="display:none">
+    <a href="#" onclick="TINY.box.show({iframe:'?op=job&load=viewMore',boxid:'frameless',width:760,height:400,fixed:false,maskid:'bluemask',maskopacity:40,closejs:function(){window.location.reload()}})" > View Full Post , </a>
+        <a href="#" onclick="TINY.box.show({iframe:'?op=job&load=viewOnMap&latXX=2.308092&lonYY=102.319204',boxid:'frameless',width:760,height:400,fixed:false,maskid:'bluemask',maskopacity:40,closejs:function(){window.location.reload()}})" >View Location , </a>
+         <a href="#" onclick="TINY.box.show({iframe:'?op=job&load=viewRoute&latXX=2.308092&lonYY=102.319204',boxid:'frameless',width:760,height:400,fixed:false,maskid:'bluemask',maskopacity:40,closejs:function(){window.location.reload()}})" > View Route , </a>
+        <a href="#" >  Add To List</a>
+    </div>
+    </div>
+    Category : _CATEGORY_ , Posted at : _POSTDATETIME_ .
+    </td>
+    <td style="width:30%">_COMPANYLOGO_</td>
+  </tr>
+</table>
+
+
+
+            
+            
+          </div>
+          <!-- End Latest jobs content div-->
+          
+          <!-- Start My jobs Posts content div-->
+          <div class="frame" id="myJobPost">
+            
+            <div id="searchJob">
+          <div class="input-control text" style="width:400px;">
+          <input type="text" placeholder="Enter Job Title" autofocus/>
+          <button class="btn-clear"></button>
+          </div>
+          </div>
+            
+<table class="bordered">
+  <tr>
+    <td>
+    _JOBTITLE_<br />
+    _POSTDATETIME_<br />
+    _CATEGORY_<br />
+    <button id="openOption2" class="mini bg-color-blue fg-color-white">Options</button>
+    </td>
+  </tr>
+  
+  <tr >
+    
+    <td id="tdOption2" style="display:none">
+      <button class="mini" onclick="TINY.box.show({iframe:'?op=home&go=jobId',boxid:'frameless',width:760,height:400,fixed:false,maskid:'bluemask',maskopacity:40,closejs:function(){window.location.reload()}})">View Map</button>
+  <a href="?op=home">
+  <button class="mini">View in Pin-It</button></a>
+  <button class="mini" onclick="TINY.box.show({iframe:'?op=job&load=editJob',boxid:'frameless',width:750,height:600,fixed:false,maskid:'bluemask',maskopacity:40,closejs:function(){}})">Edit</button>
+  <button class="mini">Delete</button>
+ </td>
+    
+    </tr>
+   
+</table>
+            
+          </div>
+          <!-- End My jobs Posts content div-->
+          
+          
+           <!-- Start Settings content div-->
+          <div class="frame" id="setting">
+<style>.progress{position:relative;width:100%;border:1px solid #000;padding:1px;border-radius:3px;}.bar{background-color:rgb(70,70,70);width:18.5575%;height:30px;border-radius:3px;}</style>
+<div>
+<fieldset>
+<legend style="color:black;">Cloud Information</legend>
+<div class="progress">
+<div class="bar"></div></div><br/>
+<blockquote>Total upload size: <strong>37.115 MB (18.5575 %)</strong><br/>
+Total remaining size: <strong>162.885 MB (81.4425 %)</strong></blockquote>
+</fieldset>
+</div>
+<div>
+<fieldset>
+<legend style="color:black;">Privacy Settings</legend>
+<blockquote>Privacy setting here</blockquote>
+</fieldset>
+</div>
+<div>
+<fieldset>
+<legend style="color:black;">Need more space?</legend>
+<blockquote>some text here</blockquote>
+</fieldset>
+</div>
+</div>
+          <!-- End Settings content div-->
+          
+          <!-- Start postNewJob content div -->
+          <div class="frame" id="postNewJob">
+          
+           <iframe onload="resizeIframe(this)" src="?op=job&load=postJob" frameborder="0" style="width:100%;"></iframe>
+          
+          </div>
+          <!-- End postNewJob content div -->
+          
+        </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!--<a href="#" onclick="window.open('?op=job&load=viewRoute', 'StatusBar', 'toolbar=yes,resizable=yes,scrollbars=yes,width=500,height=500,left=20,top=20');" title="View More">View More</a>-->
+</body>
+</html>
+
+
+

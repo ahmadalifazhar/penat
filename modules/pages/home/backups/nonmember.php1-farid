@@ -1,0 +1,61 @@
+
+<body style="background-color:black;">
+<div class="gridContainer clearfix" >
+  <div class="contain_baru">
+    <div class="baru" align="center"><img src="images/white.png" width="250" height="100" /></div>
+  </div>
+  <div class="tablealign">
+    <table border="0" align="center" cellpadding="0" cellspacing="0" class="metrouicss">
+      <tr>
+        <td><a href="?op=account/signup">
+          <div class="tile icon bg-color-greenDark">
+            <div class="tile-content" style="top:10%"> <i class="icon-user"></i> </div>
+            <div class="brand"> <span class="name">SIGN UP</span> </div>
+          </div>
+          </a>
+          <div class="tile double image-slider" data-role="tile-slider" data-param-direction="down" data-param-period="6000">
+            <div class="tile-content"> <img src="images/bg2.jpg" width="310" height="150" /> </div>
+            <div class="tile-content"> <img src="images/bg4.jpg" width="310" height="150" /> </div>
+          </div></td>
+      </tr>
+      <tr>
+        <td><div class="tile double image-slider" data-role="tile-slider" data-param-direction="up" data-param-period="6000">
+            <div class="tile-content"> <img src="images/bg1.jpg" width="310" height="150" /> </div>
+            <div class="tile-content"> <img src="images/bg3.jpg" width="310" height="150" /> </div>
+          </div>
+          <a href="?op=account">
+          <div class="tile icon bg-color-blueDark">
+            <div class="tile-content" style="top:10%"> <i class="icon-enter"></i> </div>
+            <div class="brand"> <span class="name">LOGIN</span> </div>
+          </div>
+          </a></td>
+      </tr>
+    </table>
+  </div>
+  <div class="metrouicss" onload="prettyPrint()">
+    <h2 style="color:whitesmoke; text-align:center; text-shadow:
+    -.5px -.5px 0 #000,
+    .5px -.5px 0 #000,
+    -.5px .5px 0 #000,
+    .5px .5px 0 #000;">New Social Network In Town</h2>
+  </div>
+  <div class="metrouicss" onload="prettyPrint()">
+    <h4 style="color:whitesmoke; text-align:center; text-shadow:
+    -.5px -.5px 0 #000,
+    .5px -.5px 0 #000,
+    -.5px .5px 0 #000,
+    .5px .5px 0 #000;"  >Pin every interest in your daily life . Get connected today . Pin everything !</h4>
+  </div>
+  <div class="metrouicss" onload="prettyPrint()">
+    <h6 style="color:whitesmoke; text-align:center; text-shadow:
+    -.5px -.5px 0 #000,
+    .5px -.5px 0 #000,
+    -.5px .5px 0 #000,
+    .5px .5px 0 #000;">Copyright PIN.it (Developed for PSM and Imagine Cup 2013 by Dream Team)</h6>
+  </div>
+</div>
+</body>
+</html>
+
+
+

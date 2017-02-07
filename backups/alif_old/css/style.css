@@ -1,0 +1,86 @@
+
+
+.content {
+	min-height: 100%;
+	position: relative;
+	overflow: auto; 
+}
+<!-- Drop Down Top Menu Start -->
+
+.top_dropper {
+    display: table-cell;
+    padding:4px;
+	cursor:pointer;
+    border: 0px solid #f00;
+	right:4px;
+	width:50px;
+	float:left
+}
+.fname {
+	cursor:pointer;
+    font:15px Segoe UI Semibold;
+	text-decoration:none;
+	padding:7px 4px 1px 3px;
+	float:left
+	
+}
+.profile_picture {
+    display: table-cell;
+    padding:3px 3px 3px 4px;
+    border: 0px solid #f00;
+	width:30px;
+	float:left
+}
+.messaging {
+	cursor:pointer;
+    display: table-cell;
+    padding:4px 0px 4px 4px;
+    border: 0px solid #f00;
+	float:left
+}
+.setting {
+	cursor:pointer;
+    display: table-cell;
+    padding:3px 0px 4px 1px;
+    border: 0px solid #f00;
+	float:left
+}
+.search {
+	cursor:pointer;
+    display: table-cell;
+    padding:4px 0px 5px 0px;
+    border: 0px solid #f00;
+	float:left
+}
+
+#cssmenu ul{
+	margin:0;
+	padding:0;
+	list-style-type:none;
+	width:auto;
+	position:relative;
+	display:block;
+	height:100px;
+	text-transform:uppercase;
+	font-size:14px;
+	font-family:"Segoe UI","Segoe UI Web Regular","Segoe UI Symbol","Helvetica Neue","BBAlpha Sans","S60 Sans",Arial,"sans-serif";
+}
+#cssmenu li{
+	display:block;
+	float:left;
+	margin:0;
+	pading:0;
+	}
+#cssmenu li a{
+	display:block;
+	float:left;
+	/*color: #FFFF00;*/
+	text-decoration:none;
+	padding:8px 15px 8px 15px;
+	border: none;
+	}
+#cssmenu li a:hover{
+	background:transparent #333333;
+	}
+	
+	

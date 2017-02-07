@@ -1,0 +1,620 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link href="metro/css/modern.css" rel="stylesheet">
+<link href="metro/css/modern-responsive.css" rel="stylesheet">
+<link href="metro/css/site.css" rel="stylesheet" type="text/css">
+<link href="metro/js/google-code-prettify/prettify.css" rel="stylesheet" type="text/css">
+<link href="metro/js/tinybox/tiny.css" rel="stylesheet" type="text/css">
+<link rel="stylesheet" type="text/css" href="metro/js/player/mediaelementplayer.css" />
+<script type="text/javascript" src="metro/js/assets/jquery-1.9.0.min.js"></script>
+<script type="text/javascript" src="metro/js/assets/jquery.mousewheel.min.js"></script>
+<script type="text/javascript" src="metro/js/assets/moment.js"></script>
+<script type="text/javascript" src="metro/js/assets/moment_langs.js"></script>
+<script type="text/javascript" src="metro/js/modern/dropdown.js"></script>
+<script type="text/javascript" src="metro/js/modern/accordion.js"></script>
+<script type="text/javascript" src="metro/js/modern/buttonset.js"></script>
+<script type="text/javascript" src="metro/js/modern/carousel.js"></script>
+<script type="text/javascript" src="metro/js/modern/input-control.js"></script>
+<script type="text/javascript" src="metro/js/modern/pagecontrol.js"></script>
+<script type="text/javascript" src="metro/js/modern/rating.js"></script>
+<script type="text/javascript" src="metro/js/modern/slider.js"></script>
+<script type="text/javascript" src="metro/js/modern/tile-slider.js"></script>
+<script type="text/javascript" src="metro/js/modern/tile-drag.js"></script>
+<script type="text/javascript" src="metro/js/modern/calendar.js"></script>
+<script type="text/javascript" src="metro/js/tinybox/tinybox.js"></script>
+<script type="text/javascript" src="metro/js/player/mediaelement-and-player.js"></script>
+<script type="text/javascript" src="metro/js/player/audio-player.js"></script>
+<script type="text/javascript" src="http://ecn.dev.virtualearth.net/mapcontrol/mapcontrol.ashx?v=7.0"></script>
+<script type="text/javascript" src="js/maphaz.js?remcache=__CACHE__"></script>
+<script src="http://malsup.github.com/jquery.form.js"></script>
+<!--<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+-->
+<script type="text/javascript">
+
+      </script>
+<script type="text/javascript">
+function displayInfobox(e)
+{
+	infoboxOption.setOptions({ visible:true });
+}
+<!-- set pin location -->
+function pushpin()
+{
+	//alert("hello");
+	
+	var ppFC = new Array();
+	var maxFC = 18;
+	for (var numFC = 0; numFC <= maxFC; numFC++)
+	{
+		ppFC[numFC]		= new Array();
+		ppFC[numFC][0]	= null; //i
+		ppFC[numFC][1]	= new Array(); //tid
+		ppFC[numFC][2]	= new Array(); //title
+		ppFC[numFC][3]	= new Array(); //desc
+		ppFC[numFC][4]	= new Array(); //lat
+		ppFC[numFC][5]	= new Array(); //lon
+		ppFC[numFC][6]	= new Array(); //pushpin
+	}
+	
+	__PUSHPIN__
+	
+	
+	Microsoft.Maps.loadModule('Microsoft.Maps.Themes.BingTheme', { callback: function() { 
+	//Marhazli
+	for (var numFC = 0; numFC <= maxFC; numFC++)
+	{
+		for(var x = 0; x < ppFC[numFC][0] ; x++)
+		{
+			ppFC[numFC][6][x]= new Microsoft.Maps.Pushpin(map.getCenter(), pushpinOptionsFC[numFC]); 
+			map.entities.push(ppFC[numFC][6][x]);
+			var infoboxOption = {title: ppFC[numFC][2][x], description: ppFC[numFC][3][x], pushpin: ppFC[numFC][6][x],};
+			map.entities.push(new Microsoft.Maps.Infobox(new Microsoft.Maps.Location(ppFC[numFC][4][x],ppFC[numFC][5][x]),infoboxOption)); 
+			ppFC[numFC][6][x].setLocation(new Microsoft.Maps.Location(ppFC[numFC][4][x],ppFC[numFC][5][x]));
+		}
+	}
+	}});
+}
+
+
+
+</script>
+
+<style>
+.progress {
+	position: relative;
+	width: 100%;
+	border: 1px solid #ddd;
+	padding: 1px;
+	border-radius: 3px;
+}
+.bar {
+	background-color: rgb(0, 130, 135);
+	width: 0%;
+	height: 20px;
+	border-radius: 3px;
+}
+.percent {
+	position: absolute;
+	display: inline-block;
+	top: 3px;
+	left: 48%;
+}
+</style>
+<title>Pin __SYSTITLE__</title>
+</head>
+
+<body class="metrouicss"  onLoad="getMap();pushpin(); loadLog();">
+<div class="nav-bar bg-color-darken">
+  <div class="nav-bar-inner"> <span class="element"><a href="?op=__SYSLINK__">Pin __SYSNAME__</a> :: <a href="#" onClick="openTab = false;TINY.box.show({iframe:'?op=profile&profile=__AID__',boxid:'frameless',width:750,height:450,fixed:false,maskid:'bluemask',maskopacity:40,closejs:function(){openTab = true;loadLog();closeJS()}})">_AFNAME_ _ALNAME_</a></span> <span class="divider"></span>
+    <ul class="menu">
+      <li><a href="?op=home">Pin-It Home</a></li>
+      <li data-role="dropdown"> <a href="#">Pin Me!</a>
+        <ul class="dropdown-menu">
+          <li><a href="?op=cloud">Pin-Cloud</a></li>
+          <li><a href="?op=entertainment">Pin-Entertainment</a></li>
+          <li><a href="?op=shopping">Pin-Shopping</a></li>
+          <li><a href="?op=job">Pin-Jobs</a></li>
+          <li><a href="?op=trades">Pin-Trades</a></li>
+          <li><span class="divider"></span></li>
+          <li><a href="?op=home">Register as Member</a></li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+</div>
+<div class="page">
+  <div class="page-header">
+    <div class="page-header-content">
+      <h1> Welcome, <span class="fg-color-pink">_AFNAME_ _ALNAME_ (_AUNAME_)</span>.</h1>
+    </div>
+  </div>
+  <div class="page-region">
+    <div class="page-region-content">
+      <div class="page-control" data-role="page-control"> 
+        <!-- Responsive controls --> 
+        <span class="menu-pull"></span>
+        <div class="menu-pull-bar"></div>
+        <!-- Tabs -->
+        <ul>
+          <li class="active"><a href="#post">Pin-It Traffic <i class="icon-pencil"></i></a></li>
+          <li><a href="#all">All <i class="icon-newspaper"></i></a></li>
+          <li><a href="#mine">Mine <i class="icon-newspaper"></i></a></li>
+          <li><a href="#t1" title="Light Traffics"><i class="icon-meter-slow"></i></a></li>
+          <li><a href="#t2" title="Medium Traffics"><i class="icon-meter-medium"></i></a></li>
+          <li><a href="#t3" title="Heavy Traffics"><i class="icon-meter-fast"></i></a></li>
+          <li><a href="#t4" title="Accidents"><i class="icon-cars"></i></a></li>
+          <li><a href="#t5" title="RoadBlock/Speed Traps"><i class="icon-camera"></i></a></li>
+          <li><a href="#t6" title="Vehicles Stopped by"><i class="icon-github-6"></i></a></li>
+          <li><a href="#t7" title="Activities"><i class="icon-warning"></i></a></li>
+        </ul>
+        <!-- Tabs content -->
+        <div class="frames">
+          <div class="frame active" id="post">
+            <table>
+              <tr>
+                <td>
+                <ul id="popupmenu" class="pmenu"></ul>
+                <div id='PinItMap' style="position:relative; width:600px; height:500px" oncontextmenu = "return false"></div>
+                </td>
+                <td valign="top">
+                       <div class="input-control text"><input type="text" id="locSearch" placeholder="Search Location" value="__REQVALUE__"></div>
+                    <div class="toolbar" style="float: right">
+                    <button class="bg-color-blue fg-color-white" onClick="LoadSearchModule();"  title="Search Location"><i class="icon-search"></i></button>
+                    <button class="bg-color-blue fg-color-white" onClick="getMap(); pushpin(); getCurrentLocation();"  title="Reset Map"><i class="icon-loop"></i></button>
+                <button class=" bg-color-blue fg-color-white" id="Dialog" title="Create Driving Route"><i class="icon-steering-wheel" ></i></button>
+                <button class=" bg-color-blue fg-color-white" onClick="getCurrentLocation();" title="Go To My Location"><i class="icon-target-2" ></i></button> 
+                </div>
+         <script type="text/javascript" src="modules/pages/home/js/createDrivingRouteDialog2.js?remcache=__CACHE__"></script>
+
+                  <form method=post action="__FORMURL__">
+                    <table>
+                      <tr>
+                        <td><label for="lat">Latitude:</label></td>
+                        <td><input name="plat" id="latid" size="12" readonly/></td>
+                      </tr>
+                      <tr>
+                        <td><label for="long">Longitude:</label></td>
+                        <td><input name="plon" id="lonid" size="12" readonly/></td>
+                      </tr>
+                    </table>
+                    <br />
+                    <div class="input-control textarea">
+                    <button class="image-button bg-color-greenDark fg-color-white place-right" type="submit" name="opchk" id="opchkpinit" value="PinIt!"> Transfer to JAIS! <i class="icon-location bg-color-blue"></i> </button></div>
+                  </form></td>
+              </tr>
+            </table>
+
+          </div>
+          <div class="frame" id="all">
+            <table class="bordered">
+              <thead>
+                <tr>
+                  <th>Post</th>
+                  <th class="right">Map</th>
+                </tr>
+              </thead>
+              <tbody id="alltraffics">
+              </tbody>
+            </table>
+          </div>
+          <div class="frame" id="mine">
+            <table class="bordered">
+              <thead>
+                <tr>
+                  <th>Post</th>
+                  <th class="right">Map</th>
+                </tr>
+              </thead>
+              <tbody id="mytraffics">
+              </tbody>
+            </table>
+          </div>
+          <div class="frame" id="t1">
+            <table class="bordered">
+              <thead>
+                <tr>
+                  <th>Post</th>
+                  <th class="right">Map</th>
+                </tr>
+              </thead>
+              <tbody id="at1">
+              </tbody>
+            </table>
+          </div>
+          <div class="frame" id="t2">
+            <table class="bordered">
+              <thead>
+                <tr>
+                  <th>Post</th>
+                  <th class="right">Map</th>
+                </tr>
+              </thead>
+              <tbody id="at2">
+              </tbody>
+            </table>
+          </div>
+          <div class="frame" id="t3">
+            <table class="bordered">
+              <thead>
+                <tr>
+                  <th>Post</th>
+                  <th class="right">Map</th>
+                </tr>
+              </thead>
+              <tbody id="at3">
+              </tbody>
+            </table>
+          </div>
+          <div class="frame" id="t4">
+            <table class="bordered">
+              <thead>
+                <tr>
+                  <th>Post</th>
+                  <th class="right">Map</th>
+                </tr>
+              </thead>
+              <tbody id="at4">
+              </tbody>
+            </table>
+          </div>
+          <div class="frame" id="t5">
+            <table class="bordered">
+              <thead>
+                <tr>
+                  <th>Post</th>
+                  <th class="right">Map</th>
+                </tr>
+              </thead>
+              <tbody id="at5">
+              </tbody>
+            </table>
+          </div>
+          <div class="frame" id="t6">
+            <table class="bordered">
+              <thead>
+                <tr>
+                  <th>Post</th>
+                  <th class="right">Map</th>
+                </tr>
+              </thead>
+              <tbody id="at6">
+              </tbody>
+            </table>
+          </div>
+          <div class="frame" id="t7">
+            <table class="bordered">
+              <thead>
+                <tr>
+                  <th>Post</th>
+                  <th class="right">Map</th>
+                </tr>
+              </thead>
+              <tbody id="at7">
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script type='text/javascript'>
+function loadLog()
+{
+	$.ajax({
+		url: "?op=traffics&ajax=1",
+		cache: false,
+       	dataType:'html',
+		success: function(html){		
+			$("#alltraffics").html(html);
+		},
+		error: function(){
+			//alert("Error:");
+		}    
+	});
+	$.ajax({
+		url: "?op=traffics&ajax=2",
+		cache: false,
+       	dataType:'html',
+		success: function(html){		
+			$("#mytraffics").html(html);
+		},
+		error: function(){
+			//alert("Error:");
+		}    
+	});
+	$.ajax({
+		url: "?op=traffics&ajax=3",
+		cache: false,
+       	dataType:'html',
+		success: function(html){		
+			$("#at1").html(html);
+		},
+		error: function(){
+			//alert("Error:");
+		}    
+	});
+	$.ajax({
+		url: "?op=traffics&ajax=4",
+		cache: false,
+       	dataType:'html',
+		success: function(html){		
+			$("#at2").html(html);
+		},
+		error: function(){
+			//alert("Error:");
+		}    
+	});
+	$.ajax({
+		url: "?op=traffics&ajax=5",
+		cache: false,
+       	dataType:'html',
+		success: function(html){		
+			$("#at3").html(html);
+		},
+		error: function(){
+			//alert("Error:");
+		}    
+	});
+	$.ajax({
+		url: "?op=traffics&ajax=6",
+		cache: false,
+       	dataType:'html',
+		success: function(html){		
+			$("#at4").html(html);
+		},
+		error: function(){
+			//alert("Error:");
+		}    
+	});
+	$.ajax({
+		url: "?op=traffics&ajax=7",
+		cache: false,
+       	dataType:'html',
+		success: function(html){		
+			$("#at5").html(html);
+		},
+		error: function(){
+			//alert("Error:");
+		}    
+	});
+	$.ajax({
+		url: "?op=traffics&ajax=8",
+		cache: false,
+       	dataType:'html',
+		success: function(html){		
+			$("#at6").html(html);
+		},
+		error: function(){
+			//alert("Error:");
+		}    
+	});
+	$.ajax({
+		url: "?op=traffics&ajax=9",
+		cache: false,
+       	dataType:'html',
+		success: function(html){		
+			$("#at7").html(html);
+		},
+		error: function(){
+			//alert("Error:");
+		}    
+	});
+}
+$(document).ready(function(){
+     $("#openOption1,#openOption2").mouseover(function () {
+             $("#tdOption1,#tdOption2").slideToggle('fast');		 
+      });
+	 loadLog();
+	 setInterval (loadLog, 30000);	//Reload file every 30 seconds
+	
+});
+
+
+var notificationID = 0;
+var privacyID = 0;
+
+$('#privacy3').click(function() {
+	$.ajax({
+		url: "?op=traffics&ajax=10&val=3",
+		cache: false,
+       	dataType:'html',
+		success: function(html){		
+			$('#privacymsg').show();
+			setTimeout(function() 
+			{
+				$('#privacymsg').hide();
+			}, 2500);
+		},
+		error: function(){
+			alert("Failed to saved");
+		}    
+	});
+});
+$('#privacy2').click(function() {
+	$.ajax({
+		url: "?op=traffics&ajax=10&val=2",
+		cache: false,
+       	dataType:'html',
+		success: function(html){		
+			$('#privacymsg').show();
+			setTimeout(function() 
+			{
+				$('#privacymsg').hide();
+			}, 2500);
+		},
+		error: function(){
+			alert("Failed to saved");
+		}    
+	});
+});
+$('#privacy1').click(function() {
+	$.ajax({
+		url: "?op=traffics&ajax=10&val=1",
+		cache: false,
+       	dataType:'html',
+		success: function(html){
+			$('#privacymsg').show();
+			setTimeout(function() 
+			{
+				$('#privacymsg').hide();
+			}, 2500);
+		},
+		error: function(){
+			alert("Failed to saved");
+		}    
+	});
+});
+
+__OTHERSCRIPTS__
+
+var curLen = 0;
+$('#msgpinit').keypress(function() {
+			//alert("marhazk currently editing it");
+			
+			var str = new String(document.getElementById("msgpinit").value);
+			var strArray = new Array;
+			var strBool = new Array;
+			for (strb = 0; strb < strArray.length; strb++)
+			{
+				strBool[strb] = false;
+			}
+			var foundStr = false;
+			strArray = str.split(" ");
+			if (true)
+			{
+				curLen = str.length;
+				for (chks = 0; chks < strArray.length; chks++)
+				{
+					var varStr = new String(strArray[chks].toLowerCase());
+					var tagOrNotText = new String("@").toLowerCase();
+					var tagOrNot=varStr.match(tagOrNotText);
+					if (varStr.length>2)
+					{
+						if (tagOrNot)
+						{
+							for (chkn = 0; chkn < accDBfl.length; chkn++)
+							{
+								var adb1 = new String("@" + accDBfl[chkn]).toLowerCase();
+								var adb2 = new String("@" + accDBun[chkn]).toLowerCase();
+								var chknm1=adb1.match(varStr);
+								var chknm2=adb2.match(varStr);
+								if (chknm2)
+								{
+									if ((chknm2 != adb2) && ((varStr.length < adb2.length-1) || (varStr.length > adb2.length)))
+									{
+										
+										//alert(varStr);
+										//alert(adb2.length);
+										//str=str.replace(chknm2, ":XtagX:" + accDBun[chkn]) + " ";
+										document.getElementById("listag").style.display="block";
+										str = str.replace(varStr, "");
+										str = str.replace(chknm2, "");
+										document.getElementById("msgpinit").value = str;
+										$.ajax({
+											url: "?op=home/tags&ajax=1&val="+chknm2,
+											cache: false,
+											success: function(html){		
+												$("#listag").html(html);		
+											},
+										});
+										return false;
+									}
+								}
+								else if (chknm1)
+								{
+									if ((chknm1 != adb1) && ((varStr.length < adb1.length-1) || (varStr.length > adb1.length)))
+									{
+										//alert(varStr.length);
+										//alert(adb2.length);
+										//str=str.replace(chknm1, ":XtagX:" + accDBun[chkn]) + " ";
+										document.getElementById("listag").style.display="block";
+										str = str.replace(varStr, "");
+										str = str.replace(chknm1, "");
+										document.getElementById("msgpinit").value = str;
+										//$("#listag").html("TEST2");
+										$.ajax({
+											url: "?op=home/tags&ajax=1&val="+chknm1,
+											cache: false,
+											success: function(html){		
+												$("#listag").html(html);
+											},
+										});
+										return false;
+									}
+								}
+							}
+						}
+					}
+				}
+				//document.getElementById("msgpinit").value = str.replace(":XtagX:", "@");
+				document.getElementById("msgpinit").value = str;
+				curLen = str.length;
+			}
+		});
+		
+//<![CDATA[ 
+$(window).load(function(){
+	//Now ONLOAD HOYEH
+	$('#privacymsg').hide();
+	$('#notificationmsg').hide();
+	
+	if (privacyID == 3)
+		$('#privacy3').prop('checked', true);
+	else if (privacyID == 2)
+		$('#privacy2').prop('checked', true);
+	else
+		$('#privacy1').prop('checked', true);
+	if (notificationID == 2)
+	{
+		$('#alertstatus').html("Auto Alert is ON");
+		$('#notification').prop('checked', true);
+	}
+	else
+	{
+		$('#alertstatus').html("Auto Alert is OFF");
+		$('#notification').prop('checked', false);
+	}
+	GetLocationInfo(map.GetCenter());
+	$('#wrapper').hover(
+    function(){$('#divOtionMenu').stop().fadeIn(100);},
+    function(){$('#divOtionMenu').stop().fadeOut(100);}
+	);
+});//]]> 
+
+(function() {
+    
+var bar = $('.bar');
+var percent = $('.percent');
+var status = $('.status');
+   
+$("#form1").ajaxForm({
+    beforeSend: function() {
+        status.empty();
+        var percentVal = '0%';
+        bar.width(percentVal)
+        percent.html(percentVal);
+    },
+    uploadProgress: function(event, position, total, percentComplete) {
+        var percentVal = percentComplete + '%';
+        bar.width(percentVal)
+        percent.html(percentVal);
+    },
+    success: function() {
+        var percentVal = '100%';
+        bar.width(percentVal)
+        percent.html(percentVal);
+    },
+	complete: function() {
+		status.html("<center>File uploaded succesfully.</center>");
+		
+	}
+}); 
+
+})();       
+
+</script>
+</body>
+</html>

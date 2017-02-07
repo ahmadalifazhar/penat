@@ -1,0 +1,222 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link href="metro/css/modern.css" rel="stylesheet">
+<link href="metro/css/modern-responsive.css" rel="stylesheet">
+<link href="metro/css/site.css" rel="stylesheet" type="text/css">
+<link href="metro/js/google-code-prettify/prettify.css" rel="stylesheet" type="text/css">
+<link href="metro/js/tinybox/tiny.css" rel="stylesheet" type="text/css">
+<link rel="stylesheet" type="text/css" href="metro/js/player/mediaelementplayer.css" />
+<script type="text/javascript" src="metro/js/assets/jquery-1.9.0.min.js"></script>
+<script type="text/javascript" src="metro/js/assets/jquery.mousewheel.min.js"></script>
+<script type="text/javascript" src="metro/js/modern/dropdown.js"></script>
+<script type="text/javascript" src="metro/js/modern/buttonset.js"></script>
+<script type="text/javascript" src="metro/js/modern/input-control.js"></script>
+<script type="text/javascript" src="metro/js/modern/pagecontrol.js"></script>
+<script type="text/javascript" src="metro/js/modern/calendar.js"></script>
+<script type="text/javascript" src="metro/js/tinybox/tinybox.js"></script>
+<script type="text/javascript" src="metro/js/modern/dialog.js"></script>
+<script type='text/javascript'>
+
+   function iframeLoaded1() {
+      var iFrameID = document.getElementById('IFlatestJobs');
+      if(iFrameID) {
+            // here you can meke the height, I delete it first, then I make it again
+            iFrameID.height = "";
+            iFrameID.height = iFrameID.contentWindow.document.body.scrollHeight + "px";
+      }   
+  }
+  
+    function iframeLoaded2() {
+      var iFrameID = document.getElementById('IFmyJobPost');
+      if(iFrameID) {
+            // here you can meke the height, I delete it first, then I make it again
+            iFrameID.height = "";
+            iFrameID.height = iFrameID.contentWindow.document.body.scrollHeight + "px";
+      }   
+  }
+  
+    function iframeLoaded3() {
+      var iFrameID = document.getElementById('IFmyWatchList');
+      if(iFrameID) {
+            // here you can meke the height, I delete it first, then I make it again
+            iFrameID.height = "";
+            iFrameID.height = iFrameID.contentWindow.document.body.scrollHeight + "px";
+      }   
+  }
+  
+    function iframeLoaded4() {
+      var iFrameID = document.getElementById('IFpostNewJob');
+      if(iFrameID) {
+            // here you can meke the height, I delete it first, then I make it again
+            iFrameID.height = "";
+            iFrameID.height = iFrameID.contentWindow.document.body.scrollHeight +20+ "px";
+      }   
+  }
+  
+    function iframeLoaded5() {
+      var iFrameID = document.getElementById('IFsetting');
+      if(iFrameID) {
+            // here you can meke the height, I delete it first, then I make it again
+            iFrameID.height = "";
+            iFrameID.height = iFrameID.contentWindow.document.body.scrollHeight + "px";
+      }   
+  }
+  
+  
+  function logout()
+{
+	window.location = "?op=logout";
+}
+function homepage()
+{
+	window.location = "?op=home";
+}
+
+</script>
+
+<script type="text/javascript">
+function loadLog() {
+$.ajax({
+url: "?op=home/chkonline",
+cache: false,
+success: function(html){ 
+},
+});
+}
+		$(this).ready(function(){
+			loadLog();
+		setInterval (loadLog, 30000);	//Reload file every 30 seconds
+		
+		//If user wants to end session
+	});
+</script>
+<style>
+.progress { position:relative; width:100%; border: 1px solid #ddd; padding: 1px; border-radius: 3px; }
+.bar { background-color: rgb(0, 130, 135); width:0%; height:20px; border-radius: 3px; }
+.percent { position:absolute; display:inline-block; top:3px; left:48%; }
+
+</style>
+
+
+<?php 
+$offlineDB = 'config/dbconnect.php';
+
+if (file_exists($offlineDB)) {
+    include("config/dbconnect.php");
+} else {
+
+include "../../config.php";
+include "../../accDB.php";
+include "../../functions.php";
+include "../../mailsys.php";
+include "../account/accounts.sys.php";
+
+include "../phpjobscheduler/firepjs.php";
+
+
+
+}
+?>
+<title>Pin __SYSNAME__</title>
+</head>
+
+<body class="metrouicss" style="width:100%;height:100%">
+<div id="main_container">
+
+<div class="nav-bar bg-color-darken">
+<div class="nav-bar-inner"> <span class="element">Pin __SYSNAME__ :: _AFNAME_ _ALNAME_</span> <span class="divider"></span>
+<ul class="menu">
+<li><a href="?op=home">Pin-It Home</a></li>
+<li data-role="dropdown"> <a href="#">Pin!</a>
+<ul class="dropdown-menu">
+<li><a href="?op=traffics">Pin-Traffics</a></li>
+<li><a href="?op=cloud">Pin-Cloud</a></li>
+<li><a href="?op=shopping">Pin-Shopping</a></li>
+<li><a href="?op=entertainment">Pin-Entertainment</a></li>
+<li><a href="?op=trades">Pin-Trades</a></li>
+<li><a href="#" onClick="logout();">Log Out</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+
+
+<div class="page" style="width:90%">
+  <div class="page-header">
+    <div class="page-header-content">
+      <h1> Welcome, <span class="fg-color-pink">_AFNAME_ _ALNAME_</span>.</h1>
+    </div>
+  </div>
+  <div class="page-region">
+    <div class="page-region-content">
+      <div class="page-control" data-role="page-control" > 
+        <!-- Responsive controls --> 
+        <span class="menu-pull"></span>
+        <div class="menu-pull-bar"></div>
+        <!-- Tabs -->
+        <ul>
+          <li class="active">
+          <a href="#latestJobs" onclick="document.getElementsByName('IFlatestJobs')[0].src=document.getElementsByName('IFlatestJobs')[0].src;">Latest Jobs Post <i class="icon-history"></i></a></li>
+          <li ><a href="#myJobPost" onclick="document.getElementsByName('IFmyJobPost')[0].src=document.getElementsByName('IFmyJobPost')[0].src;">My Job Post <i class="icon-newspaper"></i></a></li>
+          <li><a href="#myWatchList" onclick="document.getElementsByName('IFmyWatchList')[0].src=document.getElementsByName('IFmyWatchList')[0].src;" >My Watch List <i class="icon-eye"></i></a></li>
+          <li><a href="#postNewJob" onclick="document.getElementsByName('IFpostNewJob')[0].src=document.getElementsByName('IFpostNewJob')[0].src;">Post New Job <i class="icon-pencil"></i></a></li>
+          <li class="place-right" title="Setting"><a href="#setting" onclick="document.getElementsByName('IFsetting')[0].src=document.getElementsByName('IFsetting')[0].src;"><i class="icon-cog nrm"></i></a></li>
+        </ul>
+        <!-- Tabs content -->
+        <div class="frames">
+        <!-- Start Latest jobs content div-->
+          <div class="frame active" id="latestJobs">
+        <iframe name="IFlatestJobs" id="IFlatestJobs" onload="iframeLoaded1()" src="?op=job&load=latestJob" frameborder="0" style="width:100%;"></iframe>
+          </div>
+          <!-- End Latest jobs content div-->
+          
+           <!-- Start My jobs Posts content div-->
+          <div class="frame" id="myJobPost">
+         <iframe name="IFmyJobPost" id="IFmyJobPost" onload="iframeLoaded2()" src="?op=job&load=myJobPost" frameborder="0" style="width:100%;"></iframe>
+			</div>
+          <!-- End My jobs Posts content div-->
+        
+          
+          
+            <!-- Start myWatchList jobs Posts content div-->
+          <div class="frame" id="myWatchList">
+        <iframe name="IFmyWatchList" id="IFmyWatchList" onload="iframeLoaded3()" src="?op=job&load=myWatchList" frameborder="0" style="width:100%;"></iframe>
+			</div>
+          <!-- End myWatchList jobs Posts content div-->
+          
+            <!-- Start postNewJob content div -->
+          <div class="frame" id="postNewJob">
+          
+           <iframe name="IFpostNewJob" id="IFpostNewJob" onload="iframeLoaded4()" src="?op=job&load=selectCompany" frameborder="0" style="width:100%;"></iframe>
+          
+          </div>
+          <!-- End postNewJob content div -->
+          
+           <!-- Start Settings content div-->
+          <div class="frame" id="setting">
+           <iframe name="IFsetting" id="IFsetting" onload="iframeLoaded5()" src="?op=job&load=jobSetting" frameborder="0" style="width:100%;"></iframe>
+          </div>
+          <!-- End Settings content div-->
+          
+        
+          
+        </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<?php 
+date_default_timezone_set('UTC');
+?>
+</div>
+<!--<a href="#" onclick="window.open('?op=job&load=myWatchList', 'StatusBar', 'toolbar=yes,resizable=yes,scrollbars=yes,width=500,height=500,left=20,top=20');" title="View More">my watch list</a>-->
+</body>
+</html>
+
+
+

@@ -1,0 +1,167 @@
+<?php
+	// Marhazli (ref: pinit/01/04/002.b)
+	include "modules/pages/account/profile.sys.php";
+	
+	/////////////////////////////////////// SEMUA POST disini yoo!! -Marhazli (ref: pinit/01/04/002.a)
+	//if (strpos($_REQUEST[by],"#") !== false)
+	if (strlen($_REQUEST[by]) >= 1)
+	{
+		$sql =	"SELECT * FROM posts, accounts WHERE accounts.aid=posts.aid AND posts.ptype=0 AND posts.ptext LIKE '%#".$_REQUEST[by]."%' GROUP BY posts.pid ORDER BY posts.pid DESC LIMIT 0,10";
+		$sqlmap = "SELECT * FROM posts, accounts WHERE accounts.aid=posts.aid AND posts.ptype=0 AND posts.lat>=1 AND posts.lon>=1 AND posts.ptext LIKE '%#".$_REQUEST[by]."%' GROUP BY posts.pid, posts.ptype, posts.lat, posts.lon ORDER BY accounts.aid, posts.pid DESC";
+	}
+	else
+	{
+		$sql =	"SELECT * FROM posts, friends, accounts WHERE (friends.aid=$chkid AND friends.faid>=1) AND (posts.aid=friends.faid OR posts.aid=friends.aid) AND accounts.aid=posts.aid AND posts.ptype=0 GROUP BY posts.pid ORDER BY posts.pid DESC LIMIT 0,10";
+		//$sql =	"SELECT * FROM posts, friends, accounts WHERE (friends.aid=$chkid AND accounts.aid=friends.aid AND accounts.aid=posts.aid AND friends.faid>=1 AND posts.ptype=0 AND posts.aid=friends.aid) GROUP BY posts.pid ORDER BY posts.pid DESC";
+		$sqlmap = "SELECT * FROM posts, friends, accounts WHERE (friends.aid=$chkid AND friends.faid>=0) AND (posts.aid=friends.faid OR posts.aid=friends.aid) AND accounts.aid=posts.aid AND posts.ptype=0 AND posts.lat>=1 AND posts.lon>=1 GROUP BY posts.pid, friends.aid, posts.ptype, posts.lat, posts.lon ORDER BY accounts.aid, posts.pid DESC";
+	}
+	$newsfeedq = mysql_query($sql);
+	$mapq = mysql_query($sqlmap);
+	$newsfeedrDB = array();
+	$mapdb = array();
+	$num = 0;
+	
+	function pintext($text, $accDB)
+	{
+		$text = htmlspecialchars($text); // special characters code filter - sen
+		
+		$_text = array();
+		$_text = explode(" ", $text);
+		$_tnum = 0;
+		$text = "";
+		foreach ($_text as $_tvalue)
+		{
+			if (strpos($_tvalue,"http://") !== false)
+			{
+				$_tvalue = '<a href="'.$_tvalue.'">'.$_tvalue.'</a>';
+			}
+			else if (strpos($_tvalue,"www") !== false)
+			{
+				$_tvalue = '<a href="http://'.$_tvalue.'">'.$_tvalue.'</a>';
+			}
+			else if (strpos($_tvalue,".com") !== false)
+			{
+				$_tvalue = '<a href="http://'.$_tvalue.'">'.$_tvalue.'</a>';
+			}
+			else if (strpos($_tvalue,".net") !== false)
+			{
+				$_tvalue = '<a href="http://'.$_tvalue.'">'.$_tvalue.'</a>';
+			}
+			else if (strpos($_tvalue,"#") !== false)
+			{
+				
+				$_tvalue = '<a href="?op=home&by='.str_replace("#","",$_tvalue).'">'.$_tvalue.'</a>'; 
+			}
+			$text .= $_tvalue.' ';
+			$_tnum++;
+		}
+		foreach ($accDB as $value)
+		{
+			
+			if (strpos($text,"@".$value[auname]) !== false)
+			{
+				
+				$text = str_replace("@".$value[auname], '<a href="#" onClick="TINY.box.show({iframe:\'?op=profile&profile='.$value[aid].'\',boxid:\'frameless\',width:750,height:450,fixed:false,maskid:\'bluemask\',maskopacity:40,closejs:function(){closeJS()}})">@'.$value[auname].'</a>',$text); 
+			}
+			if (strpos($text,"@".$value[afname].$value[alname]) !== false)
+			{
+				
+				$text = str_replace("@".$value[afname].$value[alname], '<a href="#" onClick="TINY.box.show({iframe:\'?op=profile&profile='.$value[aid].'\',boxid:\'frameless\',width:750,height:450,fixed:false,maskid:\'bluemask\',maskopacity:40,closejs:function(){closeJS()}})">@'.$value[afname].$value[alname].'</a>',$text); 
+			}
+		}
+		return $text;
+	}
+	
+
+	//////////////////////// User Tagging for Posts, intergrated with ref pinit/01/04/003.a -Marhazli (pinit/01/04/002.c)
+	while ($newsfeedrx = mysql_fetch_array($newsfeedq))
+	{
+		$newsfeedrx[ptext] = pintext($newsfeedrx[ptext], $accDB);
+		$newsfeedrDB[$num] = $newsfeedrx;
+		$num++;
+	}
+	$num = 0;
+	$chkAID = 0;
+	while ($mapx = mysql_fetch_array($mapq))
+	{
+		if ($chkAID != $mapx[aid])
+		{
+			$chkAID = $mapx[aid];
+			$mapx[tid]		= $num;
+			$mapdb[$num]	= $mapx;
+			$num++;
+		}
+	}
+	
+	//////////////////////// LoadPage Function under Class::PinIT() -Marhazli (pinit/01/04/002.a)
+	////////////////////////////////////////////////////////////////////////////////////////////////////
+	//STR to replace
+	//// __DIVPOSTS__
+	$input = array();
+	foreach($newsfeedrDB as $newsfeedr)
+	{
+		$input["DIVPOSTS"] .= 'document.getElementById("adiv'.$newsfeedr[pid].'").style.display="block";'.
+					'document.getElementById("bdiv'.$newsfeedr[pid].'").style.display="none";'.chr(10);
+	}
+	
+	////////////////////////////////////////
+	//// __PUSHPIN__
+	$tempCount = 0;
+	
+	
+	foreach ($mapdb as $map)
+	{
+		if (file_exists("./images/uploaded_images/resized/".$map[apic].".jpg"))
+			$mpic = "./images/uploaded_images/resized/".$map[apic].".jpg";
+		else
+			$mpic = "./images/nopic.jpg";
+	  
+		$tid[$tempCount] = $map['tid'];
+		$title[$tempCount] = $map['afname']." ".$map['alname'];
+		$descript[$tempCount] = htmlspecialchars($map['ptext']);
+		$latitude[$tempCount] = $map['lat'];
+		$longitude[$tempCount] = $map['lon'];
+
+		$input["PUSHPIN"] .= 'tid['.$tempCount.'] = '.$tid[$tempCount].';';	
+		$input["PUSHPIN"] .= 'title['.$tempCount.'] = "'.$title[$tempCount].'";';
+		$input["PUSHPIN"] .= 'descript['.$tempCount.'] = "'.$descript[$tempCount].'";';
+		$input["PUSHPIN"] .= 'latitude['.$tempCount.'] = '.$latitude[$tempCount].';';
+		$input["PUSHPIN"] .= 'longitude['.$tempCount.'] = '.$longitude[$tempCount].';'.chr(10);
+		$tempCount++;
+	}
+	//$input["PUSHPIN"] .= 'alert("2:'.$tid[2].'");';
+	//$input["PUSHPIN"] .= 'alert("2:'.$title[2].'");';
+	//$input["PUSHPIN"] .= 'alert("2:'.$latitude[2].'");';
+	//$input["PUSHPIN"] .= 'alert("2:'.$longitude[2].'");';
+	
+	//$input["PUSHPIN"] .= 'alert("1:'.$descript[1].'");';
+	//$input["PUSHPIN"] .= 'alert("2:'.$descript[2].'");';
+	//$input["PUSHPIN"] .= 'alert("3:'.$descript[3].'");';
+	//$input["PUSHPIN"] .= 'alert("4:'.$descript[4].'");';
+
+	$input["PUSHPIN"] .= 'i = '.$tempCount.';';
+	
+	////////////////////////////////////////
+	//// __MYPIC__
+	if (file_exists("./images/uploaded_images/resized/".$account[apic].".jpg"))
+		$mypic = "./images/uploaded_images/resized/".$account[apic].".jpg";
+	else
+		$mypic = "./images/nopic.jpg";
+	$input["MYPIC"] = $mypic;
+	
+	////////////////////////////////////////
+	//// __INPUT3__
+	include "modules/pages/home/member.left.php";
+	$input["LEFTSIDE"] = $leftside;
+	
+	////////////////////////////////////////
+	//// Accounts
+	foreach ($account as $akey => $aval)
+	{
+		if (!is_numeric($akey))
+			$input[strtoupper($akey)] = $aval;
+	}
+	
+	// LOAD PAGE
+	$web->loadpage("modules/pages/home", "Home.html", $input);
+?>

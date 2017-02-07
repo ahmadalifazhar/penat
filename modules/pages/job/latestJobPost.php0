@@ -1,0 +1,110 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Untitled Document</title>
+<link href="metro/css/modern.css" rel="stylesheet">
+<link href="metro/css/modern-responsive.css" rel="stylesheet">
+<link href="metro/css/site.css" rel="stylesheet" type="text/css">
+<link href="metro/js/google-code-prettify/prettify.css" rel="stylesheet" type="text/css">
+<link href="metro/js/tinybox/tiny.css" rel="stylesheet" type="text/css">
+<link rel="stylesheet" type="text/css" href="metro/js/player/mediaelementplayer.css" />
+<script type="text/javascript" src="metro/js/assets/jquery-1.9.0.min.js"></script>
+<script type="text/javascript" src="metro/js/assets/jquery.mousewheel.min.js"></script>
+<script type="text/javascript" src="metro/js/modern/dropdown.js"></script>
+<script type="text/javascript" src="metro/js/modern/buttonset.js"></script>
+<script type="text/javascript" src="metro/js/modern/input-control.js"></script>
+<script type="text/javascript" src="metro/js/modern/pagecontrol.js"></script>
+<script type="text/javascript" src="metro/js/modern/calendar.js"></script>
+<script type="text/javascript" src="metro/js/tinybox/tinybox.js"></script>
+
+<script>
+$(document).ready(function(){
+     $("#openOption1,#openOption2").mouseover(function () {
+             $("#tdOption1,#tdOption2").slideToggle('fast');		 
+      });
+	 
+	
+});
+
+
+</script>
+<script type='text/javascript'>//<![CDATA[ 
+$(window).load(function(){
+$('#wrapper').hover(
+    function(){$('#divOtionMenu').stop().fadeIn(100);},
+    function(){$('#divOtionMenu').stop().fadeOut(100);}
+);
+});//]]>  
+
+</script>
+<?php 
+$offlineDB = 'config/dbconnect.php';
+
+if (file_exists($offlineDB)) {
+    include("config/dbconnect.php");
+} else {
+
+include "../../config.php";
+include "../../accDB.php";
+include "../../functions.php";
+include "../../mailsys.php";
+include "../account/accounts.sys.php";
+}
+?>
+</head>
+<body class="metrouicss">
+<div style="padding:30px">
+
+   
+          <table>
+          <tr>
+          <td><div class="input-control text" style="width:400px; float:left">
+          <input type="text" id="searchText" placeholder="Enter Job Title" autofocus/>
+          <button class="btn-clear"></button>
+          </div>
+          </td>
+          <td>
+          <div class="input-control select" style="width:400px;">
+        <select name="jobCategory" id="jobCategory" required>
+            <option selected disabled="disabled" value="">--Select Category--</option>
+          <?php    
+          $query_selectCat = "SELECT * FROM category GROUP BY jcat_name ASC ";
+          $array_selectCat=mysql_query($query_selectCat) or die(mysql_error());
+          while($rowCat=mysql_fetch_array($array_selectCat))
+          { ?>
+          <option value="<?php echo $rowCat['jcat_id']; ?>"><?php echo $rowCat['jcat_name']; ?></option>
+          <?php
+          }?>
+        </select>
+    </div>
+    </td>
+          <td>
+<div class="input-control select">
+        <select name="jobCountry" id="jobCountry" required>
+            <option selected disabled="disabled" value="">--Select Country--</option>
+          <?php    
+          $query_selectCountry = "SELECT * FROM country GROUP BY country_name ASC ";
+          $array_selectCountry=mysql_query($query_selectCountry) or die(mysql_error());
+          while($rowCountry=mysql_fetch_array($array_selectCountry))
+          { ?>
+          <option value="<?php echo $rowCountry['country_code']; ?>"><?php echo $rowCountry['country_name']; ?></option>
+          <?php
+          }?>
+        </select>
+    </div>
+          </td>
+          </tr>
+          </table>  
+          
+            
+<div style="margin: 0 auto; width:100%; min-height:600px; overflow:hidden">
+    <object type="text/html" data="?op=job&load=viewAllJob" style="width:102%; min-height:600px; margin:1%;overflow:hidden">
+    </object>
+</div>
+
+<br />
+<br />
+</div>
+</body>
+</html>

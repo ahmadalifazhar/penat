@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<title>Pin.It</title>
+<!-- stylesheet-->
+<link rel="stylesheet" type="text/css" href="css/stylee.css"   />
+<link rel="stylesheet" type="text/css" href="css/feeds_style.css"   />
+<link rel="stylesheet" type="text/css" href="css/tiny_style.css" />
+<link href="metro/css/modern.css" rel="stylesheet">
+<link href="metro/css/modern-responsive.css" rel="stylesheet">
+<link href="metro/css/site.css" rel="stylesheet" type="text/css">
+<link href="metro/js/google-code-prettify/prettify.css" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="metro/js/assets/jquery-1.9.0.min.js"></script>
+<script type="text/javascript" src="metro/js/assets/jquery.mousewheel.min.js"></script>
+<script type="text/javascript" src="metro/js/assets/moment.js"></script>
+<script type="text/javascript" src="metro/js/assets/moment_langs.js"></script>
+<script type="text/javascript" src="metro/js/modern/dropdown.js"></script>
+<script type="text/javascript" src="metro/js/modern/accordion.js"></script>
+<script type="text/javascript" src="metro/js/modern/buttonset.js"></script>
+<script type="text/javascript" src="metro/js/modern/carousel.js"></script>
+<script type="text/javascript" src="metro/js/modern/input-control.js"></script>
+<script type="text/javascript" src="metro/js/modern/pagecontrol.js"></script>
+<script type="text/javascript" src="metro/js/modern/rating.js"></script>
+<script type="text/javascript" src="metro/js/modern/slider.js"></script>
+<script type="text/javascript" src="metro/js/modern/tile-slider.js"></script>
+<script type="text/javascript" src="metro/js/modern/tile-drag.js"></script>
+<script type="text/javascript" src="metro/js/modern/calendar.js"></script>
+<script src="js/jquery-1.8.3.js" type="text/javascript"></script>
+
+<script type='text/javascript'>
+		
+/*set map height 100%-40%, 40 for top bar menu
+$(document).ready(function() {
+$("#PinItMap").height($(document).height()-90);
+});*/
+
+//js for toggle button for calling top slider menu, and rotate icon by calling .rotate CSS class
+$(window).load(function(){
+$('#userBar .toggle').toggle(function(){
+    $('#topSlider').animate({'top':33});
+    $("#tggleBtn").toggleClass("rotate");
+}, function(){
+    $('#topSlider').animate({'top':-139});
+    $("#tggleBtn").toggleClass("rotate");
+});
+});//]]> 
+
+function logout()
+{
+	window.location = "?op=logout";
+}
+function homepage()
+{
+	window.location = "?op=home";
+}
+	
+	
+</script>
+</head>
+<body bgcolor="#000000">
+
+
+<div class="main-container" style="background-color:#000000">
+    <div class="contentx" style="background-color:#000000; overflow:scroll;scrollbar-base-color:#bada55;scrollbar-arrow-color:#333;">
+    
+<div class="metrouicss" id="scroller" style="background-color:#000000;" >
+_LEFTSIDE_
+</div>
+</div>
+</div>
+
+<script type="text/javascript">
+// jQuery Document
+// Marhazk -custom NEWSFEEDS
+$(document).ready(function(){
+	//If user submits the form
+	
+	$("#opchkpinit").click(function(){	
+		var val1 = $("#latid").val();
+		var val2 = $("#lonid").val();
+		var val3 = $("#locnameid").val();
+		var val4 = $("#msgpinit").val();
+		$.post("http://www.pinit.uni.me/?op=home&ajax=1", {lat: val1, lon: val2, locname: val3, msg: val4});
+		$("#msgpinit").attr("value", "");
+		//alert('MSG SENT');
+		return false;
+	});
+	
+	
+	//add a click event to a button
+	$('#scroller').tinyscrollbar();
+	//If user wants to end session
+});
+</script>
+</body>
+</html>

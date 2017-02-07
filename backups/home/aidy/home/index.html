@@ -1,0 +1,285 @@
+<!doctype html>
+<html>
+<head>
+	<title>Pin.It</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<link rel="stylesheet" type="text/css" href="css/style.css"   />
+ 	<link rel="stylesheet" type="text/css" href="css/tiny_style.css" />
+    
+    <script src="js/jquery-1.8.2.js" type="text/javascript"></script>
+	<script src="js/jquery-1.8.2.min.js" type="text/javascript"></script>
+    <script src="js/jquery-1.8.3.js" type="text/javascript"></script>
+    <script type="text/javascript" src="http://ecn.dev.virtualearth.net/mapcontrol/mapcontrol.ashx?v=7.0"></script>
+  	<script type='text/javascript' src='js/jquery-1.7.1.js'></script>
+   	<script type='text/javascript' src='https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js'></script>
+  	<script type="text/javascript" src="js/tinybox.js"></script>
+   
+<script type="text/javascript">
+		$(document).ready(function() {
+		$("#PinItMap").height($(document).height()-40);
+		});
+
+$(window).load(function(){
+$('#userBar .toggle').toggle(function(){
+    $('#topSlider').animate({'top':133});
+    $("#tggleBtn").toggleClass("rotate");
+}, function(){
+    $('#topSlider').animate({'top':-100});
+    $("#tggleBtn").toggleClass("rotate");
+});
+});//]]>  
+
+
+$(window).load(function(){
+$('#sidebox .tab').toggle(function(){
+    $('#sidebox').animate({'left':-300});
+	
+}, function(){
+    $('#sidebox').animate({'left':0});
+});
+});
+
+
+
+<!-- BING MAP FUNCTIONS -->
+
+ var map = null;
+      function getMap()
+      {
+        map = new Microsoft.Maps.Map(
+									 document.getElementById('PinItMap'), 
+									 {
+										 credentials: 'AmxdhBs_v4CGLnmLy1BSpfh2wnBLTEdD_NBB6QqF72MN_YnLRzvptDmaLR_RFqVK',
+										 showMapTypeSelector:false,
+										 enableSearchLogo:false,
+										 disableBirdseye:true
+									 }
+									 );
+      }   
+	  
+	  <!-- get current location -->
+	    function getCurrentLocation()
+      {
+        var geoLocationProvider = new Microsoft.Maps.GeoLocationProvider(map); 
+		geoLocationProvider.getCurrentPosition(); 
+		//displayAlert('Current location set, based on your browser support for geo location API');
+      }
+	  
+	  <!-- add static pin -->
+	  function addCustomPushpin()
+      {
+        var pushpinOptions = {icon:'images/pin3.png',width: 19, height: 26};  <!-- width:38, height:51  -->
+        var pushpin= new Microsoft.Maps.Pushpin(map.getCenter(), pushpinOptions);
+        map.entities.push(pushpin);
+      }
+	  
+	  <!-- go to current location -->
+	  function getCenter()
+      {
+        var latlon = map.getCenter();
+        alert('Lat/Long: ' + latlon.latitude +'/' + latlon.longitude);
+      }
+	  function getCenter2()
+      {
+        var latlon = map.getCenter();
+        alert('Lat/Long: ' + latlon.latitude +'/' + latlon.longitude);
+		setInfoBoxLocation(latlon.latitude,latlon.longitude);
+		
+      }
+	  <!-- pin post -->
+	  function pin()
+      {
+        var geoLocationProvider = new Microsoft.Maps.GeoLocationProvider(map); 
+		geoLocationProvider.getCurrentPosition();
+		setTimeout(addCustomPushpin,500);
+		setTimeout(getCenter2,500);
+      }
+	  
+	  <!-- set pin location -->
+	  function updatePushpinLocation()
+      {
+        var pushpin1= new Microsoft.Maps.Pushpin(map.getCenter(), null); 
+        map.entities.push(pushpin1);
+		map.entities.push(new Microsoft.Maps.Infobox(new Microsoft.Maps.Location(2.270000,102.280295), {title: 'London', description: 'description here', pushpin: pushpin1})); 
+        pushpin1.setLocation(new Microsoft.Maps.Location(2.270000,102.280295));
+        //map.setView({zoom: 14, center: new Microsoft.Maps.Location(2.270000,102.280295)});
+		
+		//add-on
+		var pushpin2= new Microsoft.Maps.Pushpin(map.getCenter(), null);
+		map.entities.push(pushpin2);
+		pushpin2.setLocation(new Microsoft.Maps.Location(2.265000,102.282295));
+        //map.setView({zoom: 14, center: new Microsoft.Maps.Location(2.280000,102.280295)});
+        //alert('pushpin location updated'); 
+      }
+	  
+	  <!-- Pinfobox -->
+	  function setInfoBoxLocation(x,y)
+      {
+        //map.entities.clear();         
+        var infoboxOptions = {width :200, height :100, showCloseButton: true, zIndex: 0, offset:new Microsoft.Maps.Point(10,0), showPointer: true,
+							  title:'Your Location',
+							  description:'You are here you dawg!' }; 
+							  
+        var defaultInfobox = new Microsoft.Maps.Infobox(map.getCenter(), infoboxOptions );    
+        map.entities.push(defaultInfobox); 
+        //alert('Now Setting Location'); 
+        defaultInfobox.setLocation(new Microsoft.Maps.Location(x,y));
+      }
+
+<!-- BING MAP FUNCTIONS END -->
+
+
+
+</script>
+    
+    <!-- test menu slider start-->
+    
+    <style type='text/css'>
+    #sidebox {
+	float:left;
+	position:absolute;
+	left:-1px;
+	top:0px;
+	width:315px;
+	height:98.3%;
+	z-index:10;	
+}
+
+#sidebox .contentx {
+	padding-top: 10px;
+	padding-left:10px;
+    float:left;
+    width:290px;
+    height:100%;
+	box-shadow: 1px 0px 3px #888888;
+	opacity:0.9;
+	background:#bada55;
+	z-index:20;
+}
+
+#sidebox .tab {
+	margin-top:90%;
+    cursor:pointer;
+    float:right;
+    width:15px;
+    height:60px;
+	background-image:url(images/VmenuRec.png);
+	box-shadow: 1px 0px 3px #888888;
+	background-color:#bada55;
+	
+}
+
+.tab: hover{
+background-color:#fff;
+}
+
+
+<!-- topSlider Part-->
+  <style type='text/css'>
+    #userBar {
+    top:100px;
+    width:100%;
+	
+}
+#userBar .content {
+    top:0px;
+    width:100%;
+    height:33px;
+    background:#bada55;
+	overflow:hidden;
+	box-shadow: 1px 0px 3px #888888;
+    z-index:9999999999999999999;
+}
+
+#topSlider {
+    position:absolute;
+    top:-100px;
+    width:100%;
+}
+
+#topSlider .content {
+    top:-100px;
+    width:100%;
+    height:100px;
+    background:#333; 
+	opacity:0.9;
+    z-index:40;
+}
+
+
+
+.toggle{
+    cursor:pointer;
+    float:right;
+	padding:3px 4px 3px 4px;
+    -moz-transition: all .5s;
+    -webkit-transition: all .5s;
+    -o-transition: all .5s;
+    transition: all .5s;
+}
+
+.rotate {  
+	cursor:pointer;
+    float:right;
+	padding:0px 0px 0px 4px;
+    -ms-transform: rotate(180deg);
+    -webkit-transform: rotate(180deg);
+    -o-transform: rotate(180deg);
+    -moz-transform: rotate(180deg);
+    transform: rotate(180deg);
+}
+.NavBarFull { left:auto; right:0; }
+
+  </style>
+    <!-- end menu slider test-->
+    
+    
+    
+    
+</head>
+<body onLoad="getMap();getCurrentLocation();updatePushpinLocation();">
+<!-- Start Drop Down Top Menu-->
+
+<div id="userBar">
+<div class="content">
+<div id='tggleBtn' class='toggle'><img src="images/userBar/toggleBtn.png" width="27" height="27"></div>
+
+        <div class="profile_picture"><img src="images/userBar/profile_picture.jpg" width="27" height="27"></div>
+    	<div class="fname"><a href="http://www.google.com.my/" target="_top" style="text-decoration:none;color:#FFF">Zeny Ramli</a></div>
+       
+        <div class="messaging"><img src="images/userBar/Messaging-Metro.png" width="27" height="27" onClick="TINY.box.show({iframe:'inbox.htm',boxid:'frameless',width:750,height:450,fixed:false,maskid:'bluemask',maskopacity:40,closejs:function(){closeJS()}})""></div>
+        
+        <div class="setting"><img src="images/userBar/Configure-Metro.PNG" width="27" height="27" onClick="TINY.box.show({iframe:'setting.htm',boxid:'frameless',width:750,height:450,fixed:false,maskid:'bluemask',maskopacity:40,closejs:function(){closeJS()}})""></div>
+        
+        <div class="search"><img src="images/userBar/Search-Metro.png" width="26" height="26"></div>
+</div>
+</div>
+
+<div id="topSlider">
+<div class="content">
+   <div id="cssmenu" >
+      <ul>
+        <li> <a href="http://www.facebook.com"><img src="" style="background-image:url(images/Personal80x80.png);width:80px;height:80px;" alt=""></a> </li>
+        <li> <a href="http://www.google.com"><img src="" style="background-image:url(images/Personal80x80.png);width:80px;height:80px;" alt=""></a> </li>
+        <li> <a href="http://www.yahoo.com" target="_top"><img src="" style="background-image:url(images/Personal80x80.png);width:80px;height:80px;" alt=""></a> </li>
+      </ul>
+    </div>
+</div>
+</div>
+<div class="content">
+<div class="background Center">
+		</div>
+		<div class="center_block Center">
+			<div class="content">     
+        <div id="sidebox">
+  <div class="tab"></div>
+  <div class="contentx">
+      Welcome To Pin.It
+  </div>
+</div>
+            <div id='PinItMap' ></div>
+			</div>  
+		</div>      
+</div>
+</body>
+</html>

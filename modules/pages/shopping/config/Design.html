@@ -1,0 +1,748 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link href="metro/css/modern.css" rel="stylesheet">
+<link href="metro/css/modern-responsive.css" rel="stylesheet">
+<link href="metro/css/site.css" rel="stylesheet" type="text/css">
+<link href="metro/js/google-code-prettify/prettify.css" rel="stylesheet" type="text/css">
+<link href="metro/js/tinybox/tiny.css" rel="stylesheet" type="text/css">
+<link rel="stylesheet" type="text/css" href="metro/js/player/mediaelementplayer.css" />
+<script type="text/javascript" src="metro/js/assets/jquery-1.9.0.min.js"></script>
+<script type="text/javascript" src="metro/js/assets/jquery.mousewheel.min.js"></script>
+<script type="text/javascript" src="metro/js/assets/moment.js"></script>
+<script type="text/javascript" src="metro/js/assets/moment_langs.js"></script>
+<script type="text/javascript" src="metro/js/modern/dropdown.js"></script>
+<script type="text/javascript" src="metro/js/modern/accordion.js"></script>
+<script type="text/javascript" src="metro/js/modern/buttonset.js"></script>
+<script type="text/javascript" src="metro/js/modern/carousel.js"></script>
+<script type="text/javascript" src="metro/js/modern/input-control.js"></script>
+<script type="text/javascript" src="metro/js/modern/pagecontrol.js"></script>
+<script type="text/javascript" src="metro/js/modern/rating.js"></script>
+<script type="text/javascript" src="metro/js/modern/slider.js"></script>
+<script type="text/javascript" src="metro/js/modern/tile-slider.js"></script>
+<script type="text/javascript" src="metro/js/modern/tile-drag.js"></script>
+<script type="text/javascript" src="metro/js/modern/calendar.js"></script>
+<script type="text/javascript" src="metro/js/tinybox/tinybox.js"></script>
+<script type="text/javascript" src="metro/js/player/mediaelement-and-player.js"></script>
+<script type="text/javascript" src="metro/js/player/audio-player.js"></script>
+<script type="text/javascript" src="http://ecn.dev.virtualearth.net/mapcontrol/mapcontrol.ashx?v=7.0"></script>
+<script type="text/javascript" src="js/test.js?remcache=__CACHE__"></script>
+<script src="http://malsup.github.com/jquery.form.js"></script>
+
+<script type="text/javascript">
+function displayInfobox(e)
+{
+	infoboxOption.setOptions({ visible:true });
+}
+<!-- set pin location -->
+function pushpin()
+{
+	var ppFC = new Array();
+	var maxFC = 18;
+	for (var numFC = 0; numFC <= maxFC; numFC++)
+	{
+		ppFC[numFC]		= new Array();
+		ppFC[numFC][0]	= null; //i
+		ppFC[numFC][1]	= new Array(); //tid
+		ppFC[numFC][2]	= new Array(); //title
+		ppFC[numFC][3]	= new Array(); //desc
+		ppFC[numFC][4]	= new Array(); //lat
+		ppFC[numFC][5]	= new Array(); //lon
+		ppFC[numFC][6]	= new Array(); //pushpin
+	}
+	
+	__PUSHPIN__
+	
+	
+	Microsoft.Maps.loadModule('Microsoft.Maps.Themes.BingTheme', { callback: function() { 
+		
+	for (var numFC = 0; numFC <= maxFC; numFC++)
+	{
+		for(var x = 0; x < ppFC[numFC][0] ; x++)
+		{
+			ppFC[numFC][6][x]= new Microsoft.Maps.Pushpin(map.getCenter(), pushpinOptionsFC[numFC]); 
+			map.entities.push(ppFC[numFC][6][x]);
+			var infoboxOption = {title: ppFC[numFC][2][x], description: ppFC[numFC][3][x], pushpin: ppFC[numFC][6][x],};
+			map.entities.push(new Microsoft.Maps.Infobox(new Microsoft.Maps.Location(ppFC[numFC][4][x],ppFC[numFC][5][x]),infoboxOption)); 
+			ppFC[numFC][6][x].setLocation(new Microsoft.Maps.Location(ppFC[numFC][4][x],ppFC[numFC][5][x]));
+		}
+	}
+	}});
+}
+</script>
+
+<style>
+.progress {
+	position: relative;
+	width: 100%;
+	border: 1px solid #ddd;
+	padding: 1px;
+	border-radius: 3px;
+}
+.bar {
+	background-color: rgb(0, 130, 135);
+	width: 0%;
+	height: 20px;
+	border-radius: 3px;
+}
+.percent {
+	position: absolute;
+	display: inline-block;
+	top: 3px;
+	left: 48%;
+}
+</style>
+
+<title>Pin __SYSTITLE__: _AFNAME_ _ALNAME_</title>
+</head>
+
+<body class="metrouicss"  style="background-color:#99FFCC" onLoad="getMap();pushpin(); loadLog();">
+<div class="nav-bar bg-color-darken">
+  <div class="nav-bar-inner"> <span class="element"><a href="?op=__SYSLINK__">Pin- __SYSNAME__</a>: <a href="#" onClick="openTab = false;TINY.box.show({iframe:'?op=profile&profile=__AID__',boxid:'frameless',width:750,height:450,fixed:false,maskid:'bluemask',maskopacity:40,closejs:function(){openTab = true;loadLog();closeJS()}})">_AFNAME_ _ALNAME_</a></span> <span class="divider"></span>
+    <ul class="menu">
+      <li><a href="?op=home">Pin-It Home</a></li>
+      <li data-role="dropdown"> <a href="#">Pin Me!</a>
+        <ul class="dropdown-menu">
+          <li><a href="?op=cloud">Pin-Cloud</a></li>
+          <li><a href="?op=entertainment">Pin-Entertainment</a></li>
+          <li><a href="?op=job">Pin-Jobs</a></li>
+          <li><a href="?op=trades">Pin-Trades</a></li>
+		  <li><a href="?op=traffics">Pin-Traffic</a></li>
+          <li><span class="divider"></span></li>
+          <li><a href="?op=logout">Log Out</a></li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+</div>
+<div class="page" style="width:85%">
+  <div class="page-header">
+    <div class="page-header-content">
+      <h1 style="font-size:24px; font-weight:bold"> Welcome, <span class="fg-color-pink">_AFNAME_ _ALNAME_ </span></h1>
+    </div>
+  </div>
+  <div class="page-region">
+    <div class="page-region-content">
+      <div class="page-control" data-role="page-control"> 
+        <!-- Responsive controls --> 
+        <span class="menu-pull"></span>
+        <div class="menu-pull-bar"></div>
+        <!-- Tabs -->
+        <ul>
+          <li class="active"><a href="#post" title="Home"><strong>Home</strong><i class="icon-home"></i></a></li>
+          <li style="background-color: #C6F"><a href="#all" title="All Post"><strong>All Post</strong><i class="icon-newspaper"></i></a></li>
+          <li style="background-color: #FCF"><a href="#mine" title="My Post"><strong>My Post</strong><i class="icon-newspaper"></i></a></li>
+          <li style="background-color: #CCFF33"><a href="#t1" title="Member Sale"><strong>Member Sale</strong></a></li>
+          <li style="background-color:#FFDB4D"><a href="#t2" title="Mega Sale"><strong>Mega Sale</strong></a></li>
+          <li style="background-color:#FF0000"><a href="#t3" title="Year End Sale"><strong>Year End Sale</strong></a></li>
+          <li style="background-color: #F96"><a href="#t4" title="Clearance Sale"><strong>Clearance Sale</strong></a></li>
+          <li style="background-color: #3399FF"><a href="#t5" title="Add New Post"><strong>Pin New Post</strong><i class="icon-pencil"></i></a></li> 
+          <li class="place-right"><a href="#stats"><i class="icon-stats"></i></a></li>
+        </ul>
+        <!-- Tabs content -->
+        <div class="frames">
+          <div class="frame active" id="post">
+            <table>
+              <tr>
+                <td>
+                <ul id="popupmenu" class="pmenu"></ul>
+                <div id='PinItMap' style="position:relative; width:750px; height:500px" oncontextmenu = "return false"></div>
+                </td>
+                <td valign="top">
+					<div class="input-control text"><input type="text" id="locSearch" placeholder="Search Location" value="__REQVALUE__"><button class="btn-search" onClick="LoadSearchModule();" id="locSearch" placeholder="Search Location"></button></div>
+					<div class="toolbar" style="float: left">
+                    <button class=" bg-color-blue fg-color-white" onClick="getCurrentLocation();" title="Go To My Current Location" style="width:100%;"><strong>Go To My Current Location     </strong><i class="icon-location" ></i></button>
+					<button class="bg-color-blue fg-color-white" onClick="getMap(); pushpin(); getCurrentLocation();"  title="Reset Map" style="width:100%;"><strong>Reset To Default Map     </strong><i class="icon-loop"></i></button>
+					<button class=" bg-color-blue fg-color-white" id="Dialog" title="Create Driving Route" style="width:100%;"><strong>Create New Driving Route     </strong><i class="icon-steering-wheel"></i></button> 
+                </div>
+				<script type="text/javascript" src="modules/pages/home/js/createDrivingRouteDialog2.js?remcache=__CACHE__"></script>
+	
+                  <form method=post action="?op=shopping">
+                    <table>
+                      <tr>
+                        <td><label for="lat"><strong>Latitude</strong></label></td>
+                        <td><input name="plat" id="latid" size="12" readonly/></td>
+                      </tr>
+                      <tr>
+                        <td><label for="long"><strong>Longitude</strong></label></td>
+                        <td><input name="plon" id="lonid" size="12" readonly/></td>
+                      </tr>
+					  <tr>
+                        <td><label for="zoom"><strong>Zoom Size</strong></label></td>
+                        <td><input id="zoom" size="12" readonly/></td>
+                      </tr>
+                    </table>
+                    <br />
+                    <div class="input-control textarea">
+                      <textarea name="msg" id="msgpinit" cols="28" rows="5" placeholder="What is in your mind? Write some text to post." style="
+                           white-space: pre-wrap;     
+                           white-space: -moz-pre-wrap; 
+                           white-space: -pre-wrap;     
+                           white-space: -o-pre-wrap;  
+                           word-wrap: break-word;
+                           margin-top:-7px;
+                           width:100%;"></textarea>
+                      <div style="display:none" id="listag"> </div>
+                    </div><br/><br/>
+                    <label class="input-control radio">
+                      <input type="radio" name="pcat" checked=checked value="1701">
+                      <i class="icon-gift"></i> <span class="helper">Member Sale</span> </label>
+                    <br />
+                    <label class="input-control radio">
+                      <input type="radio" name="pcat" value="1702">
+                      <i class="icon-basket"></i> <span class="helper">Mega Sale</span></label>
+                    <br />
+                    <label class="input-control radio">
+                      <input type="radio" name="pcat" value="1703">
+                      <i class="icon-cart"></i> <span class="helper">Year End Sale</span></label>
+                    <br />
+                    <label class="input-control radio">
+                      <input type="radio" name="pcat" value="1704">
+                      <i class="icon-briefcase"></i> <span class="helper">Clearance Sale</span></label>
+                    <br />
+                    <button class="image-button bg-color-greenDark fg-color-white place-right" type="submit" name="opchk" id="opchkpinit" value="PinIt!"> Pin-Mall! <i class="icon-location bg-color-blue"></i> </button>
+                  </form></td>
+              </tr>
+            </table>		
+			</div>
+		  
+			<div class="frame" id="all">
+			<center>
+				<table class="bordered" style="width:90%">
+				  <thead>
+					<tr>
+					  <th style="width:40%;"><center><strong>Map</strong></center></th>
+					  <th class="right" style="width:60%"><center><strong>Post</strong></center></th>
+					</tr>
+				  </thead>
+				  <tbody id="allpost">
+				  </tbody>
+				</table>
+			</center>
+			</div>
+          <div class="frame" id="mine">
+            <center>
+			<table class="bordered" style="width:90%">
+              <thead>
+                <tr>
+                  <th style="width:40%;"><center><strong>Map</strong></center></th>
+                  <th class="right" style="width:60%"><center><strong>Post</strong></center></th>
+                </tr>
+              </thead>
+              <tbody id="mypost">
+              </tbody>
+            </table>
+			</center>
+          </div>
+          <div class="frame" id="t1">
+            <center>
+			<table class="bordered" style="width:90%">
+              <thead>
+                <tr>
+                  <th style="width:40%;"><center><strong>Map</strong></center></th>
+                  <th class="right" style="width:60%"><center><strong>Post</strong></center></th>
+                </tr>
+              </thead>
+              <tbody id="at1">
+              </tbody>
+            </table>
+			</center>
+          </div>
+          <div class="frame" id="t2">
+            <center>
+			<table class="bordered" style="width:90%">
+              <thead>
+                <tr>
+                  <th style="width:40%;"><center><strong>Map</strong></center></th>
+                  <th class="right" style="width:60%"><center><strong>Post</strong></center></th>
+                </tr>
+              </thead>
+              <tbody id="at2">
+              </tbody>
+            </table>
+			</center>
+          </div>
+          <div class="frame" id="t3">
+            <center>
+			<table class="bordered" style="width:90%">
+              <thead>
+                <tr>
+                  <th style="width:40%;"><center><strong>Map</strong></center></th>
+                  <th class="right" style="width:60%"><center><strong>Post</strong></center></th>
+                </tr>
+              </thead>
+              <tbody id="at3">
+              </tbody>
+            </table>
+			</center>
+          </div>
+          <div class="frame" id="t4">
+		  <center>
+            <table class="bordered" style="width:90%">
+              <thead>
+                <tr>
+                  <th style="width:40%;"><center><strong>Map</strong></center></th>
+                  <th class="right" style="width:60%"><center><strong>Post</strong></center></th>
+                </tr>
+              </thead>
+              <tbody id="at4">
+              </tbody>
+            </table>
+			
+          </div>
+          <div class="frame" id="t5">
+			<center>
+			<table>
+			<tbody id="at5">
+            <form name="post" method="post" action="?op=shopping" >
+			
+				<table border="1" style="width:80%">
+				<tr>
+					<td><strong>Shopping Title :</strong></td>
+					<td><div class="input-control text" autofocus>
+						<input type="text" placeholder="Enter Shopping Title" name="Title" id="shoppingTitle" maxlength="100" onKeyDown="limitText(this.form.shoppingTitle,this.form.countdown,500);" onKeyUp="limitText(this.form.shoppingTitle,this.form.countdown,500);" required/>
+						<button class="btn-clear"></button>
+						<font size="1" style="float:right"> <input readonly type="text" name="countdown" size="1" value="100" disabled="disabled"> characters left.</font>
+				</div></td>
+				</tr>
+				</br>
+				<tr>
+					<td><strong>Description :</strong></td>
+					<td><div class="input-control textarea">
+						<textarea placeholder="Enter Post Description" name="Description" id="Description" onKeyDown="limitText(this.form.Description,this.form.countdown2,2000);" onKeyUp="limitText(this.form.Description,this.form.countdown2,2000);" required></textarea>
+						<font size="1" style="float:right"> <input readonly type="text" name="countdown2" size="1" value="200" disabled="disabled"> characters left.</font>
+				</div></td>
+				</tr>
+				<br />
+				<tr>
+					<td><strong>Company Address:</strong></td>
+						<td><div class="input-control textarea">
+							<textarea placeholder="Enter Company Address" name="Address" id="companyAddress" onKeyDown="limitText(this.form.companyAddress,this.form.countdown4,500);" onKeyUp="limitText(this.form.companyAddress,this.form.countdown4,500);"></textarea>
+							<font size="1" style="float:right"> <input readonly type="text" name="countdown4" size="1" value="500" disabled="disabled"> characters left.</font>
+						</div></td>
+				</tr>
+						</br>
+				<tr>
+					<td><strong>Name :</strong></td>
+						<td><div class="input-control text" autofocus>
+							<input type="text" placeholder="Enter Company Name" name="name" id="name" maxlength="200" onKeyDown="limitText(this.form.name,this.form.countdown3,500);" onKeyUp="limitText(this.form.name,this.form.countdown3,500);" required/>
+							<button class="btn-clear"></button>
+							<font size="1" style="float:right"> <input readonly type="text" name="countdown3" size="1" value="200" disabled="disabled"> characters left.</font>
+						</div></td>
+				</tr>
+						</br>
+				<tr>
+					<td><strong>Contact Number :</strong></td>
+						<td><div class="input-control text" autofocus>
+							<input type="text" placeholder="Enter Company Contact Number" name="contactno" id="contactno" maxlength="20" onKeyDown="limitText(this.form.contactno,this.form.countdown5,500);" onKeyUp="limitText(this.form.contactno,this.form.countdown5,500);" required/>
+							<button class="btn-clear"></button>
+							<font size="1" style="float:right"> <input readonly type="text" name="countdown5" size="1" value="20" disabled="disabled"> characters left.</font>
+						</div></td>
+				</tr>
+						</br>
+				<tr>
+					<td><strong>E-mail :</strong></td>
+						<td><div class="input-control text" autofocus>
+							<input type="text" placeholder="Enter Email Address" name="email" id="email" maxlength="500" onKeyDown="limitText(this.form.email,this.form.countdown5,500);" onKeyUp="limitText(this.form.email,this.form.countdown5,500);" required/>
+							<button class="btn-clear"></button>
+							<font size="1" style="float:right"> <input readonly type="text" name="countdown5" size="1" value="500" disabled="disabled"> characters left.</font>
+						</div></td>
+				</tr>
+						</br>
+				<tr>
+					<td><strong>Country:</strong></td>
+					<td><div class="input-control select">
+						<select name="Country" id="Country" required>
+							<option selected disabled="disabled" value="">-- Select Country --</option>
+							__COUNTRYLIST__
+						</select>
+					</div></td>
+				</tr>
+					<br />
+				<tr>
+					<td>
+					<strong>Date of Promotion Start:</strong></td>
+						<td><input type="date" name="Startdate" id="Startdate" min="__DATENOW__" required/>
+					</td>
+				</tr>
+				<tr>
+					<td>
+					<strong>Date of Promotion End:</strong></td>
+						<td><input type="date" name="Deadline" id="Deadline" min="__DATENOW__" required/>
+					</td>
+				</tr><br />
+				</table><br />
+
+				<br />
+				<input type="hidden" name="address" id="address" />
+				<input type="hidden" name="lat" id="lat" value="__ALAT__" />
+				<input type="hidden" name="lon" id="lon" value="__ALON__"/>
+				<div align="right"><input type="reset"  value="Reset"/> <input type="submit" name="opchk" id="opchk" value="Post"></div>
+				</form>
+			</tbody>
+			</table>
+			</center>
+          </div>
+          <div class="frame" id="stats">
+            <style>
+.progress{position:relative;width:100%;border:1px solid #000;padding:1px;border-radius:3px;}.bar{background-color:blue;width:__STATSPCT__%;height:30px;border-radius:3px;}
+</style>
+            <div>
+              <fieldset>
+                <legend style="color:black;"><strong>Statistic of Sales in Malaysia</strong></legend>
+                <div class="progress">
+                  <div class="bar" style="color:#00F"></div>
+                </div>
+                <br/>
+                <blockquote>
+                  <p>Statistic of sale(s) for this month: <strong>__STATS__ (__STATSPCT__ %) out of __MAXSTATISTIC__</strong><br/>
+                    Statistic of sale(s) for last month: <strong>__OLDSTATS__</strong></p>
+                </blockquote>
+              </fieldset>
+            </div><br/>
+            <div>
+              <fieldset>
+                <legend style="color:black;"><strong>Privacy Settings and Tools</strong></legend>
+                <blockquote><strong>Who can see my stuff?</strong><br />
+                  <BR />
+                  <label class="input-control radio">
+                    <input type="radio" name="privacy" id="privacy3">
+                    <span class="helper">Public</span> </label>
+                  <br />
+                  <label class="input-control radio">
+                    <input type="radio" name="privacy" id="privacy2" />
+                    <span class="helper">Friends</span> </label>
+                  <br />
+                  <label class="input-control radio">
+                    <input type="radio" name="privacy" id="privacy1">
+                    <span class="helper">Only me</span> </label>
+                  <br />
+                  <div id=privacymsg>Privacy Changed.</div>
+                </blockquote>
+              </fieldset>
+            </div><br/>
+            <div>
+              <fieldset>
+                <legend style="color:black;"><strong>Notifications Settings</strong></legend>
+                <blockquote>Get latest notification of the post.<br />
+                  <BR />
+                  <label class="input-control switch">
+                    <input type="checkbox" id="notification" value="0">
+                    <span class="helper" id="alertstatus">Notification is OFF</span> </label>
+                  <div id=notificationmsg>Notification Changed.</div>
+                </blockquote>
+              </fieldset>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script type='text/javascript'>
+function loadLog()
+{
+	$.ajax({
+		url: "?op=shopping&ajax=1",
+		cache: false,
+       	dataType:'html',
+		success: function(html){		
+			$("#allpost").html(html);
+		},
+		error: function(){
+		}    
+	});
+	$.ajax({
+		url: "?op=shopping&ajax=2",
+		cache: false,
+       	dataType:'html',
+		success: function(html){		
+			$("#mypost").html(html);
+		},
+		error: function(){
+		}    
+	});
+	$.ajax({
+		url: "?op=shopping&ajax=3",
+		cache: false,
+       	dataType:'html',
+		success: function(html){		
+			$("#at1").html(html);
+		},
+		error: function(){
+		}    
+	});
+	$.ajax({
+		url: "?op=shopping&ajax=4",
+		cache: false,
+       	dataType:'html',
+		success: function(html){		
+			$("#at2").html(html);
+		},
+		error: function(){
+		}    
+	});
+	$.ajax({
+		url: "?op=shopping&ajax=5",
+		cache: false,
+       	dataType:'html',
+		success: function(html){		
+			$("#at3").html(html);
+		},
+		error: function(){
+		}    
+	});
+	$.ajax({
+		url: "?op=shopping&ajax=6",
+		cache: false,
+       	dataType:'html',
+		success: function(html){		
+			$("#at4").html(html);
+		},
+		error: function(){
+		}    
+	});
+
+}
+$(document).ready(function(){
+     $("#openOption1,#openOption2").mouseover(function () {
+             $("#tdOption1,#tdOption2").slideToggle('fast');		 
+      });
+	 loadLog();
+	 setInterval (loadLog, 30000);	//Reload file every 30 seconds
+	
+});
+
+
+var notificationID = 0;
+var privacyID = 0;
+
+$('#privacy3').click(function() {
+	$.ajax({
+		url: "?op=shopping&ajax=8&val=3",
+		cache: false,
+       	dataType:'html',
+		success: function(html){		
+			$('#privacymsg').show();
+			setTimeout(function() 
+			{
+				$('#privacymsg').hide();
+			}, 2500);
+		},
+		error: function(){
+			alert("Failed to saved");
+		}    
+	});
+});
+$('#privacy2').click(function() {
+	$.ajax({
+		url: "?op=shopping&ajax=8&val=2",
+		cache: false,
+       	dataType:'html',
+		success: function(html){		
+			$('#privacymsg').show();
+			setTimeout(function() 
+			{
+				$('#privacymsg').hide();
+			}, 2500);
+		},
+		error: function(){
+			alert("Failed to saved");
+		}    
+	});
+});
+$('#privacy1').click(function() {
+	$.ajax({
+		url: "?op=shopping&ajax=8&val=1",
+		cache: false,
+       	dataType:'html',
+		success: function(html){
+			$('#privacymsg').show();
+			setTimeout(function() 
+			{
+				$('#privacymsg').hide();
+			}, 2500);
+		},
+		error: function(){
+			alert("Failed to saved");
+		}    
+	});
+});
+$('#notification').click(function() {
+	if (notificationID == 2)
+		notificationID = 1;
+	else
+		notificationID = 2;
+	$.ajax({
+		url: "?op=shopping&ajax=9&val=" + notificationID,
+		cache: false,
+       	dataType:'html',
+		success: function(html){		
+			if (notificationID == 2)
+				$('#alertstatus').html("Auto Notification is ON");
+			else
+				$('#alertstatus').html("Auto Notification is OFF");
+			$('#notificationmsg').show();
+			setTimeout(function() 
+			{
+				$('#notificationmsg').hide();
+			}, 2500);
+		},
+		error: function(){
+			alert("Failed to saved");
+		}    
+	});
+});
+
+__OTHERSCRIPTS__
+
+var curLen = 0;
+$('#msgpinit').keypress(function() {
+			
+			var str = new String(document.getElementById("msgpinit").value);
+			var strArray = new Array;
+			var strBool = new Array;
+			for (strb = 0; strb < strArray.length; strb++)
+			{
+				strBool[strb] = false;
+			}
+			var foundStr = false;
+			strArray = str.split(" ");
+			if (true)
+			{
+				curLen = str.length;
+				for (chks = 0; chks < strArray.length; chks++)
+				{
+					var varStr = new String(strArray[chks].toLowerCase());
+					var tagOrNotText = new String("@").toLowerCase();
+					var tagOrNot=varStr.match(tagOrNotText);
+					if (varStr.length>2)
+					{
+						if (tagOrNot)
+						{
+							for (chkn = 0; chkn < accDBfl.length; chkn++)
+							{
+								var adb1 = new String("@" + accDBfl[chkn]).toLowerCase();
+								var adb2 = new String("@" + accDBun[chkn]).toLowerCase();
+								var chknm1=adb1.match(varStr);
+								var chknm2=adb2.match(varStr);
+								if (chknm2)
+								{
+									if ((chknm2 != adb2) && ((varStr.length < adb2.length-1) || (varStr.length > adb2.length)))
+									{
+										document.getElementById("listag").style.display="block";
+										str = str.replace(varStr, "");
+										str = str.replace(chknm2, "");
+										document.getElementById("msgpinit").value = str;
+										$.ajax({
+											url: "?op=home/tags&ajax=1&val="+chknm2,
+											cache: false,
+											success: function(html){		
+												$("#listag").html(html);		
+											},
+										});
+										return false;
+									}
+								}
+								else if (chknm1)
+								{
+									if ((chknm1 != adb1) && ((varStr.length < adb1.length-1) || (varStr.length > adb1.length)))
+									{
+										document.getElementById("listag").style.display="block";
+										str = str.replace(varStr, "");
+										str = str.replace(chknm1, "");
+										document.getElementById("msgpinit").value = str;
+										$.ajax({
+											url: "?op=home/tags&ajax=1&val="+chknm1,
+											cache: false,
+											success: function(html){		
+												$("#listag").html(html);
+											},
+										});
+										return false;
+									}
+								}
+							}
+						}
+					}
+				}
+				document.getElementById("msgpinit").value = str;
+				curLen = str.length;
+			}
+		});
+		
+$(window).load(function(){
+	$('#privacymsg').hide();
+	$('#notificationmsg').hide();
+	
+	if (privacyID == 3)
+		$('#privacy3').prop('checked', true);
+	else if (privacyID == 2)
+		$('#privacy2').prop('checked', true);
+	else
+		$('#privacy1').prop('checked', true);
+	if (notificationID == 2)
+	{
+		$('#alertstatus').html("Auto Notification is ON");
+		$('#notification').prop('checked', true);
+	}
+	else
+	{
+		$('#alertstatus').html("Auto Notification is OFF");
+		$('#notification').prop('checked', false);
+	}
+	GetLocationInfo(map.GetCenter());
+	$('#wrapper').hover(
+    function(){$('#divOtionMenu').stop().fadeIn(100);},
+    function(){$('#divOtionMenu').stop().fadeOut(100);}
+	);
+});
+
+(function() {
+    
+var bar = $('.bar');
+var percent = $('.percent');
+var status = $('.status');
+   
+$("#form1").ajaxForm({
+    beforeSend: function() {
+        status.empty();
+        var percentVal = '0%';
+        bar.width(percentVal)
+        percent.html(percentVal);
+    },
+    uploadProgress: function(event, position, total, percentComplete) {
+        var percentVal = percentComplete + '%';
+        bar.width(percentVal)
+        percent.html(percentVal);
+    },
+    success: function() {
+        var percentVal = '100%';
+        bar.width(percentVal)
+        percent.html(percentVal);
+    },
+	complete: function() {
+		status.html("<center>File uploaded succesfully.</center>");
+		
+	}
+}); 
+
+})();       
+
+function limitText(limitField, limitCount, limitNum) {
+	if (limitField.value.length > limitNum) {
+		limitField.value = limitField.value.substring(0, limitNum);
+	} else {
+		limitCount.value = limitNum - limitField.value.length;
+	}
+}
+
+function isNumberKey(evt)
+{
+if(!((event.keyCode>=48&&event.keyCode<=57)||(event.keyCode==46)|| (event.keyCode==8) || (event.keyCode==9)|| (event.keyCode==17) || (event.keyCode==86)))
+event.returnValue=false;
+}
+</script>
+</body>
+</html>

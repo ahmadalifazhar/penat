@@ -1,0 +1,17 @@
+<form name="form1" method="post" action="">
+  <p>Username :
+    <input type="text" name="auname" id="auname">
+  </p>
+  <p>Email: 
+    <input type="text" name="aemail" id="aemail">
+  </p>
+  <p>First name :
+    <input type="text" name="afname" id="afname" />
+  </p>
+  <p>Last Name:
+    <input type="text" name="alname" id="alname" />
+  </p>
+  <p>
+    <input type="submit" name="opchk" id="opchk" value="Continue">
+  </p>
+</form>

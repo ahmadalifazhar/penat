@@ -1,0 +1,31 @@
+<?php
+ob_start();
+?>
+
+<div class="metrouicss">
+  <form name="pinitpost" method="post" action="?op=home">
+    <input type="hidden" name="lat" id="latid">
+    <input type="hidden" name="lon" id="lonid">
+    <input type="hidden" name="locname" id="locnameid">
+    <div class="input-control textarea">
+      <textarea name="msg" id="msg" cols="28" rows="5" placeholder="Pin anything..." style="
+   white-space: pre-wrap;     
+   white-space: -moz-pre-wrap; 
+   white-space: -pre-wrap;     
+   white-space: -o-pre-wrap;  
+   word-wrap: break-word;     
+"></textarea>
+    </div>
+    <button class="image-button bg-color-greenDark fg-color-white" type="submit" name="opchk" id="opchk" value="PinIt!"> Pit-It! <i class="icon-location bg-color-blue"></i> </button> <button class="image-button bg-color-greenDark fg-color-white" type="button" onclick="TINY.box.show({iframe:'?op=cloud&go=upload',boxid:'frameless',width:750,height:450,fixed:false,maskid:'bluemask',maskopacity:40,closejs:function(){window.location.reload()}})"> Upload Files <i class="icon-upload bg-color-blue"></i> </button>
+  </form>
+</div>
+<div class="metrouicss">
+  <h3 style="color:white">Newsfeeds</h3>
+</div>
+<div class="metrouicss" id="newsfeeds">
+<?php
+include "modules/pages/home/member.newsfeeds.php";
+echo $newf;
+?>
+</div>
+<?php $leftside = ob_get_clean();?>

@@ -1,0 +1,409 @@
+/* CSS Document */
+@font-face
+{
+font-family: custom_font;
+src: url(/font/calibril.ttf);
+}
+
+body {
+	font-family: custom_font;
+	color:#535353;
+	background:url(../images/bg.jpg) no-repeat center center fixed;
+	-webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+	margin:0px 0px 0px 0px;
+	padding:0px;
+	width:auto;
+	height:auto;
+}
+
+.baru {
+	font:83px Segoe UI;
+	color:#FFF;
+	margin:25px;
+}
+
+.baru2 {
+	font:150px Segoe UI;
+	color:#FFF;
+	margin:0px 0px 0px 0px;
+	vertical-align:text-top;
+
+}
+
+#container {
+	width:1100px;
+	margin:0px auto;
+	text-align:justify;
+}
+
+.header {
+	height:32px;
+	background:#1B1B1B;
+	text-align:right;
+}
+
+.banner {
+	height:384px;
+	background:url(../images/banner.jpg) left top no-repeat;
+}
+
+.workzone {
+	padding:0px 0px 0px 0px;
+}
+
+.workzone-left {
+	width:1000px;
+	float:left;
+	padding:80px 0px 0px 0px;
+	margin-right:40px;
+}
+
+
+
+.kotak1 {
+	width:110px;
+	height:110px;
+	padding:10px;
+	
+	background:url(../images/roll1.jpg);
+	background-size:100%;
+	background-repeat:no-repeat;
+	
+
+}
+
+.kotak2 {
+	width:110px;
+	height:110px;
+	padding:10px;
+	margin:0px 0px 0px 0px;
+	background-color:#6495ED;
+	
+}
+.kotak3 {
+	padding: 10px;
+	margin: 0px 0px 0px 0px;
+	background-color: #336633;
+	text-align: center;
+	color: whitesmoke;
+}
+
+.kotak4 {
+	width:110px;
+	height:110px;
+	padding:10px;
+	margin:0px 0px 0px 0px;
+	background:url(../images/roll2.jpg);
+	background-size:100%;
+}
+.sign {
+	font-family: custom_font;
+	font-size: 30px;
+	vertical-align:middle;
+	text-align:center;
+	color:white;
+	font-smoothing: antialiased;
+	margin:32px 0px 0px 0px;
+}
+
+.join {
+	font-family: custom_font;
+	font-size: 30px;
+	vertical-align:middle;
+	text-align:center;
+	color:white;
+	font-smoothing: antialiased;
+	margin:32px 0px 0px 0px;
+	
+}
+
+.logozone {
+	padding:61px 0px 0px 51px;
+}
+
+.latestprojectzone {
+	padding:0px 0px 0px 0px;
+	margin:0px 0px 0px 0px;
+}
+
+.projectgallery {
+	border-bottom:1px solid #CCCAB6;
+	padding-bottom:20px;
+	color: #000000;
+}
+
+.projectimg {
+	float:left;
+	background:#ffffff;
+	border:1px solid #CCCCCC;
+	padding:3px;
+	margin-right:25px;
+}
+
+.projecttxt {
+	width:120px;
+	float:left;
+	margin-right:27px;
+	text-align:center;
+	font-weight:bold;
+	padding:22px 0px 0px 0px;
+}
+
+.newszone {
+	background:#E5E2B5;
+	border:4px solid #D3CE89;
+	padding:19px 11px 0px 11px;
+}
+
+.morenews {
+	padding:0px 0px 10px 0px;
+	text-align:right;
+}
+
+.footer {
+	background:url(../images/footer.jpg) left  bottom repeat-x;
+	margin:0px 0px 0px 0px;
+	bottom:0;
+}
+
+.footerinside {
+	width:950px;
+	margin:0px auto;
+	text-align:right;
+	padding:11px 16px 45px 0px;
+	color: #F3F3F3;
+}
+
+.clear {
+	clear:both;
+	margin:0px;
+	padding:0px;
+}
+
+
+/* Text Styles Start Here */
+
+h1 {
+	font:22px Georgia, Arial, Helvetica, sans-serif;
+	color:#000000;
+	padding:0px;
+	margin:0px 0px 20px 5px;
+}
+
+.newssubheading {
+	background:url(../images/headingblackbg.gif) left top no-repeat;
+	color:#E5DDB6;
+	padding:3px 0px 6px 31px;
+}
+
+.newscontent {
+	padding:13px 0px 20px 31px;
+}
+
+/* Text Styles Start Here */
+
+
+/* Menu Styles Start Here */
+
+a {
+	color:#000000;
+	text-decoration:underline;
+}
+
+a:hover {
+	text-decoration:none;
+}
+
+.topmenu {
+	padding:7px 0px 0px 0px;
+}
+
+.topmenu ul {
+	margin:0px;
+	padding:0px
+}
+
+.topmenu li {
+	display:inline;
+	border-right:1px solid #ffffff;
+	padding:0px 10px 0px 10px;
+}
+
+.topmenu li a{
+	font:bold 11px Tahoma, Arial, Helvetica, sans-serif;
+	color:#ffffff;
+	text-decoration:none;
+}
+
+.topmenu li a:hover {
+	color:#cccccc;
+}
+
+.footerlink {
+}
+
+.footerlink ul {
+	margin:0px;
+	padding:0px;
+}
+
+.footerlink li {
+	display:inline;
+	border-right:1px solid #ffffff;
+	padding:0px 10px 0px 10px;
+}
+
+.footerlink li a{
+	color:#ffffff;
+	font-weight:bold;
+	text-decoration:none;
+}
+
+.footerlink li a:hover {
+	color:#cccccc;
+}
+
+/* Menu Styles End Here */
+
+
+
+
+/* Inside Style Start Here	*/
+
+.insidebanner {
+	height:384px;
+	background:url(../images/insidebanner.jpg) left top no-repeat;
+}
+
+h3 {
+	font:bold 16px Georgia, Arial, Helvetica, sans-serif;
+	color:#BF5A14;
+	padding:0px 0px 5px 0px;
+	border-bottom:1px dotted #BF5A14;
+	margin:0px 0px 10px 0px;
+}
+
+h4 {
+	font:bold 16px Georgia, Arial, Helvetica, sans-serif;
+	color:#BF5A14;
+	padding:0px 0px 5px 0px;
+	margin:0px 0px 10px 0px;
+}
+
+.ourvalue {
+	margin:10px 0px 0px 0px;
+}
+
+.aboutus-img {
+	float:right;
+	border:4px solid #b0a48b;
+	margin:0px 0px 10px 20px;
+}
+
+.aboutcolumnzone {
+	padding:20px 0px 16px 0px;
+}
+
+.aboutcolumn1 {
+	width:48%;
+	float:left;
+	margin:0px 0px 10px 0px;
+}
+
+.aboutcolumn2 {
+	width:48%;
+	float:right;
+	margin:0px 0px 10px 0px;
+}
+
+.abouticon {
+	float:left;
+	margin:0px 20px 0px 0px;
+}
+
+.servicecolumnzone {
+	padding:20px 0px 16px 0px;
+}
+
+.servicecolumn1 {
+	width:48%;
+	float:left;
+	margin:0px 0px 10px 0px;
+}
+
+.servicecolumn2 {
+	width:48%;
+	float:right;
+	margin:0px 0px 10px 0px;
+}
+
+.our-comment {
+	margin:10px 0px 0px 0px;
+}
+
+.blog-posted-row {
+	padding:3px;
+}
+
+.ourprojectrow {
+	margin-bottom:20px; 
+	border-bottom:1px dotted #000000; 
+	padding-bottom:10px;
+}
+
+.project-img {
+	float:right;
+	margin-left:20px;
+	border: 6px solid #b0a48b;
+}
+
+input.button {
+	color:#ffffff;
+	background:#0996b7;
+	font:bold 11px Arial, Helvetica, sans-serif;
+	text-decoration:none;
+	padding:10px 10px;
+	margin:0px 5px 5px 0;
+	border:1px solid #000000;
+}
+input.button:hover {
+	cursor:pointer;
+	color:#cccccc;
+}
+
+.readmore {
+	padding:10px 0px 10px 0px;
+}
+
+.text_bawah1 {
+	font-family: custom_font;
+	font-size: 30px;
+	padding:60px 0px 0px 0px;
+	text-align: center;
+	text-shadow: 1px 1px 1px #000;
+	color: #FFF;
+}
+
+.text_bawah2 {
+	font-family: custom_font;
+	font-size: 18px;
+	padding:0px 0px 0px 0px;
+	text-align: center;
+	text-shadow: 1px 1px 1px #000;
+	color: #FFF;
+	
+}
+.lastbawah {
+	margin:20px 0px 0px 0px;
+	text-align: center;
+	font-size: 11px;
+	color: #FFF;
+}
+
+.tablealign {
+
+}
+/* Inside Style End Here	*/

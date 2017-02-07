@@ -1,0 +1,237 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+   <head>
+      <title></title>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+
+      
+       <style type='text/css'>
+      <!-- Start CSS for Context Menu (alif)-->
+
+ul, li{margin:0;padding:0;}
+
+ul.pmenu {
+        position:absolute;
+        margin: 0;
+        padding: 1px;
+        list-style: none;
+        width: 150px; /* Width of Menu Items */
+        border: 1px solid #ccc;
+        background:white;
+        display:none;
+		left:0;
+		top:0;
+        z-index:10;
+}
+
+ul.pmenu li {
+         position: relative;
+}
+
+ul.pmenu li ul {
+         position: absolute;
+         left: 150px; /* Set 1px less than menu width */
+         top: 0;
+         display: none;
+         z-index:10;
+}
+
+/* Styles for Menu Items */
+ul.pmenu li a {
+         display: block;
+         text-decoration: none;
+         color: black;
+         padding: 2px 5px 2px 20px;
+}
+
+ul.pmenu li a:hover {
+    background:#335EA8;
+    color:white;
+}
+
+ul.pmenu li a.parent {
+    background:url('drop_down_triangle.gif') no-repeat 140px 4px; 
+}
+ul.pmenu li a.parent:hover {
+    background:#335EA8 url('drop_down_triangle_hover.gif') no-repeat 140px 4px;
+}
+
+/* IE \*/
+* html ul.pmenu li { float: left; height: 1%; }
+* html ul.pmenu li a { height: 1%; }
+* html ul.pmenu li ul {left:147px;}
+/* End */
+
+ul.pmenu li:hover ul, ul.pmenu li.over ul { display: block; } /* The magic */
+ul.pmenu li ul{left:150px;}
+
+<!-- End CSS for context menu (alif)-->
+</style>
+
+      <script type="text/javascript" src="http://ecn.dev.virtualearth.net/mapcontrol/mapcontrol.ashx?v=7.0"></script>
+
+      <script type="text/javascript">       
+         
+<!-- xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx -->
+
+      var map = null;
+	  var x = null;
+	  var y = null;
+	  //pin.it pushpin
+	  var pushpinOptions = {icon:'images/pin3.png',width: 19, height: 26};
+      <!-- display map -->
+      function getMap()
+      {
+		Microsoft.Maps.loadModule('Microsoft.Maps.Themes.BingTheme', { callback: function() {
+        map = new Microsoft.Maps.Map(
+									 document.getElementById('PinItMap'), 
+									 {
+										 credentials: 'AmxdhBs_v4CGLnmLy1BSpfh2wnBLTEdD_NBB6QqF72MN_YnLRzvptDmaLR_RFqVK',
+										 showMapTypeSelector:false,
+										 enableSearchLogo:false,
+										 enableClickableLogo:false,
+										 disableBirdseye:false,
+										 mapTypeId: Microsoft.Maps.MapTypeId.auto,
+										 theme: new Microsoft.Maps.Themes.BingTheme()
+									 }
+									 );
+		//register handler utk call popup menu bila tekan rightclick
+		 //Add handler for the map click event.
+       // Microsoft.Maps.Events.addHandler(map, 'click', displayEventInfo);
+		Microsoft.Maps.Events.addHandler(map, 'rightclick', showPopupMenu);
+		Microsoft.Maps.Events.addHandler(map, 'click', hidePopupMenu);
+		prepMenu();
+		
+		
+		}});
+      }   
+	  
+	  
+	   function displayEventInfo(e) {
+              if (e.targetType == "map") {
+                  var point = new Microsoft.Maps.Point(e.getX(), e.getY());
+                  var loc = e.target.tryPixelToLocation(point);
+                  document.getElementById("textBox").value = loc.latitude + ", " + loc.longitude;
+
+              }
+          }
+	  
+	  //function utk papar popupmenu (alif)
+	function showPopupMenu(e){
+    if (e.targetType == "map") {
+                  var point = new Microsoft.Maps.Point(e.getX(), e.getY());
+                  var loc = e.target.tryPixelToLocation(point);
+                  document.getElementById("textBox").value = loc.latitude + ", " + loc.longitude;
+				  var pinX = loc.latitude;
+				  var pinY = loc.longitude;
+				  x=pinX;
+				  y=pinY;
+
+ 				var menu = document.getElementById('popupmenu');
+  				menu.style.display='block'; //Showing the menu
+  				menu.style.left = e.originalEvent.clientX+"px" ; //Positioning the menu
+  				menu.style.top = e.originalEvent.clientY+"px";
+				//alert("cursor x is = "+e.originalEvent.clientX+" cursor y is = "+e.originalEvent.clientY+"\nLatitude is = "+
+				//loc.latitude+" Longitude is = "+loc.longitude);
+				//alert("latitude is = "+pinX+"\nLongitude = "+pinY);			
+	}
+}
+
+function pinPost(){
+
+ var loc = new Microsoft.Maps.Location(x,y);
+
+var pushpin= new Microsoft.Maps.Pushpin(map.getCenter(),pushpinOptions); 
+map.entities.push(pushpin); 
+pushpin.setLocation(loc);
+//alert("latitude is = "+x+"\nLongitude = "+y);
+
+}
+
+
+//function utk tutup context menu (alif)
+function hidePopupMenu()
+{
+  var menu = document.getElementById('popupmenu').style.display='none';
+}
+//additional function context menu utk IE (alif)
+function prepMenu()
+  {
+
+    navRoot = document.getElementById("popupmenu");
+    var items = navRoot.getElementsByTagName('li');
+    for (i=0; i<items.length; i++)
+    {
+      node = items[i];
+      if (node.nodeName=="LI")
+      {
+      node.onmouseover = function()
+      {
+        this.className+=" over"; //Show the submenu
+      }
+      node.onmouseout=function()
+      {
+        if (this.className.indexOf('pmenu') > 0)
+        {
+        this.className="pmenu";
+        }
+        else {
+        this.className = "";
+        }
+      }
+      }
+    }
+  }
+
+//function untuk zoom in (alif)
+ function ZoomIn()
+ {
+  var zoomLevel = map.getZoom() + 1;
+  map.setView({ zoom: zoomLevel });
+ }
+//function untuk zoom out (alif)
+ function ZoomOut()
+ {
+  var zoomLevel = map.getZoom() - 1;
+  map.setView({ zoom: zoomLevel });
+ }
+ 
+ /*xjadi lg (alif)
+ function setMapType(type){
+ 
+ if(type==a){
+ map.mapTypeId(Microsoft.Maps.MapTypeId.aerial);
+ }
+ else if(type=r){
+ mapTypeId: Microsoft.Maps.MapTypeId.road;
+ }
+ else{
+ map.MapTypeId.auto;
+ }
+ }*/
+	  
+	  
+	  </script>
+  
+      
+   </head>
+   <body onload="getMap(); oncontextmenu = "return false">
+      <div id='PinItMap' style="position:relative; width:100%; height:500px;"></div>
+      
+  <ul id="popupmenu" class="pmenu">
+    <li><a href="#" onClick="pinPost();hidePopupMenu()">Pin It!</a></li>
+    <li><a href="#" onClick="ZoomIn();hidePopupMenu()">Zoom In</a></li>
+    <li><a href="#" onClick="ZoomOut();hidePopupMenu()">Zoom Out</a></li>
+    <li><a href="#" onClick="javascript:alert('Map is centered on:  ' + map.getCenter());hidePopupMenu();">Point coordinates</a></li>
+  </ul>
+     
+      <br>
+      <b>Click the map to display the coordinate values at that point.</b><br>
+      Latitude, Longitude:       
+      <input id='textBox' type="text" style="width:250px;"/>
+   </body>
+   
+  
+   
+</html>
